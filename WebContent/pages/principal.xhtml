@@ -7,16 +7,16 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       lang="pt-br">
     <h:head>
-    	<meta charset="utf-8">
-    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta charset="utf-8"/>
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>Dashboard Template for BootsFaces</title>
         
     </h:head>
     <h:body style="padding-top: 60px">
         <h:outputScript library="holder" name="holder.js" />
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
-        <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true">
+        <b:navBar brand="Clínica PUC Minas" brandHref="#" inverse="true" fixed="top" fluid="true">
             
             <b:navbarLinks pull="right">
                 <b:navLink value="Dashboard" href="#"></b:navLink>
@@ -24,18 +24,13 @@
                 <b:navLink value="Profile" href="#"></b:navLink>
                 <b:navLink value="Help" href="#"></b:navLink>
             </b:navbarLinks>
-            <h:form styleClass="navbar-form navbar-right">
-                <div class="form-group">
-                    <b:inputText placeholder="Search..." fieldSize="sm"/>
-                </div>
-            </h:form>
         </b:navBar>
         <b:container fluid="true">
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
-                        <b:navLink header="Dasboard Links" />
-                        <b:navLink href="#" value="Overview" active="true"/>
+                        <b:navLink header="Menu" />
+                        <b:navLink href="#" value="Medicamento" active="true"/>
                         <b:navLink href="#" value="Reports" />
                         <b:navLink href="#" value="Analytics" />
                         <b:navLink href="#" value="Export" />
