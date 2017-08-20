@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+		<resource-bundle>
+   			<base-name>br.com.sisClinicaPUC.mensagens.messages</base-name>
+   			<var>msgs</var>
+  		</resource-bundle>
+	</application>
+	<managed-bean>
+		<managed-bean-name>loginManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.view.LoginManagedBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>navigationManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.view.NavigationManagedBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>medicamentoManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.view.MedicamentoManagedBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+ 
+	 <converter>
+	  	<converter-for-class>java.lang.Enum</converter-for-class>
+	  	<converter-class>javax.faces.convert.EnumConverter</converter-class>
+	 </converter>
+	 
+ 	<!-- Geral -->
+	<navigation-rule>
+	  <from-view-id>/*</from-view-id>
+	  <navigation-case>
+	   <from-outcome>home</from-outcome>
+	   <to-view-id>/pages/principal.xhtml</to-view-id>
+	   <redirect/>
+	  </navigation-case>
+	 </navigation-rule>
+	 
+</faces-config>

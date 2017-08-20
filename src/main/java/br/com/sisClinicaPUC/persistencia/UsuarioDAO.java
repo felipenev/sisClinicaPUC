@@ -15,7 +15,7 @@ import br.com.sisClinicaPUC.entidade.Usuario;
 	}
 	  
 	
-        private EntityManagerFactory factory = Persistence.createEntityManagerFactory("usuarios");
+        private EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisClinica");
         private EntityManager em = factory.createEntityManager();
    
         public Usuario getUsuario(String nomeUsuario, String senha) {

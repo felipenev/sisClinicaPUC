@@ -1,5 +1,6 @@
 package br.com.sisClinicaPUC.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,9 +10,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
  
 @Entity
-public class Medicamento {
+public class Usuario implements Serializable{
       
-      @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
       @Column(name="id", nullable=false, unique=true)
       private int id;
       
