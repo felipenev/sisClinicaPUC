@@ -12,7 +12,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.Valid;
 
-public abstract class GenericDao<T, I extends Serializable> {
+import br.com.sisClinicaPUC.util.ValidacaoException;
+
+public abstract class GenericDao<T, I extends Serializable> extends ValidacaoException {
 
    private Class<T> persistedClass;
    @Inject

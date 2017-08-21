@@ -1,4 +1,4 @@
-package br.com.sisClinicaPUC.view;
+package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import br.com.sisClinicaPUC.util.Util;
    
 @Named
 @ViewScoped
-public class MedicamentoManagedBean extends AbstractMangedBean implements Serializable{
+public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> implements Serializable{
    
 	private static final long serialVersionUID = 1L;
 	
@@ -22,12 +22,10 @@ public class MedicamentoManagedBean extends AbstractMangedBean implements Serial
 //	private EntityManager em;
 	
 	private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
-    public Medicamento medicamento = new Medicamento();
+    private Medicamento medicamento = new Medicamento();
     private List<Medicamento> medicamentoList = new ArrayList<Medicamento>();
     
-    public MedicamentoManagedBean() {
-    	
-	}
+    public MedicamentoManagedBean() {}
 
     @PostConstruct
 	public void init() {
@@ -36,33 +34,62 @@ public class MedicamentoManagedBean extends AbstractMangedBean implements Serial
 		carregarMedicamentoList();
 	}
     
-	public void inserir() {
+    public void inserirAlterar() {
+    	if(Util.isValueNotBlankOrNotEmpty(this.getMedicamento().getId())) {
+    		alterar(this.getMedicamento());
+    	}else {
+    		inserir();
+    	}
+    }
+    
+    @Override
+    public void inserir() {
 
     	if(validarCampos()) {
     		boolean inclusao = this.getMedicamentoDAO().inserir(medicamento);
     		if (inclusao) {
     			medicamento = new Medicamento();
-    			
     			carregarMedicamentoList();
     		}
     	}
 	}
+	
+	@Override
+	public void alterar(Medicamento objeto) {
+		if(validarCampos()) {
+			boolean alteracao = this.getMedicamentoDAO().alterar(medicamento);
+			if (alteracao) {
+				medicamento = new Medicamento();
+				carregarMedicamentoList();
+			}
+		}
+		
+	}
 
+	@Override
+	public void excluir(Medicamento objeto) {
+		
+	}
+
+	public void carregarAlteracao(Medicamento medicamentoAlterar) {
+		this.setMedicamento(medicamentoAlterar);
+	}
+	
 	/**
 	 * Valida os campos obrigatorios
 	 */
-	private boolean validarCampos() {
+	public boolean validarCampos() {
 		boolean valid = true;
 		
-		if(!Util.isStringBlankOrNull(this.getMedicamento().getNomeFabricante())) {
+		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeFabricante())) {
 			this.tratarMensagemErro("formPrincipal:nomeFabricante");
 			valid = false;
 		}
-		if(!Util.isStringBlankOrNull(this.getMedicamento().getNomeGenerico())) {
+		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeGenerico())) {
 			this.tratarMensagemErro("formPrincipal:nomeGenerico");
 			valid = false;
 		}
-		if(!Util.isStringBlankOrNull(this.getMedicamento().getNomeDeFabrica())) {
+		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeDeFabrica())) {
 			this.tratarMensagemErro("formPrincipal:nomeDeFrabrica");
 			valid = false;
 		}
@@ -98,5 +125,5 @@ public class MedicamentoManagedBean extends AbstractMangedBean implements Serial
 	public void setMedicamentoDAO(MedicamentoDAO medicamentoDAO) {
 		this.medicamentoDAO = medicamentoDAO;
 	}
-        
+
 }

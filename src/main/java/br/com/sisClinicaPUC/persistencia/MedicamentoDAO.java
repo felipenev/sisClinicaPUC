@@ -14,10 +14,19 @@ import br.com.sisClinicaPUC.entidade.Medicamento;
 	    		this.salvar(medicamento);
 	            return true;
 	    	} catch (Exception e) {
-	    		//TODO: Tratar excecao
-	    		e.printStackTrace();
+	    		this.tratarMensagemErro(null, e.getMessage(), "");
 	            return false;
 	    	}
 		}
+	    
+	    public boolean alterar(Medicamento medicamento) {
+	    	try {
+	    		this.atualizar(medicamento);
+	    		return true;
+	    	} catch (Exception e) {
+	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		return false;
+	    	}
+	    }
         
 	}

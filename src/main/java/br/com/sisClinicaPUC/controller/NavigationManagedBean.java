@@ -1,4 +1,4 @@
-package br.com.sisClinicaPUC.view;
+package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
 

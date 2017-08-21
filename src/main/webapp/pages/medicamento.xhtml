@@ -21,7 +21,7 @@
         	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}"/>
         	<b:message/>
 
-        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserir}" update="formPrincipal tableMedicamentos"/>
+        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal tableMedicamentos" />
       	</h:panelGrid>
   	</b:panel>
   	
@@ -29,6 +29,14 @@
         <b:dataTableColumn value="#{med.nomeFabricante}" order="asc" label="Nome Fabricante"/>
         <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
         <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
+        <b:dataTableColumn label="Ações">
+        	<div class="btn-group" role="group" >
+            	<b:commandButton icon="edit" ajax="true" onclick="ajax:medicamentoManagedBean.carregarAlteracao(med)" update="formPrincipal" />
+        	</div>
+        	<div class="btn-group" role="group" >
+	            <b:commandButton icon="trash" look="danger" ajax="true" update="panelMedicamento" onclick="ajax:medicamentoManagedBean.excluir(med)" />
+        	</div>
+       </b:dataTableColumn>
     </b:dataTable>
     
 </ui:fragment>

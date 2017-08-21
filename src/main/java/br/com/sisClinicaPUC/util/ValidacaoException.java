@@ -1,24 +1,22 @@
-package br.com.sisClinicaPUC.view;
+package br.com.sisClinicaPUC.util;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractMangedBean {
+public abstract class ValidacaoException {
 
-	
-	
 	public void tratarMensagemSucesso(String id) {
 		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacao realizada com sucesso", ""));
 	}
-	
+
 	public void tratarMensagemSucesso(String id, String mensagemSucesso, String detalheMensagemSucesso) {
 		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagemSucesso, detalheMensagemSucesso));
 	}
 	public void tratarMensagemErro(String id) {
 		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Campo Obrigatorio", ""));
 	}
-	
+
 	public void tratarMensagemErro(String id, String mensagemErro, String detalheMensagemErro) {
-		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagemErro, detalheMensagemErro));
+		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(FacesMessage.SEVERITY_FATAL, mensagemErro, detalheMensagemErro));
 	}
 }

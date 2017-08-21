@@ -15,17 +15,17 @@
 	</application>
 	<managed-bean>
 		<managed-bean-name>loginManagedBean</managed-bean-name>
-		<managed-bean-class>br.com.sisClinicaPUC.view.LoginManagedBean</managed-bean-class>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.LoginManagedBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>navigationManagedBean</managed-bean-name>
-		<managed-bean-class>br.com.sisClinicaPUC.view.NavigationManagedBean</managed-bean-class>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.NavigationManagedBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>medicamentoManagedBean</managed-bean-name>
-		<managed-bean-class>br.com.sisClinicaPUC.view.MedicamentoManagedBean</managed-bean-class>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.MedicamentoManagedBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
  
