@@ -11,4 +11,9 @@ public abstract class AbstractMangedBean<T> extends ValidacaoException implement
 		this.operacao = OperacaoEnum.CONSULTAR;
 	}
 	
+	public void inserir () {}
+	public void alterar(T objeto) {}
+	public void excluir(T objeto) {}
+	public void excluir() {}
+	
 }

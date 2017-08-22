@@ -24,9 +24,9 @@
                     </f:facet>
                 </b:inputText>
                 <b:inputText id="password" placeholder="Senha" type="password" value="#{LoginMB.usuario.senha}">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
-                    </f:facet>
+                     <f:facet name="prepend">
+            			<b:iconAwesome name="key" />
+        			</f:facet>
                 </b:inputText>
                 <b:commandButton look="primary btn-block" value="Entrar" icon="log-in" size="lg" action="#{LoginMB.irTelaPrincipal}"/>
             </h:form>

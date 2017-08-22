@@ -14,9 +14,11 @@ import javax.validation.Valid;
 
 import br.com.sisClinicaPUC.util.ValidacaoException;
 
-public abstract class GenericDao<T, I extends Serializable> extends ValidacaoException {
+public abstract class GenericDao<T, I extends Serializable>  extends ValidacaoException implements Serializable{
 
-   private Class<T> persistedClass;
+	private static final long serialVersionUID = 1L;
+	
+private Class<T> persistedClass;
    @Inject
    private EntityManager entityManager;
 
@@ -75,7 +77,7 @@ public abstract class GenericDao<T, I extends Serializable> extends ValidacaoExc
        return getEntityManager().find(persistedClass, id);
    }
 
-	private EntityManager getEntityManager() {
+	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 	

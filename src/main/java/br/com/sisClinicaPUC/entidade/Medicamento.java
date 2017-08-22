@@ -6,13 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
- 
+
 @Entity
+@NamedQueries({
+	  @NamedQuery(name = "medicamento.MEDICAMENTO_POR_SITUACAO", query = "select m from Medicamento m where m.ativoInaivo = :situacao")
+})
 public class Medicamento implements Serializable{
       
 	private static final long serialVersionUID = 1L;
+
+	public static final String MEDICAMENTO_POR_SITUACAO = "medicamento.MEDICAMENTO_POR_SITUACAO";
 
 	public Medicamento() {
 		this.setAtivoInaivo(SituacaoEnum.ATIVO);
@@ -21,7 +28,7 @@ public class Medicamento implements Serializable{
 	@Id
 	@GeneratedValue
     @Column(name="id_medicamento", nullable=false, unique=true)
-    private Integer id;
+    private Long id;
 	
     @Column(name="nome_generico", nullable=false, unique=false)
     private String nomeGenerico;
@@ -36,11 +43,11 @@ public class Medicamento implements Serializable{
 	private String ativoInaivo;
 	
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -8,9 +8,4 @@ package br.com.sisClinicaPUC.controller;
  */
 public interface Servico<T> {
 	
-
-	public void inserir();
-	public void alterar(T objeto);
-	public void excluir(T objeto);
-
 }

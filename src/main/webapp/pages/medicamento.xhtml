@@ -9,6 +9,13 @@
 
 	<b:panel id="panelMedicamento" title="Medicamento" look="primary">
       	<h:panelGrid>
+      		<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
+		        global-only="false"
+		        show-summary="true" allow-dismiss="true"
+		        animation-enter="animated bounceInDown"
+		        animation-exit="animated flipOutX"
+		        escape="false"/>
+      	
         	<h:outputText value="Nome Fabricante" />
         	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}"/>
         	<b:message />
@@ -18,11 +25,11 @@
         	<b:message/>
         	
         	<h:outputText value="Nome de Fábrica" />
-        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}"/>
+        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
         	<b:message/>
 
-        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal tableMedicamentos" />
-      	</h:panelGrid>
+        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
   	</b:panel>
   	
   	<b:dataTable id="tableMedicamentos" value="#{medicamentoManagedBean.medicamentoList}" var="med" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
@@ -30,13 +37,27 @@
         <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
         <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
         <b:dataTableColumn label="Ações">
-        	<div class="btn-group" role="group" >
-            	<b:commandButton icon="edit" ajax="true" onclick="ajax:medicamentoManagedBean.carregarAlteracao(med)" update="formPrincipal" />
+        	<div class="btn-group" role="group"  >
+            	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
         	</div>
         	<div class="btn-group" role="group" >
-	            <b:commandButton icon="trash" look="danger" ajax="true" update="panelMedicamento" onclick="ajax:medicamentoManagedBean.excluir(med)" />
+	            <b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
+	            	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
+	            </b:commandButton>
+	            
+	            
         	</div>
        </b:dataTableColumn>
     </b:dataTable>
+    
+    <b:modal id="modalExcluirMedicamento" title="Exclusão">
+        <h:panelGroup id="panelModalExcluirMedicamento" layout="block">
+            Deseja excluir o registro?
+        </h:panelGroup>
+        <f:facet name="footer">
+        	<b:button value="Não" dismiss="modal" />
+            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedicamento')).modal('hide');return false;" update="formPrincipal" />
+        </f:facet>
+    </b:modal>
     
 </ui:fragment>

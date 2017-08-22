@@ -16,6 +16,7 @@ import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
 public class LoginManagedBean implements Serializable{
    
 	private static final long serialVersionUID = 1L;
+	
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private Usuario usuario = new Usuario();
         
