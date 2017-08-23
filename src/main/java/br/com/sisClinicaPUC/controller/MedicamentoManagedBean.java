@@ -11,6 +11,7 @@ import javax.inject.Named;
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
 import br.com.sisClinicaPUC.util.Util;
+import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
 @Named
 @ViewScoped
@@ -30,9 +31,8 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 
     @PostConstruct
 	public void init() {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Inicializei o MedicamentoManagedBean!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		medicamento = new Medicamento();
-		medicamentoExclusao = new Medicamento();
+    	this.setMedicamento(new Medicamento());
+		this.setMedicamentoExclusao(new Medicamento());
 		carregarMedicamentoAtivoList();
 	}
     
@@ -47,7 +47,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getMedicamentoDAO().inserir(medicamento);
+    		boolean inclusao = this.getMedicamentoDAO().inserir(this.getMedicamento());
     		if (inclusao) {
     			medicamento = new Medicamento();
     			carregarMedicamentoAtivoList();
@@ -59,9 +59,9 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 	@Override
 	public void alterar(Medicamento objeto) {
 		if(validarCampos()) {
-			boolean alteracao = this.getMedicamentoDAO().alterar(medicamento);
+			boolean alteracao = this.getMedicamentoDAO().alterar(objeto);
 			if (alteracao) {
-				medicamento = new Medicamento();
+				this.setMedicamento(new Medicamento());
 				carregarMedicamentoAtivoList();
 				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 			}
@@ -72,10 +72,11 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 	@Override
 	public void excluir() {
 		//Exclusao logica
-		boolean exclusao = this.getMedicamentoDAO().excluir(this.getMedicamentoExclusao());
+		this.getMedicamentoExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
+		boolean exclusao = this.getMedicamentoDAO().alterar(this.getMedicamentoExclusao());
 		if(exclusao) {
-			medicamento = new Medicamento();
-			medicamentoExclusao = new Medicamento();
+			this.setMedicamento(new Medicamento());
+			this.setMedicamentoExclusao(new Medicamento());
 			carregarMedicamentoAtivoList();
 			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 		}
@@ -83,20 +84,11 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 	}
 	
 	@Override
-	public void excluir(Medicamento med) {
-		//Exclusao logica
-		boolean exclusao = this.getMedicamentoDAO().excluir(med);
-		if(exclusao) {
-			medicamento = new Medicamento();
-			medicamentoExclusao = new Medicamento();
-			carregarMedicamentoAtivoList();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
-		}
-		
-	}
+	public void excluir(Medicamento med) {}
 
 	public void carregarAlteracao(Medicamento medicamentoAlterar) {
 		this.setMedicamento(medicamentoAlterar);
+		this.getMedicamentoList().remove(medicamentoAlterar);
 	}
 	
 	/**

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+	<b:panel id="panelAgendaMedico" title="Agenda Médico" look="primary">
+        <h:panelGrid>
+        
+			<p:outputLabel for="idMedicoResponsavel" value="Médico:" />
+        	<b:inputText id="idMedicoResponsavel" value="#{agendaMedicoManagedBean.agendaMedico.medico.nome}" />
+
+			<p:outputLabel for="idDataAgenda" value="Data:" />
+			 <p:calendar id="idDataAgenda" value="#{agendaMedicoManagedBean.agendaMedico.dataAtendimento.data}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy"/>
+
+			<p:outputLabel for="idHoraInicio" value="Início Atendimento:" />
+        	<b:inputText id="idHoraInicio" value="#{agendaMedicoManagedBean.agendaMedico.dataAtendimento.horarioInicioAtendimento}" />
+        	<b:message/>
+        	
+			<p:outputLabel for="idHoraFim" value="Fim Atendimento:" />
+        	<b:inputText id="idHoraFim" value="#{agendaMedicoManagedBean.agendaMedico.dataAtendimento.horarioFimAtendimento}" />
+        	<b:message/>
+
+        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
+  	</b:panel>
+  	
+  	<b:dataTable id="tableAgendamentos" value="#{agendaMedicoManagedBean.agendaMedicoList}" var="agendaMed" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn value="#{agendaMed.nomeFabricante}" order="asc" label="Nome Fabricante"/>
+        <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
+        <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
+        <b:dataTableColumn label="Ações">
+        	<div class="btn-group" role="group"  >
+            	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+        	</div>
+        	<div class="btn-group" role="group" >
+	            <b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
+	            	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
+	            </b:commandButton>
+	            
+	            
+        	</div>
+       </b:dataTableColumn>
+    </b:dataTable>
+    
+    <b:modal id="modalExcluirMedicamento" title="Exclusão">
+        <h:panelGroup id="panelModalExcluirMedicamento" layout="block">
+            Deseja excluir o registro?
+        </h:panelGroup>
+        <f:facet name="footer">
+        	<b:button value="Não" dismiss="modal" />
+            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedicamento')).modal('hide');return false;" update="formPrincipal" />
+        </f:facet>
+    </b:modal>
+    
+</ui:fragment>

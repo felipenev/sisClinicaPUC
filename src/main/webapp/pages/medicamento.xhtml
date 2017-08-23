@@ -9,12 +9,6 @@
 
 	<b:panel id="panelMedicamento" title="Medicamento" look="primary">
       	<h:panelGrid>
-      		<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
-		        global-only="false"
-		        show-summary="true" allow-dismiss="true"
-		        animation-enter="animated bounceInDown"
-		        animation-exit="animated flipOutX"
-		        escape="false"/>
       	
         	<h:outputText value="Nome Fabricante" />
         	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}"/>
@@ -37,16 +31,15 @@
         <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
         <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
         <b:dataTableColumn label="Ações">
-        	<div class="btn-group" role="group"  >
-            	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
-        	</div>
-        	<div class="btn-group" role="group" >
-	            <b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
-	            	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
-	            </b:commandButton>
-	            
-	            
-        	</div>
+       	<div class="btn-group" role="group"  >
+           	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+       	</div>
+       	<div class="btn-group" role="group" >
+	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
+	        	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
+	        </b:commandButton>
+        </div>
+        	
        </b:dataTableColumn>
     </b:dataTable>
     

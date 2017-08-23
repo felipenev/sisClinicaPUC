@@ -28,6 +28,11 @@
 		<managed-bean-class>br.com.sisClinicaPUC.controller.MedicamentoManagedBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>agendaMedicoManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.AgendaMedicoManagedBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
  
 	 <converter>
 	  	<converter-for-class>java.lang.Enum</converter-for-class>

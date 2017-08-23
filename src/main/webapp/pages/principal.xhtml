@@ -12,13 +12,20 @@
     	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     	<meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>sisClinicaPUC</title>
-        
+        <h:outputStylesheet library="css" name="estilo.css" />
     </h:head>
     
     <h:body style="padding-top: 60px">
 <!--         <h:outputScript library="holder" name="holder.js" /> -->
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
         <h:form id="formPrincipal">
+        
+        	<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
+		        global-only="false"
+		        show-summary="true" allow-dismiss="true"
+		        animation-enter="animated bounceInDown"
+		        animation-exit="animated flipOutX"
+		        escape="false"/>
         	
 	        <b:navBar brand="Clínica PUC Minas" brandHref="#" inverse="true" fixed="top" fluid="true">
 	            
@@ -36,9 +43,8 @@
 	                        <b:navLink header="Menu" />
 	                        <b:navLink value="Bem Vindo" onclick="ajax:navigationManagedBean.setPagina('bemVindo.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'bemVindo.xhtml'}" />
 	                        <b:navLink value="Medicamento" onclick="ajax:navigationManagedBean.setPagina('medicamento.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'medicamento.xhtml'}" />
+	                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'consulta.xhtml'}" />
 	                        <b:navLink value="Consulta" onclick="ajax:navigationManagedBean.setPagina('consulta.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'consulta.xhtml'}" />
-	                        <b:navLink href="#" value="Analytics" />
-	                        <b:navLink href="#" value="Export" />
 	                    </b:listLinks>
 	                    <b:listLinks>
 	                        <b:navLink value="Nav item" />
