@@ -11,8 +11,10 @@
     	<meta charset="utf-8"/>
     	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>sisClinicaPUC</title>
         <h:outputStylesheet library="css" name="estilo.css" />
+        <h:outputScript library="js" name="locale.js"/>
+        
+        <title>sisClinicaPUC</title>
     </h:head>
     
     <h:body style="padding-top: 60px">
@@ -135,6 +137,7 @@
          <!-- The following pages are not rendered, but they are needed to make sure every required JavaScript file is loaded in time. -->
 	  	<h:panelGroup rendered="false">
 	  		<ui:include src="medicamento.xhtml" />
+	  		<ui:include src="agendaMedico.xhtml" />
 	  	</h:panelGroup>
 
     </h:body>

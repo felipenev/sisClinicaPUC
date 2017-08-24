@@ -3,6 +3,10 @@ package br.com.sisClinicaPUC.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Pessoa implements Serializable{
       
 	private static final long serialVersionUID = 1L;
@@ -15,6 +19,7 @@ public abstract class Pessoa implements Serializable{
 	private String bairro;
 	private String cidade;
 	private String UF;
+	@Column(name="data_nascimento", nullable=false, unique=false)
 	private Date dataNascimento;
 	private Integer telefone;
 	public String getNome() {

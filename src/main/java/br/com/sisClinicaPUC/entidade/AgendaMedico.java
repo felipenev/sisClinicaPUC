@@ -1,6 +1,8 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +28,7 @@ public class AgendaMedico implements Serializable{
 	public static final String AGENDA_MEDICO_POR_SITUACAO = "agendaMedico.AGENDA_MEDICO_POR_SITUACAO";
 
 	public AgendaMedico() {
-		this.setDataAtendimento(new DataAtendimento());
+		this.setDataAtendimento(new HashSet<DataAtendimento>());
 		this.setMedico(new Medico());
 	}
 
@@ -35,8 +37,8 @@ public class AgendaMedico implements Serializable{
     @Column(name="id_agenda_medico", nullable=false, unique=true)
     private Long id;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="agendaMedico", cascade = { CascadeType.REMOVE })
-    private DataAtendimento dataAtendimento;
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy="agendaMedico")
+    private Set<DataAtendimento> dataAtendimento;
 
     @OneToOne
 	private Medico medico;
@@ -50,14 +52,6 @@ public class AgendaMedico implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public DataAtendimento getDataAtendimento() {
-		return dataAtendimento;
-	}
-
-	public void setDataAtendimento(DataAtendimento dataAtendimento) {
-		this.dataAtendimento = dataAtendimento;
 	}
 
 	public Medico getMedico() {
@@ -76,4 +70,12 @@ public class AgendaMedico implements Serializable{
 		this.ativoInaivo = ativoInaivo.getCodigo();
 	}
 
+	public Set<DataAtendimento> getDataAtendimento() {
+		return dataAtendimento;
+	}
+
+	public void setDataAtendimento(Set<DataAtendimento> dataAtendimento) {
+		this.dataAtendimento = dataAtendimento;
+	}
+	
  }

@@ -20,7 +20,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		this.salvar(agendaMedico);
 	            return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro(null, e.getMessage());
 	            return false;
 	    	}
 		}
@@ -30,7 +30,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		this.atualizar(agendaMedico);
 	    		return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return false;
 	    	}
 	    }
@@ -40,7 +40,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		this.remover(agendaMedico.getId());
 	    		return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return false;
 	    	}
 	    }
@@ -55,7 +55,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		List<AgendaMedico> agendaMedicamentoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO_POR_SITUACAO, AgendaMedico.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
 	    		return agendaMedicamentoList;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<AgendaMedico>();
 	    	}
 	    }

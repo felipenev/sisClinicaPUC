@@ -10,17 +10,20 @@
 	<b:panel id="panelMedicamento" title="Medicamento" look="primary">
       	<h:panelGrid>
       	
-        	<h:outputText value="Nome Fabricante" />
-        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}"/>
-        	<b:message />
+        	<h:panelGroup>
+	        	<h:outputText value="Nome Fabricante" /><h:outputText value="*" styleClass="obrigatorio" />
+	        </h:panelGroup>
+        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
 
-        	<h:outputText value="Nome Genérico" />
-        	<b:inputText id="nomeGenerico" value="#{medicamentoManagedBean.medicamento.nomeGenerico}"/>
-        	<b:message/>
+        	<h:panelGroup>
+	        	<h:outputText value="Nome Genérico" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="nomeGenerico" value="#{medicamentoManagedBean.medicamento.nomeGenerico}" />
         	
-        	<h:outputText value="Nome de Fábrica" />
+        	<h:panelGroup>
+    	    	<h:outputText value="Nome de Fábrica" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
         	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
-        	<b:message/>
 
         	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>

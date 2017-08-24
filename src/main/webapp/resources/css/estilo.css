@@ -1,0 +1,13 @@
+/* Formatacoes gerais */
+
+.borda-obrigatorio {
+	border: red solid 1px !important;
+}
+
+.classData > input {
+	border: red solid 1px !important;
+}
+
+.obrigatorio {
+	color: red !important;
+}

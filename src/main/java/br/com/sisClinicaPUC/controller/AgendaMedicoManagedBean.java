@@ -2,6 +2,9 @@ package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +12,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
+import br.com.sisClinicaPUC.entidade.DataAtendimento;
+import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.persistencia.AgendaMedicoDAO;
 import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -24,8 +29,11 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 	
 	private AgendaMedicoDAO agendaMedicoDAO = new AgendaMedicoDAO();
     private AgendaMedico agendaMedico = new AgendaMedico();
+    private DataAtendimento dataAtendimento = new DataAtendimento();
     private AgendaMedico agendaMedicoExclusao = new AgendaMedico();
     private List<AgendaMedico> agendaMedicoList = new ArrayList<AgendaMedico>();
+    
+    private Date dataMinima = new Date();
     
     public AgendaMedicoManagedBean() {}
 
@@ -38,6 +46,12 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 	}
     
     public void inserirAlterar() {
+    	
+    	//TODO: testeMedico
+    	this.getAgendaMedico().setMedico(new Medico());
+    	
+    	this.getAgendaMedico().setDataAtendimento(new HashSet<>(Arrays.asList(this.getDataAtendimento())));
+    	
     	if(Util.isValueNotBlankOrNotEmpty(this.getAgendaMedico().getId())) {
     		alterar(this.getAgendaMedico());
     	}else {
@@ -47,7 +61,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
     
     @Override
     public void inserir() {
-    	if(validarCampos()) {
+    	if(validarCampos() && validarData()) {
     		boolean inclusao = this.getAgendaMedicoDAO().inserir(this.getAgendaMedico());
     		if (inclusao) {
     			this.setAgendaMedico(new AgendaMedico());
@@ -59,7 +73,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 	
 	@Override
 	public void alterar(AgendaMedico objeto) {
-		if(validarCampos()) {
+		if(validarCampos() && validarData()) {
 			boolean alteracao = this.getAgendaMedicoDAO().alterar(objeto);
 			if (alteracao) {
 				this.setAgendaMedico(new AgendaMedico());
@@ -98,21 +112,43 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 	public boolean validarCampos() {
 		boolean valid = true;
 		
-//		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeFabricante())) {
-//			this.tratarMensagemErro("formPrincipal:nomeFabricante");
-//			valid = false;
-//		}
-//		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeGenerico())) {
-//			this.tratarMensagemErro("formPrincipal:nomeGenerico");
-//			valid = false;
-//		}
-//		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeDeFabrica())) {
-//			this.tratarMensagemErro("formPrincipal:nomeDeFrabrica");
-//			valid = false;
-//		}
+		if(!Util.isDateNotNull(this.getDataAtendimento().getData())) {
+			this.tratarMensagemErro("formPrincipal:idDataAgenda_input");
+			valid = false;
+		}
+		if(!Util.isDateNotNull(this.getDataAtendimento().getHorarioInicioAtendimento())) {
+			this.tratarMensagemErro("formPrincipal:idHoraInicio_input");
+			valid = false;
+		}
+		if(!Util.isDateNotNull(this.getDataAtendimento().getHorarioFimAtendimento())) {
+			this.tratarMensagemErro("formPrincipal:idHoraFim_input");
+			valid = false;
+		}
 		
 		return valid;
 	}
+	
+	/**
+	 * Verifica se a data informada é válida.
+	 * 
+	 * @return
+	 */
+	private boolean validarData() {
+		boolean valid = true;
+		
+		if(this.getDataAtendimento().getHorarioFimAtendimento().before(this.getDataAtendimento().getHorarioInicioAtendimento())) {
+			this.tratarMensagemErro("formPrincipal:idHoraFim_input", "MSG005");
+			valid = false;
+		}
+		
+		if(this.getDataAtendimento().getHorarioFimAtendimento().compareTo(this.getDataAtendimento().getHorarioInicioAtendimento()) == 0) {
+			this.tratarMensagemErro("formPrincipal:idHoraFim_input", "MSG005");
+			valid = false;
+		}
+		
+		return valid;
+	}
+	
 
 //	private void carregarMedicamentoList() {
 //		this.setMedicamentoList(new ArrayList<Medicamento>());
@@ -160,6 +196,22 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 
 	public void setAgendaMedicoList(List<AgendaMedico> agendaMedicoList) {
 		this.agendaMedicoList = agendaMedicoList;
+	}
+
+	public DataAtendimento getDataAtendimento() {
+		return dataAtendimento;
+	}
+
+	public void setDataAtendimento(DataAtendimento dataAtendimento) {
+		this.dataAtendimento = dataAtendimento;
+	}
+
+	public Date getDataMinima() {
+		return dataMinima;
+	}
+
+	public void setDataMinima(Date dataMinima) {
+		this.dataMinima = dataMinima;
 	}
 
 }

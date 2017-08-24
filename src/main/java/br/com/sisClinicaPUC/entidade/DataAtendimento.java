@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class DataAtendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,14 +20,18 @@ public class DataAtendimento implements Serializable {
     @Column(name="id_data_atentimento", nullable=false, unique=true)
     private Long id;
 	
-	@Column(name="data_atendimento", nullable=false)
+	@Column(name="data", nullable=false)
 	private Date data;
 	
 	@Column(name="horario_inicio_atendimento", nullable=false)
-	private Integer horarioInicioAtendimento;
+	private Date horarioInicioAtendimento;
 	
 	@Column(name="horario_fim_atendimento", nullable=false)
-	private Integer horarioFimAtendimento;
+	private Date horarioFimAtendimento;
+
+	@ManyToOne
+	@JoinColumn(name="id_agenda_medico", nullable=false)
+	private AgendaMedico agendaMedico;
 
 	public Long getId() {
 		return id;
@@ -41,20 +49,28 @@ public class DataAtendimento implements Serializable {
 		this.data = data;
 	}
 
-	public Integer getHorarioInicioAtendimento() {
+	public Date getHorarioInicioAtendimento() {
 		return horarioInicioAtendimento;
 	}
 
-	public void setHorarioInicioAtendimento(Integer horarioInicioAtendimento) {
+	public void setHorarioInicioAtendimento(Date horarioInicioAtendimento) {
 		this.horarioInicioAtendimento = horarioInicioAtendimento;
 	}
 
-	public Integer getHorarioFimAtendimento() {
+	public Date getHorarioFimAtendimento() {
 		return horarioFimAtendimento;
 	}
 
-	public void setHorarioFimAtendimento(Integer horarioFimAtendimento) {
+	public void setHorarioFimAtendimento(Date horarioFimAtendimento) {
 		this.horarioFimAtendimento = horarioFimAtendimento;
 	}
-	
+
+	public AgendaMedico getAgendaMedico() {
+		return agendaMedico;
+	}
+
+	public void setAgendaMedico(AgendaMedico agendaMedico) {
+		this.agendaMedico = agendaMedico;
+	}
+
 }

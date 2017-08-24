@@ -14,7 +14,7 @@ public class Medico extends Pessoa {
 
 	public Medico() {
 	}
-
+	
 	@Id
 	@GeneratedValue
     @Column(name="id_medico", nullable=false, unique=true)
