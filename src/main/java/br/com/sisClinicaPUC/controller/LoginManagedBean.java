@@ -11,7 +11,7 @@ import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
    
    
-@ManagedBean(name = "LoginMB")
+@ManagedBean(name = "loginMB")
 @SessionScoped
 public class LoginManagedBean implements Serializable{
    
@@ -19,6 +19,8 @@ public class LoginManagedBean implements Serializable{
 	
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private Usuario usuario = new Usuario();
+    
+    public LoginManagedBean() {}
         
         public String envia() {
               
@@ -26,13 +28,12 @@ public class LoginManagedBean implements Serializable{
               if (usuario == null) {
                     usuario = new Usuario();
                     FacesContext.getCurrentInstance().addMessage(
-                               null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário n�o encontrado!",
+                               null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!",
                                            "Erro no Login!"));
                     return null;
               } else {
                     return "/main";
               }
-              
               
         }
    

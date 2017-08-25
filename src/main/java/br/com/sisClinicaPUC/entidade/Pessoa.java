@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import br.com.sisClinicaPUC.vo.SituacaoEnum;
+
 @MappedSuperclass
 public abstract class Pessoa implements Serializable{
       
@@ -22,6 +24,10 @@ public abstract class Pessoa implements Serializable{
 	@Column(name="data_nascimento", nullable=false, unique=false)
 	private Date dataNascimento;
 	private Integer telefone;
+	
+	@Column(name="ativo_inativo", nullable=false, unique=false)
+	private String ativoInaivo;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -81,6 +87,14 @@ public abstract class Pessoa implements Serializable{
 	}
 	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
+	}
+	
+	public SituacaoEnum getAtivoInaivo() {
+		return SituacaoEnum.getValor(this.ativoInaivo);
+	}
+
+	public void setAtivoInaivo(SituacaoEnum ativoInaivo) {
+		this.ativoInaivo = ativoInaivo.getCodigo();
 	}
 	
 }

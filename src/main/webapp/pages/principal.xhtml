@@ -45,11 +45,12 @@
 	                        <b:navLink header="Menu" />
 	                        <b:navLink value="Bem Vindo" onclick="ajax:navigationManagedBean.setPagina('bemVindo.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'bemVindo.xhtml'}" />
 	                        <b:navLink value="Medicamento" onclick="ajax:navigationManagedBean.setPagina('medicamento.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'medicamento.xhtml'}" />
-	                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'consulta.xhtml'}" />
+	                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'agendaMedico.xhtml'}" />
 	                        <b:navLink value="Consulta" onclick="ajax:navigationManagedBean.setPagina('consulta.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'consulta.xhtml'}" />
 	                    </b:listLinks>
 	                    <b:listLinks>
-	                        <b:navLink value="Nav item" />
+	                        <b:navLink value="Usuários" onclick="ajax:navigationManagedBean.setPagina('manterMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterMedico.xhtml'}" />
+	                        <b:navLink value="Usuários" onclick="ajax:navigationManagedBean.setPagina('manterRecepcionista.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterRecepcionista.xhtml'}" />
 	                        <b:navLink value="Nav item again" />
 	                        <b:navLink value="One more nav" />
 	                        <b:navLink value="Another nav item" />

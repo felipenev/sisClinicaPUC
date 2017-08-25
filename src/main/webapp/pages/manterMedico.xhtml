@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+	<b:panel id="panelCadastroMedico" title="Cadastramento Médico" look="primary">
+      	<h:panelGrid>
+      		
+      		<b:panelGrid size="xs" columns="2">
+		        <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="Java 6" itemValue="6" required="true" />
+		        <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="Java 7" itemValue="7" />
+		    </b:panelGrid>
+        	<h:panelGroup>
+	        	<h:outputText value="Nome Fabricante" /><h:outputText value="*" styleClass="obrigatorio" />
+	        </h:panelGroup>
+        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
+
+        	<h:panelGroup>
+	        	<h:outputText value="Nome Genérico" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="nomeGenerico" value="#{medicamentoManagedBean.medicamento.nomeGenerico}" />
+        	
+        	<h:panelGroup>
+    	    	<h:outputText value="Nome de Fábrica" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
+
+        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
+  	</b:panel>
+  	
+  	<b:dataTable id="tableMedicamentos" value="#{medicamentoManagedBean.medicamentoList}" var="med" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn value="#{med.nomeFabricante}" order="asc" label="Nome Fabricante"/>
+        <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
+        <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
+        <b:dataTableColumn label="Ações">
+       	<div class="btn-group" role="group"  >
+           	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+       	</div>
+       	<div class="btn-group" role="group" >
+	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
+	        	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
+	        </b:commandButton>
+        </div>
+        	
+       </b:dataTableColumn>
+    </b:dataTable>
+    
+    <b:modal id="modalExcluirMedicamento" title="Exclusão">
+        <h:panelGroup id="panelModalExcluirMedicamento" layout="block">
+            Deseja excluir o registro?
+        </h:panelGroup>
+        <f:facet name="footer">
+        	<b:button value="Não" dismiss="modal" />
+            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedicamento')).modal('hide');return false;" update="formPrincipal" />
+        </f:facet>
+    </b:modal>
+    
+</ui:fragment>

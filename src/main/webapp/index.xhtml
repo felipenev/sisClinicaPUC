@@ -18,17 +18,17 @@
     <h:body style="padding-top: 60px; background-color: #635d5d;">
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
-                <b:inputText id="email" placeholder="Email" value="#{LoginMB.usuario.nomeUsuario}">
+                <b:inputText id="email" placeholder="Email" value="#{loginMB.usuario.nomeUsuario}">
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Senha" type="password" value="#{LoginMB.usuario.senha}">
+                <b:inputText id="password" placeholder="Senha" type="password" value="#{loginMB.usuario.senha}">
                      <f:facet name="prepend">
             			<b:iconAwesome name="key" />
         			</f:facet>
                 </b:inputText>
-                <b:commandButton look="primary btn-block" value="Entrar" icon="log-in" size="lg" action="#{LoginMB.irTelaPrincipal}"/>
+                <b:commandButton look="primary btn-block" value="Entrar" icon="log-in" size="lg" action="#{loginMB.irTelaPrincipal}"/>
             </h:form>
         </b:container>
     </h:body>

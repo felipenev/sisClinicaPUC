@@ -4,15 +4,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+
+import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 
 @Entity
+@NamedQueries({
+	  @NamedQuery(name = "medico.MEDICO_POR_SITUACAO", query = "select m from Medico m where m.ativoInaivo = :situacao")
+})
 public class Medico extends Pessoa {
       
 	private static final long serialVersionUID = 1L;
+	
+	public static final String MEDICO_POR_SITUACAO = "medico.MEDICO_POR_SITUACAO";
 
 	public Medico() {
+		this.setAtivoInaivo(SituacaoEnum.ATIVO);
 	}
 	
 	@Id
