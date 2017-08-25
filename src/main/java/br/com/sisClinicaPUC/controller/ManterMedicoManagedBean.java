@@ -1,6 +1,7 @@
 package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.persistence.Column;
 
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.persistencia.MedicoDAO;
@@ -26,10 +26,13 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
     private Medico medicoExclusao = new Medico();
     private List<Medico> medicoList = new ArrayList<Medico>();
     
+    private Date dataAtual = new Date();
+    
     public ManterMedicoManagedBean() {}
 
     @PostConstruct
 	public void init() {
+    	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de Medico !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     	this.setMedico(new Medico());
 		this.setMedicoExclusao(new Medico());
 		carregarMedicoAtivoList();
@@ -108,16 +111,16 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getRG())) {
+		if(!Util.isObjectNotNull(this.getMedico().getRG())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isIntegerNotNull(this.getMedico().getCPF())) {
+		if(!Util.isObjectNotNull(this.getMedico().getCPF())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
 		if(!Util.isCPFValido(this.getMedico().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG005");
+			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG006");
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getEndereco())) {
@@ -140,7 +143,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isIntegerNotNull(this.getMedico().getTelefone())) {
+		if(!Util.isObjectNotNull(this.getMedico().getTelefone())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -148,13 +151,8 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		return valid;
 	}
 
-//	private void carregarMedicamentoList() {
-//		this.setMedicamentoList(new ArrayList<Medicamento>());
-//    	this.getMedicamentoList().addAll(this.getMedicamentoDAO().getList());
-//	}
-	
 	/**
-	 * Carrega os medicamentos ativos que podem ser apresentados
+	 * Carrega os medicos ativos que podem ser apresentados
 	 * 
 	 */
 	private void carregarMedicoAtivoList() {
@@ -193,5 +191,31 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 	public void setMedicoList(List<Medico> medicoList) {
 		this.medicoList = medicoList;
 	}
+
+	public Date getDataAtual() {
+		return dataAtual;
+	}
+
+	public void setDataAtual(Date dataAtual) {
+		this.dataAtual = dataAtual;
+	}
+	
+//	public String getCPFFormatado() {
+//		try {
+//			return Util.formatarString(Util.MASCARA_CPF, String.valueOf(this.getMedico().getCPF()));
+//		} catch (ParseException e) {
+//			this.tratarMensagemErro(null, e.getMessage());
+//		}
+//		return "";
+//	}
+//	
+//	public void setCPFFormatado(String cpfFormatado) {
+//		try {
+//			String retorno = Util.desformatarString(Util.MASCARA_CPF, cpfFormatado);
+//			this.getMedico().setCPF(Integer.valueOf(retorno));
+//		} catch (ParseException e) {
+//			this.tratarMensagemErro(null, e.getMessage());
+//		}
+//	}
 
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -12,21 +14,33 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 public abstract class Pessoa implements Serializable{
       
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	@GeneratedValue
+    @Column(name="id", nullable=false, unique=true)
+    private Long id;
 	private String nome;
 	private String sexo;
-	private String RG;
-	private Integer CPF;
+	private Long RG;
+	private Long CPF;
 	private String endereco;
 	private String bairro;
 	private String cidade;
 	private String UF;
 	@Column(name="data_nascimento", nullable=false, unique=false)
 	private Date dataNascimento;
-	private Integer telefone;
+	private Long telefone;
 	
 	@Column(name="ativo_inativo", nullable=false, unique=false)
 	private String ativoInaivo;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -40,17 +54,17 @@ public abstract class Pessoa implements Serializable{
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	public String getRG() {
+	public Long getRG() {
 		return RG;
 	}
-	public void setRG(String rG) {
-		RG = rG;
+	public void setRG(Long RG) {
+		this.RG = RG;
 	}
-	public Integer getCPF() {
+	public Long getCPF() {
 		return CPF;
 	}
-	public void setCPF(Integer cPF) {
-		CPF = cPF;
+	public void setCPF(Long CPF) {
+		this.CPF = CPF;
 	}
 	public String getEndereco() {
 		return endereco;
@@ -82,10 +96,10 @@ public abstract class Pessoa implements Serializable{
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public Integer getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 	
