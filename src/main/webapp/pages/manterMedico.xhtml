@@ -13,13 +13,13 @@
         	<h:panelGroup>
 	        	<h:outputText value="CRM" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputText id="idCRMMedico" value="#{manterMedicoManagedBean.medico.CRM}" mask="9999/AA"/>
+        	<b:inputText id="idCRMMedico" value="#{manterMedicoManagedBean.medico.CRM}" mask="9999/AA" converter="crmConverter"/>
         	
         	<h:panelGroup>
 	        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
 			<p:calendar id="idDataNascMedico" value="#{manterMedicoManagedBean.medico.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" maxdate="#{manterMedicoManagedBean.dataAtual}"/>
-        	
+        	<br/>
         	<h:panelGroup>
 	        	<h:outputText value="Nome Completo" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
@@ -33,12 +33,12 @@
         	<h:panelGroup>
 	        	<h:outputText value="RG" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputText id="RGMedico" value="#{manterMedicoManagedBean.medico.RG}"  mask="integer" maxlength="13"/>
+        	<b:inputText id="RGMedico" value="#{manterMedicoManagedBean.medico.RG}"  mask="integer" maxlength="13" styleClass="alinhamento-esquerda"/>
         	
         	<h:panelGroup>
 	        	<h:outputText value="CPF" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputText id="CPFMedico" value="#{manterMedicoManagedBean.medico.CPF}"  mask="integer" maxlength="11"/>
+        	<b:inputText id="CPFMedico" value="#{manterMedicoManagedBean.medico.CPF}"  mask="999.999.999-99" converter="cpfConverter" />
         	
         	<h:panelGroup>
 	        	<h:outputText value="Endereço" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -50,37 +50,39 @@
         	</h:panelGroup>
         	<b:inputText id="bairroMedico" value="#{manterMedicoManagedBean.medico.bairro}" />
         	
-        	<h:panelGroup>
-	        	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<h:panelGroup>
-	        	<b:inputText id="cidadeMedico" value="#{manterMedicoManagedBean.medico.cidade}" />
-	        	<h:outputText value="/" />
-	        	<b:inputText id="UFMedico" value="#{manterMedicoManagedBean.medico.UF}" mask="AA"/>
-        	</h:panelGroup>
+        	
+	       	<h:panelGroup>
+		       	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
+	       	</h:panelGroup>
+       		<b:inputText id="cidadeMedico" value="#{manterMedicoManagedBean.medico.cidade}"/>
+       		<b:inputText id="UFMedico" value="#{manterMedicoManagedBean.medico.UF}" mask="AA" span="5"/>
         	
         	<h:panelGroup>
 	        	<h:outputText value="Telefone" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputText id="telefoneMedico" value="#{manterMedicoManagedBean.medico.telefone}" mask="integer" maxlength="11" />
+        	<b:inputText id="telefoneMedico" value="#{manterMedicoManagedBean.medico.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
 
         	<b:commandButton id="salvarMedico" value="Cadastrar" action="#{manterMedicoManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>
   	
-  	<b:dataTable id="tableMedicamentos" value="#{manterMedicoManagedBean.medicoList}" var="medico" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+  	<b:dataTable id="tableMedicos" value="#{manterMedicoManagedBean.medicoList}" var="medico" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
         <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
         <b:dataTableColumn value="#{medico.CRM}" label="CRM"/>
-        <b:dataTableColumn value="#{medico.dataNascimento}" label="Data Nascimento"/>
-        <b:dataTableColumn label="Ações">
-       	<div class="btn-group" role="group"  >
-           	<b:commandButton icon="edit" ajax="true" action="#{manterMedicoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
-       	</div>
-       	<div class="btn-group" role="group" >
-	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedico" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedico').modal();return false;">
-	        	<f:setPropertyActionListener target="#{manterMedicoManagedBean.medicoExclusao}" value="#{med}" />
-	        </b:commandButton>
-        </div>
+        <b:dataTableColumn data-order="#{medico.dataNascimento}" label="Data Nascimento" >
+        	<h:outputText value="#{medico.dataNascimento}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn label="Ações" >
+	       	<div class="btn-group" role="group"  >
+	           	<b:commandButton icon="edit" ajax="true" action="#{manterMedicoManagedBean.carregarAlteracao(medico)}" update="formPrincipal" />
+	       	</div>
+	       	<div class="btn-group" role="group" >
+		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedico" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedico').modal();return false;">
+		        	<f:setPropertyActionListener target="#{manterMedicoManagedBean.medicoExclusao}" value="#{medico}" />
+		        </b:commandButton>
+	        </div>
         	
        </b:dataTableColumn>
     </b:dataTable>

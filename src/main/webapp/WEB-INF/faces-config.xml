@@ -44,10 +44,27 @@
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
  
+	<!--  	Converters 		-->
 	 <converter>
 	  	<converter-for-class>java.lang.Enum</converter-for-class>
 	  	<converter-class>javax.faces.convert.EnumConverter</converter-class>
 	 </converter>
+	 
+	 <converter>
+	    <description>CPF converter</description>
+	    <converter-id>cpfConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.CpfConverter</converter-class>
+	</converter>
+	 <converter>
+	    <description>Telefone converter</description>
+	    <converter-id>telefoneConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.TelefoneConverter</converter-class>
+	</converter>
+	 <converter>
+	    <description>CRM converter</description>
+	    <converter-id>crmConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.CRMConverter</converter-class>
+	</converter>
 	 
  	<!-- Geral -->
 	<navigation-rule>

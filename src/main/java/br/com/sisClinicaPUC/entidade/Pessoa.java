@@ -22,14 +22,14 @@ public abstract class Pessoa implements Serializable{
 	private String nome;
 	private String sexo;
 	private Long RG;
-	private Long CPF;
+	private String CPF;
 	private String endereco;
 	private String bairro;
 	private String cidade;
 	private String UF;
 	@Column(name="data_nascimento", nullable=false, unique=false)
 	private Date dataNascimento;
-	private Long telefone;
+	private String telefone;
 	
 	@Column(name="ativo_inativo", nullable=false, unique=false)
 	private String ativoInaivo;
@@ -60,10 +60,10 @@ public abstract class Pessoa implements Serializable{
 	public void setRG(Long RG) {
 		this.RG = RG;
 	}
-	public Long getCPF() {
+	public String getCPF() {
 		return CPF;
 	}
-	public void setCPF(Long CPF) {
+	public void setCPF(String CPF) {
 		this.CPF = CPF;
 	}
 	public String getEndereco() {
@@ -96,10 +96,10 @@ public abstract class Pessoa implements Serializable{
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public Long getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Long telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	

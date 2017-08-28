@@ -7,7 +7,9 @@ import javax.swing.text.MaskFormatter;
 
 public class Util {
 
-	private static final int TAMANHO_CPF = 11;
+	public static final int TAMANHO_CRM = 6;
+	public static final int TAMANHO_CPF = 11;
+	public static final int TAMANHO_TELEFONE = 11;
 	public static final String MASCARA_CPF = "###.###.###-##";
 
 	public static boolean isStringNotBlankOrNotNull(String str) {
@@ -30,13 +32,26 @@ public class Util {
 		return vlr != null;
 	}
 	
-	public static boolean isCPFValido(Long cpf) {
+	public static boolean isCPFValido(String cpf) {
 		if(isObjectNotNull(cpf)) {
-			return String.valueOf(cpf).length() >= TAMANHO_CPF;
+			return cpf.length() >= TAMANHO_CPF;
 		}
 		return false;
 	}
 	
+	public static boolean isTelefoneValido(String telefone) {
+		if(isObjectNotNull(telefone)) {
+			return telefone.length() >= TAMANHO_TELEFONE;
+		}
+		return false;
+	}
+	
+	public static boolean isCRMValido(String crm) {
+		if(isObjectNotNull(crm)) {
+			return crm.length() >= TAMANHO_CRM;
+		}
+		return false;
+	}  
 	/**
 	 * Baseado na String original retorna uma String apenas com os caracteres
 	 * numéricos.
@@ -44,7 +59,7 @@ public class Util {
 	 * @param original
 	 * @return
 	 */
-	public static String removerNoNumbers(String original) {
+	public static String removeNoNumbers(String original) {
 		if (original != null) {
 			StringBuffer buf = new StringBuffer();
 			int len = original.length();
@@ -62,6 +77,18 @@ public class Util {
 		} else {
 			return null;
 		}
+	}
+	
+	public static String removerCaracteresEspeciais(String value) {
+		try {
+			if(isStringNotBlankOrNotNull(value)) {
+				value = value.replaceAll("[^a-zA-Z0-9\\\\s]", "");
+				return value;  
+			}
+		} catch (Exception e) {  
+			throw e;  
+		}
+		return "";
 	}
 
 	public static String formatarString(String mask, String value) throws ParseException {  
@@ -88,5 +115,6 @@ public class Util {
             throw e;  
         }
         return "";
-    }  
+    }
+
 }

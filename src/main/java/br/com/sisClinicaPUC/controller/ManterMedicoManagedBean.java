@@ -1,7 +1,6 @@
 package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,8 +50,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
     	if(validarCampos()) {
     		boolean inclusao = this.getMedicoDAO().inserir(this.getMedico());
     		if (inclusao) {
-    			medico = new Medico();
-    			carregarMedicoAtivoList();
+    			init();
     			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
     		}
     	}
@@ -63,8 +61,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		if(validarCampos()) {
 			boolean alteracao = this.getMedicoDAO().alterar(medico);
 			if (alteracao) {
-				this.setMedico(new Medico());
-				carregarMedicoAtivoList();
+				init();
 				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 			}
 		}
@@ -77,9 +74,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		this.getMedicoExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
 		boolean exclusao = this.getMedicoDAO().alterar(this.getMedicoExclusao());
 		if(exclusao) {
-			this.setMedico(new Medico());
-			this.setMedicoExclusao(new Medico());
-			carregarMedicoAtivoList();
+			init();
 			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 		}
 		
@@ -104,6 +99,10 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getCRM())) {
+			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			valid = false;
+		}
+		if(!Util.isCRMValido(this.getMedico().getCRM())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -144,6 +143,10 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getMedico().getTelefone())) {
+			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			valid = false;
+		}
+		if(!Util.isTelefoneValido(this.getMedico().getTelefone())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}

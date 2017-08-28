@@ -11,3 +11,7 @@
 .obrigatorio {
 	color: red !important;
 }
+
+.alinhamento-esquerda {
+	text-align: right !important;
+}
