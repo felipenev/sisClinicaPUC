@@ -18,7 +18,14 @@ public class CRMConverter implements Converter {
     
     String crm = (String) value;
     if(crm != null && crm.length() == Util.TAMANHO_CRM) {
-    	crm = Util.removerCaracteresEspeciais(crm);
+//    	crm = Util.removerCaracteresEspeciais(crm);
+    	try {
+			crm = Util.formatarString(Util.MASCARA_CRM, crm);
+		} catch (Exception e) {
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
+			
+			throw new ConverterException(facesMessage);
+		}
     }
 
     return crm;

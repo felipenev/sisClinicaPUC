@@ -46,7 +46,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    }
 	    
 	    /**
-	     * Recupera os medicamentos na situacao ativo
+	     * Recupera os recepcionistas na situacao ativo
 	     * 
 	     * @return
 	     */

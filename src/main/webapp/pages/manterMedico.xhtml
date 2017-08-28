@@ -7,7 +7,7 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:p="http://primefaces.org/ui">
 
-	<b:panel id="panelCadastroMedico" title="Cadastramento Médico" look="primary">
+	<b:panel id="panelCadastroMedico" title="Cadastramento de Médico" look="primary">
       	<h:panelGrid>
       		
         	<h:panelGroup>
@@ -18,7 +18,7 @@
         	<h:panelGroup>
 	        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-			<p:calendar id="idDataNascMedico" value="#{manterMedicoManagedBean.medico.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" maxdate="#{manterMedicoManagedBean.dataAtual}"/>
+			<p:calendar id="idDataNascMedico" value="#{manterMedicoManagedBean.medico.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" navigator="true" locale="pt_BR" maxdate="#{manterMedicoManagedBean.dataAtual}"/>
         	<br/>
         	<h:panelGroup>
 	        	<h:outputText value="Nome Completo" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -50,12 +50,13 @@
         	</h:panelGroup>
         	<b:inputText id="bairroMedico" value="#{manterMedicoManagedBean.medico.bairro}" />
         	
-        	
 	       	<h:panelGroup>
 		       	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
 	       	</h:panelGroup>
-       		<b:inputText id="cidadeMedico" value="#{manterMedicoManagedBean.medico.cidade}"/>
-       		<b:inputText id="UFMedico" value="#{manterMedicoManagedBean.medico.UF}" mask="AA" span="5"/>
+        	<b:panelGrid size="xs" columns="2">
+	       		<b:inputText id="cidadeMedico" value="#{manterMedicoManagedBean.medico.cidade}"/>
+	       		<b:inputText id="UFMedico" value="#{manterMedicoManagedBean.medico.UF}" mask="AA" span="5"/>
+        	</b:panelGrid>
         	
         	<h:panelGroup>
 	        	<h:outputText value="Telefone" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -67,12 +68,26 @@
   	</b:panel>
   	
   	<b:dataTable id="tableMedicos" value="#{manterMedicoManagedBean.medicoList}" var="medico" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
-        <b:dataTableColumn value="#{medico.CRM}" label="CRM"/>
+        <b:dataTableColumn data-order="#{medico.CRM}"  label="CRM" >
+        	<h:outputText value="#{medico.CRM}" converter="crmConverter"/>
+        </b:dataTableColumn>
         <b:dataTableColumn data-order="#{medico.dataNascimento}" label="Data Nascimento" >
         	<h:outputText value="#{medico.dataNascimento}">
        			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
             </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
+        <b:dataTableColumn value="#{medico.descricaoSexo.descricao}" label="Sexo"/>
+        <b:dataTableColumn value="#{medico.RG}" label="RG"/>
+        <b:dataTableColumn data-order="#{medico.CPF}" mask="999.999.999-99" label="CPF">
+        	<h:outputText value="#{medico.CPF}" converter="cpfConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{medico.endereco}" label="Endereço"/>
+        <b:dataTableColumn value="#{medico.bairro}" label="Bairro"/>
+        <b:dataTableColumn value="#{medico.cidade}" label="Cidade"/>
+        <b:dataTableColumn value="#{medico.UF}" label="UF"/>
+        <b:dataTableColumn data-order="#{medico.telefone}" label="Telefone" >
+        	<h:outputText value="#{medico.telefone}" converter="telefoneConverter"/>
         </b:dataTableColumn>
         <b:dataTableColumn label="Ações" >
 	       	<div class="btn-group" role="group"  >

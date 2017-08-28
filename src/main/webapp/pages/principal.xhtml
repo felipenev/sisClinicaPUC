@@ -50,15 +50,10 @@
 	                    </b:listLinks>
 	                    <b:listLinks>
 	                        <b:navLink value="Cadastrar Médico" onclick="ajax:navigationManagedBean.setPagina('manterMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterMedico.xhtml'}" />
-	                        <b:navLink value="Usuários" onclick="ajax:navigationManagedBean.setPagina('manterRecepcionista.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterRecepcionista.xhtml'}" />
-	                        <b:navLink value="Nav item again" />
-	                        <b:navLink value="One more nav" />
-	                        <b:navLink value="Another nav item" />
-	                        <b:navLink value="More navigation" />
+	                        <b:navLink value="Cadastrar Recepcionista" onclick="ajax:navigationManagedBean.setPagina('manterRecepcionista.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterRecepcionista.xhtml'}" />
 	                    </b:listLinks>
 	                    <b:listLinks>
-	                        <b:navLink value="Nav item again" />
-	                        <b:navLink value="One more nav" />
+	                        <b:navLink value="Cadastrar Paciente" onclick="ajax:navigationManagedBean.setPagina('manterPaciente.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterPaciente.xhtml'}" />
 	                        <b:navLink value="Another nav item" />
 	                    </b:listLinks>
 	                </b:column>
@@ -111,10 +106,10 @@
 	            padding: 20px;
 	        }
 	        @media (min-width: 768px) {
-	        .main {
-	            padding-left: 40px;
-	            padding-right: 40px;
-	        }
+		        .main {
+		            padding-left: 40px;
+		            padding-right: 40px;
+		        }
 	        }
 	        .main .page-header {
 	            margin-top: 0;
@@ -140,6 +135,8 @@
 	  		<ui:include src="medicamento.xhtml" />
 	  		<ui:include src="agendaMedico.xhtml" />
 	  		<ui:include src="manterMedico.xhtml" />
+	  		<ui:include src="manterRecepcionista.xhtml" />
+	  		<ui:include src="manterPaciente.xhtml" />
 	  	</h:panelGroup>
 
     </h:body>

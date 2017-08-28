@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+	<b:panel id="panelCadastroPaciente" title="Cadastramento de Paciente" look="primary">
+      	<h:panelGrid>
+      		
+            <br/>
+        	<h:panelGroup>
+	        	<h:outputText value="Data Cadastramento : " />
+	        	<h:outputText value="#{manterPacienteManagedBean.paciente.dataCadastro}">
+	       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+	            </h:outputText>
+        	</h:panelGroup>
+	         <br/>
+        	<h:panelGroup>
+	        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+			<p:calendar id="idDataNascPaciente" value="#{manterPacienteManagedBean.paciente.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" navigator="true" locale="pt_BR" maxdate="#{manterPacienteManagedBean.dataAtual}"/>
+        	<br/>
+        	<h:panelGroup>
+	        	<h:outputText value="Nome Completo" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="nomeCompletoPaciente" value="#{manterPacienteManagedBean.paciente.nome}" />
+
+			<b:panelGrid size="xs" columns="2">
+		        <b:radiobutton value="#{manterPacienteManagedBean.paciente.sexo}" itemLabel="Masculino" itemValue="M" />
+		        <b:radiobutton value="#{manterPacienteManagedBean.paciente.sexo}" itemLabel="Feminino" itemValue="F" />
+		    </b:panelGrid>
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="RG" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="RGPaciente" value="#{manterPacienteManagedBean.paciente.RG}"  mask="integer" maxlength="13" styleClass="alinhamento-esquerda"/>
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="CPF" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="CPFPaciente" value="#{manterPacienteManagedBean.paciente.CPF}"  mask="999.999.999-99" converter="cpfConverter" />
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Endereço" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="enderecoPaciente" value="#{manterPacienteManagedBean.paciente.endereco}" />
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Bairro" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="bairroPaciente" value="#{manterPacienteManagedBean.paciente.bairro}" />
+        	
+	       	<h:panelGroup>
+		       	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
+	       	</h:panelGroup>
+        	<b:panelGrid size="xs" columns="2">
+	       		<b:inputText id="cidadePaciente" value="#{manterPacienteManagedBean.paciente.cidade}"/>
+	       		<b:inputText id="UFPaciente" value="#{manterPacienteManagedBean.paciente.UF}" mask="AA" span="5"/>
+        	</b:panelGrid>
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Telefone" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="telefonePaciente" value="#{manterPacienteManagedBean.paciente.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
+
+        	<b:commandButton id="salvarPaciente" value="Cadastrar" action="#{manterPacienteManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
+  	</b:panel>
+  	
+  	<b:dataTable id="tablePacientes" value="#{manterPacienteManagedBean.pacienteList}" var="paciente" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn data-order="#{paciente.dataCadastro}"  label="Data Admissão" >
+        	<h:outputText value="#{paciente.dataCadastro}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn data-order="#{paciente.dataNascimento}" label="Data Nascimento" >
+        	<h:outputText value="#{paciente.dataNascimento}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{paciente.nome}" order="asc" label="Nome"/>
+        <b:dataTableColumn value="#{paciente.descricaoSexo.descricao}" label="Sexo"/>
+        <b:dataTableColumn value="#{paciente.RG}" label="RG"/>
+        <b:dataTableColumn data-order="#{paciente.CPF}" mask="999.999.999-99" label="CPF">
+        	<h:outputText value="#{paciente.CPF}" converter="cpfConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{paciente.endereco}" label="Endereço"/>
+        <b:dataTableColumn value="#{paciente.bairro}" label="Bairro"/>
+        <b:dataTableColumn value="#{paciente.cidade}" label="Cidade"/>
+        <b:dataTableColumn value="#{paciente.UF}" label="UF"/>
+        <b:dataTableColumn data-order="#{paciente.telefone}" label="Telefone" >
+        	<h:outputText value="#{paciente.telefone}" converter="telefoneConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn label="Ações" >
+	       	<div class="btn-group" role="group"  >
+	           	<b:commandButton icon="edit" ajax="true" action="#{manterPacienteManagedBean.carregarAlteracao(paciente)}" update="formPrincipal" />
+	       	</div>
+	       	<div class="btn-group" role="group" >
+		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirPaciente" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirPaciente').modal();return false;">
+		        	<f:setPropertyActionListener target="#{manterPacienteManagedBean.pacienteExclusao}" value="#{Paciente}" />
+		        </b:commandButton>
+	        </div>
+        	
+       </b:dataTableColumn>
+    </b:dataTable>
+    
+    <b:modal id="modalExcluirPaciente" title="Exclusão">
+        <h:panelGroup id="panelModalExcluirPaciente" layout="block">
+            #{msgs.MSG007}
+        </h:panelGroup>
+        <f:facet name="footer">
+        	<b:button value="Não" dismiss="modal" />
+            <b:commandButton value="Sim" look="danger" action="#{manterPacienteManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirPaciente')).modal('hide');return false;" update="formPrincipal" />
+        </f:facet>
+    </b:modal>
+    
+</ui:fragment>

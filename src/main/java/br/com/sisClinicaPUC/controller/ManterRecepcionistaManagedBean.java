@@ -2,6 +2,7 @@ package br.com.sisClinicaPUC.controller;
 
   import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,8 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
     private Recepcionista recepcionista = new Recepcionista();
     private Recepcionista recepcionistaExclusao = new Recepcionista();
     private List<Recepcionista> recepcionistaList = new ArrayList<Recepcionista>();
+    
+    private Date dataAtual = new Date();
     
     public ManterRecepcionistaManagedBean() {}
 
@@ -95,11 +98,11 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 	public boolean validarCampos() {
 		boolean valid = true;
 
-		if(!Util.isDateNotNull(this.getRecepcionista().getDataAdmissao())) {
+		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getNome())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getNome())) {
+		if(!Util.isDateNotNull(this.getRecepcionista().getDataAdmissao())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -140,6 +143,10 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getRecepcionista().getTelefone())) {
+			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			valid = false;
+		}
+		if(!Util.isTelefoneValido(this.getRecepcionista().getTelefone())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -186,6 +193,14 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 
 	public void setRecepcionistaList(List<Recepcionista> recepcionistaList) {
 		this.recepcionistaList = recepcionistaList;
+	}
+
+	public Date getDataAtual() {
+		return dataAtual;
+	}
+
+	public void setDataAtual(Date dataAtual) {
+		this.dataAtual = dataAtual;
 	}
 
 }

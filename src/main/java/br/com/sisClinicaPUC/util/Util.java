@@ -11,6 +11,8 @@ public class Util {
 	public static final int TAMANHO_CPF = 11;
 	public static final int TAMANHO_TELEFONE = 11;
 	public static final String MASCARA_CPF = "###.###.###-##";
+	public static final String MASCARA_CRM = "####/UU";
+	public static final String MASCARA_TELEFONE = "(##)#####-####";
 
 	public static boolean isStringNotBlankOrNotNull(String str) {
 		return str != null && !str.isEmpty() && !"null".equals(str) && !"".equals(str);

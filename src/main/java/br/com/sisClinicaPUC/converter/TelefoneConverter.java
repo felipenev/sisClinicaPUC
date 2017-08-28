@@ -10,18 +10,26 @@ import br.com.sisClinicaPUC.util.Util;
 
 public class TelefoneConverter implements Converter {
 
-  public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
 	  
-    if (value == null) {
-      return null;
-    }
-    
-    String telefone = (String) value;
-    if(telefone != null && telefone.length() == Util.TAMANHO_TELEFONE) {
-    	telefone = Util.removeNoNumbers(telefone);
-    }
+		if (value == null) {
+			return null;
+		}
+		
+		try {
+			String telefone = (String) value;
+		    if(telefone != null && telefone.length() == Util.TAMANHO_TELEFONE) {
+		    	telefone = Util.formatarString(Util.MASCARA_TELEFONE, telefone);
+		    }
 
-    return telefone;
+		    return telefone;
+			
+		} catch (Exception e) {
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
+			
+			throw new ConverterException(facesMessage);
+		}
+    
   }
 
   public Object getAsObject(FacesContext context, UIComponent component, String value) {

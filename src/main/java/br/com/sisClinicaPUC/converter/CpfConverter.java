@@ -20,15 +20,21 @@ public class CpfConverter implements Converter {
           * Irá converter CPF não formatado para um com pontos e traço.
           * Ex.: 35524519887 torna-se 355.245.198-87.
           */
-		  if(value == null) {
-			  return null;
-		  }
-          String cpf= (String) value;
-          if (cpf != null && cpf.length() == Util.TAMANHO_CPF)
-               cpf = Util.removeNoNumbers(cpf);
+		  try {
+			  
+			  if(value == null) {
+				  return null;
+			  }
+	          String cpf= (String) value;
+	          if (cpf != null && cpf.length() == Util.TAMANHO_CPF)
+	               cpf = Util.formatarString(Util.MASCARA_CPF, cpf);
 //               cpf = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
- 
-          return cpf;
+	          return cpf;
+		  } catch (Exception e) {
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
+			
+			throw new ConverterException(facesMessage);
+		  }
      }
 	
      public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {

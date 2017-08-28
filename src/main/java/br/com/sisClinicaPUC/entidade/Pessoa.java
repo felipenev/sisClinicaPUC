@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import br.com.sisClinicaPUC.vo.SexoEnum;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 @MappedSuperclass
@@ -21,6 +22,7 @@ public abstract class Pessoa implements Serializable{
     private Long id;
 	private String nome;
 	private String sexo;
+	private String tipoSanguineo;
 	private Long RG;
 	private String CPF;
 	private String endereco;
@@ -109,6 +111,18 @@ public abstract class Pessoa implements Serializable{
 
 	public void setAtivoInaivo(SituacaoEnum ativoInaivo) {
 		this.ativoInaivo = ativoInaivo.getCodigo();
+	}
+	
+	public SexoEnum getDescricaoSexo(){
+		return SexoEnum.getValor(this.sexo);
+	}
+
+	public String getTipoSanguineo() {
+		return tipoSanguineo;
+	}
+
+	public void setTipoSanguineo(String tipoSanguineo) {
+		this.tipoSanguineo = tipoSanguineo;
 	}
 	
 }
