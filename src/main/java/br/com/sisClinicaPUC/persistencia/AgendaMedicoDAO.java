@@ -7,7 +7,7 @@ import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
-	public class AgendaMedicoDAO extends GenericDao<AgendaMedico, Long>{
+	public class AgendaMedicoDAO extends GenericDAO<AgendaMedico, Long>{
 		
 		private static final long serialVersionUID = 1L;
 

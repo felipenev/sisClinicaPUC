@@ -7,7 +7,7 @@ import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
-	public class MedicamentoDAO extends GenericDao<Medicamento, Long>{
+	public class MedicamentoDAO extends GenericDAO<Medicamento, Long>{
 		
 		private static final long serialVersionUID = 1L;
 

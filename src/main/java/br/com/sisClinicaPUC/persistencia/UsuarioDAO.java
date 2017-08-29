@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import br.com.sisClinicaPUC.entidade.Usuario;
    
    
-  public class UsuarioDAO extends GenericDao<Usuario, Long>{
+  public class UsuarioDAO extends GenericDAO<Usuario, Long>{
    
 	private static final long serialVersionUID = 1L;
 

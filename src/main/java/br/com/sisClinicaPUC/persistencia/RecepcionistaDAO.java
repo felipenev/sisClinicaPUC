@@ -7,7 +7,7 @@ import br.com.sisClinicaPUC.entidade.Recepcionista;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
-	public class RecepcionistaDAO extends GenericDao<Recepcionista, Long>{
+	public class RecepcionistaDAO extends GenericDAO<Recepcionista, Long>{
 		
 		private static final long serialVersionUID = 1L;
 
