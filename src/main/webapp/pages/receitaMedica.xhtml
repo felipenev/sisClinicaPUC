@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+	<b:panel id="panelCadastroReceitaMedica" title="Cadastramento de Receita Médica" look="primary">
+      	<h:panelGrid>
+      		
+        	<h:panelGroup>
+	        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedicoResponsavel" value="nome medico responsavel" />
+        	</h:panelGroup>
+
+        	<br />
+        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" colMd="2" required="true" label="Paciente " labelColMd="2">
+            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var=paciente"" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+        	</b:selectOneMenu>
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" />
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" />
+        	<br/>
+        	
+        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterMedicoManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
+  	</b:panel>
+  	
+  	<b:dataTable id="tableMedicos" value="#{manterMedicoManagedBean.medicoList}" var="medico" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn data-order="#{medico.CRM}"  label="CRM" >
+        	<h:outputText value="#{medico.CRM}" converter="crmConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn data-order="#{medico.dataNascimento}" label="Data Nascimento" >
+        	<h:outputText value="#{medico.dataNascimento}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
+        <b:dataTableColumn value="#{medico.descricaoSexo.descricao}" label="Sexo"/>
+        <b:dataTableColumn value="#{medico.RG}" label="RG"/>
+        <b:dataTableColumn data-order="#{medico.CPF}" mask="999.999.999-99" label="CPF">
+        	<h:outputText value="#{medico.CPF}" converter="cpfConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{medico.endereco}" label="Endereço"/>
+        <b:dataTableColumn value="#{medico.bairro}" label="Bairro"/>
+        <b:dataTableColumn value="#{medico.cidade}" label="Cidade"/>
+        <b:dataTableColumn value="#{medico.UF}" label="UF"/>
+        <b:dataTableColumn data-order="#{medico.telefone}" label="Telefone" >
+        	<h:outputText value="#{medico.telefone}" converter="telefoneConverter"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn label="Ações" >
+        	
+       </b:dataTableColumn>
+    </b:dataTable>
+    
+</ui:fragment>

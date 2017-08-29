@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.sisClinicaPUC.vo.PerfilEnum;
  
 @Entity
 public class Usuario implements Serializable{
@@ -28,6 +30,9 @@ public class Usuario implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date ultimoAcesso;
 	  
+	@Column(name="perfil", nullable=false, unique=false)
+	private String perfil;
+	
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
@@ -51,4 +56,21 @@ public class Usuario implements Serializable{
 	public void setUltimoAcesso(Date ultimoAcesso) {
 		this.ultimoAcesso = ultimoAcesso;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public PerfilEnum getPerfil() {
+		return PerfilEnum.getValor(this.perfil);
+	}
+
+	public void setPerfil(PerfilEnum perfil) {
+		this.perfil = perfil.getCodigo();
+	}
+	
  }

@@ -48,6 +48,11 @@
 		<managed-bean-class>br.com.sisClinicaPUC.controller.ManterPacienteManagedBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>manterReceitaMedicaManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.ManterReceitaMedicaManagedBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
  
 	<!--  	Converters 		-->
 	 <converter>

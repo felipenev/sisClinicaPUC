@@ -1,6 +1,7 @@
 package br.com.sisClinicaPUC.util;
 
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.swing.text.MaskFormatter;
@@ -53,7 +54,12 @@ public class Util {
 			return crm.length() >= TAMANHO_CRM;
 		}
 		return false;
-	}  
+	}
+	
+	public static boolean isColecaoVazia(Collection<?> lista) {
+		return lista != null && !lista.isEmpty();
+	}
+	
 	/**
 	 * Baseado na String original retorna uma String apenas com os caracteres
 	 * numéricos.
@@ -119,4 +125,5 @@ public class Util {
         return "";
     }
 
+    
 }

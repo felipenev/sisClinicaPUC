@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
    
@@ -38,6 +39,10 @@ public class LoginManagedBean implements Serializable{
         }
    
         public String irTelaPrincipal() {
+        	
+        	//TODO:FIX ME - Terminar login
+        	Medico med = new Medico();
+        	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("medico", med);
         	
 			return "home";
         }

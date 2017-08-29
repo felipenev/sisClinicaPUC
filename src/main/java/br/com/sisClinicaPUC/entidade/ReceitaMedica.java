@@ -1,6 +1,7 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,6 +29,11 @@ public class ReceitaMedica implements Serializable{
 	public ReceitaMedica() {
 	}
 	
+	public ReceitaMedica(Medico medico) {
+		this.setMedico(medico);
+		this.setDataEmissao(new Date());
+	}
+	
 	@Id
 	@GeneratedValue
     @Column(name="id_receita", nullable=false, unique=true)
@@ -36,7 +42,7 @@ public class ReceitaMedica implements Serializable{
     @Column(name="descricao_receita", nullable=false, unique=false)
     private String descricaoReceita;
       
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy="agendaMedico")
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Medicamento> medicamentoList;
 
     @OneToOne
@@ -44,6 +50,9 @@ public class ReceitaMedica implements Serializable{
     
     @ManyToOne
     private Paciente paciente;
+    
+    @Column(name="data_emissao", nullable=false)
+	private Date dataEmissao;
 
 	public Long getId() {
 		return id;
@@ -84,5 +93,13 @@ public class ReceitaMedica implements Serializable{
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-  
+
+	public Date getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+	
  }

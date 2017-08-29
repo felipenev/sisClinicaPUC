@@ -9,21 +9,23 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.ReceitaMedica;
+import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.ReceitaMedicaDAO;
 import br.com.sisClinicaPUC.util.Util;
-import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
 @Named
 @ViewScoped
-public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcionista> implements Serializable{
+public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMedica> implements Serializable{
    
 	private static final long serialVersionUID = 1L;
 	
-	private RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
-    private Recepcionista recepcionista = new Recepcionista();
-    private Recepcionista recepcionistaExclusao = new Recepcionista();
-    private List<Recepcionista> recepcionistaList = new ArrayList<Recepcionista>();
+	private ReceitaMedicaDAO receitaMedicaDAO = new ReceitaMedicaDAO();
+	private PacienteDAO pacienteDAO = new PacienteDAO();
+    private ReceitaMedica receitaMedica = new ReceitaMedica();
+    private List<ReceitaMedica> receitaMedicaList = new ArrayList<ReceitaMedica>();
+    private List<Paciente> pacienteList = new ArrayList<Paciente>();
     
     private Date dataAtual = new Date();
     
@@ -31,15 +33,15 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
 
     @PostConstruct
 	public void init() {
-    	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de Recepcionista !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    	this.setRecepcionista(new Recepcionista());
-		this.setRecepcionistaExclusao(new Recepcionista());
-		carregarRecepcionistaAtivoList();
+    	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de ReceitaMedica !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    	this.setReceitaMedica(new ReceitaMedica(this.getMedicoSessao()));
+		carregarReceitaMedicaPorMedicoList();
+		carregarPacienteList();
 	}
     
-    public void inserirAlterar() {
-    	if(Util.isValueNotBlankOrNotEmpty(this.getRecepcionista().getId())) {
-    		alterar(this.getRecepcionista());
+	public void inserirAlterar() {
+    	if(Util.isValueNotBlankOrNotEmpty(this.getReceitaMedica().getId())) {
+    		alterar(this.getReceitaMedica());
     	}else {
     		inserir();
     	}
@@ -48,22 +50,20 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getRecepcionistaDAO().inserir(this.getRecepcionista());
+    		boolean inclusao = this.getReceitaMedicaDAO().inserir(this.getReceitaMedica());
     		if (inclusao) {
-    			recepcionista = new Recepcionista();
-    			carregarRecepcionistaAtivoList();
+    			init();
     			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
     		}
     	}
 	}
 	
 	@Override
-	public void alterar(Recepcionista recepcionista) {
+	public void alterar(ReceitaMedica ReceitaMedica) {
 		if(validarCampos()) {
-			boolean alteracao = this.getRecepcionistaDAO().alterar(recepcionista);
+			boolean alteracao = this.getReceitaMedicaDAO().alterar(ReceitaMedica);
 			if (alteracao) {
-				this.setRecepcionista(new Recepcionista());
-				carregarRecepcionistaAtivoList();
+				init();
 				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 			}
 		}
@@ -71,25 +71,14 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
 	}
 
 	@Override
-	public void excluir() {
-		//Exclusao logica
-		this.getRecepcionistaExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
-		boolean exclusao = this.getRecepcionistaDAO().alterar(this.getRecepcionistaExclusao());
-		if(exclusao) {
-			this.setRecepcionista(new Recepcionista());
-			this.setRecepcionistaExclusao(new Recepcionista());
-			carregarRecepcionistaAtivoList();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
-		}
-		
-	}
+	public void excluir() {}
 	
 	@Override
-	public void excluir(Recepcionista recepcionista) {}
+	public void excluir(ReceitaMedica ReceitaMedica) {}
 
-	public void carregarAlteracao(Recepcionista recepcionistaAlterar) {
-		this.setRecepcionista(recepcionistaAlterar);
-		this.getRecepcionistaList().remove(recepcionistaAlterar);
+	public void carregarAlteracao(ReceitaMedica ReceitaMedicaAlterar) {
+		this.setReceitaMedica(ReceitaMedicaAlterar);
+		this.getReceitaMedicaList().remove(ReceitaMedicaAlterar);
 	}
 	
 	/**
@@ -98,55 +87,19 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
 	public boolean validarCampos() {
 		boolean valid = true;
 
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getNome())) {
+		if(!Util.isObjectNotNull(this.getReceitaMedica().getMedico())) {
+			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG999");
+			valid = false;
+		}
+		if(!Util.isObjectNotNull(this.getReceitaMedica().getPaciente())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isDateNotNull(this.getRecepcionista().getDataAdmissao())) {
+		if(!Util.isStringNotBlankOrNotNull(this.getReceitaMedica().getDescricaoReceita())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getSexo())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isObjectNotNull(this.getRecepcionista().getRG())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isObjectNotNull(this.getRecepcionista().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isCPFValido(this.getRecepcionista().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG006");
-			valid = false;
-		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getEndereco())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getBairro())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getCidade())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getUF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isDateNotNull(this.getRecepcionista().getDataNascimento())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isObjectNotNull(this.getRecepcionista().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
-			valid = false;
-		}
-		if(!Util.isTelefoneValido(this.getRecepcionista().getTelefone())) {
+		if(!Util.isColecaoVazia(this.getReceitaMedica().getMedicamentoList())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -155,44 +108,41 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
 	}
 
 	/**
-	 * Carrega as recepcionistas ativos que podem ser apresentados
+	 * Carrega as receitas dos medicos
 	 * 
 	 */
-	private void carregarRecepcionistaAtivoList() {
-		this.setRecepcionistaList(new ArrayList<Recepcionista>());
-		this.getRecepcionistaList().addAll(this.getRecepcionistaDAO().getRecepcionistaAtivoList());
+	private void carregarReceitaMedicaPorMedicoList() {
+		this.setReceitaMedicaList(new ArrayList<ReceitaMedica>());
+		this.getReceitaMedicaList().addAll(this.getReceitaMedicaDAO().getReceitasPorMedicoList(this.getMedicoSessao()));
+	}
+	
+	private void carregarPacienteList() {
+		this.setPacienteList(new ArrayList<>());
+		this.getPacienteList().addAll(this.getPacienteDAO().getPacienteAtivoList());
 	}
 
-	public RecepcionistaDAO getRecepcionistaDAO() {
-		return recepcionistaDAO;
+	public ReceitaMedicaDAO getReceitaMedicaDAO() {
+		return receitaMedicaDAO;
 	}
 
-	public void setRecepcionistaDAO(RecepcionistaDAO recepcionistaDAO) {
-		this.recepcionistaDAO = recepcionistaDAO;
+	public void setReceitaMedicaDAO(ReceitaMedicaDAO receitaMedicaDAO) {
+		this.receitaMedicaDAO = receitaMedicaDAO;
 	}
 
-	public Recepcionista getRecepcionista() {
-		return recepcionista;
+	public ReceitaMedica getReceitaMedica() {
+		return receitaMedica;
 	}
 
-	public void setRecepcionista(Recepcionista recepcionista) {
-		this.recepcionista = recepcionista;
+	public void setReceitaMedica(ReceitaMedica receitaMedica) {
+		this.receitaMedica = receitaMedica;
 	}
 
-	public Recepcionista getRecepcionistaExclusao() {
-		return recepcionistaExclusao;
+	public List<ReceitaMedica> getReceitaMedicaList() {
+		return receitaMedicaList;
 	}
 
-	public void setRecepcionistaExclusao(Recepcionista recepcionistaExclusao) {
-		this.recepcionistaExclusao = recepcionistaExclusao;
-	}
-
-	public List<Recepcionista> getRecepcionistaList() {
-		return recepcionistaList;
-	}
-
-	public void setRecepcionistaList(List<Recepcionista> recepcionistaList) {
-		this.recepcionistaList = recepcionistaList;
+	public void setReceitaMedicaList(List<ReceitaMedica> receitaMedicaList) {
+		this.receitaMedicaList = receitaMedicaList;
 	}
 
 	public Date getDataAtual() {
@@ -201,6 +151,22 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<Recepcion
 
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
+	}
+
+	public List<Paciente> getPacienteList() {
+		return pacienteList;
+	}
+
+	public void setPacienteList(List<Paciente> pacienteList) {
+		this.pacienteList = pacienteList;
+	}
+
+	public PacienteDAO getPacienteDAO() {
+		return pacienteDAO;
+	}
+
+	public void setPacienteDAO(PacienteDAO pacienteDAO) {
+		this.pacienteDAO = pacienteDAO;
 	}
 
 }

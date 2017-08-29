@@ -39,6 +39,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 
     @PostConstruct
 	public void init() {
+    	//TODO: COLOCAR NOME DO MEDICO NA TELA
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Inicializei o AgendaMedicamentoManagedBean!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		this.setAgendaMedico(new AgendaMedico());
 		this.setAgendaMedicoExclusao(new AgendaMedico());
