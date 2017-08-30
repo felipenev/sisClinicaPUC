@@ -9,8 +9,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.ReceitaMedica;
+import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.ReceitaMedicaDAO;
 import br.com.sisClinicaPUC.util.Util;
@@ -23,13 +25,17 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 	
 	private ReceitaMedicaDAO receitaMedicaDAO = new ReceitaMedicaDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
+	private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
     private ReceitaMedica receitaMedica = new ReceitaMedica();
     private List<ReceitaMedica> receitaMedicaList = new ArrayList<ReceitaMedica>();
     private List<Paciente> pacienteList = new ArrayList<Paciente>();
+    private List<Medicamento> medicamentoList = new ArrayList<Medicamento>();
     
     private Date dataAtual = new Date();
     
-    public ManterReceitaMedicaManagedBean() {}
+    public ManterReceitaMedicaManagedBean() {
+    	System.out.println("teste inicializacao");
+    }
 
     @PostConstruct
 	public void init() {
@@ -37,6 +43,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     	this.setReceitaMedica(new ReceitaMedica(this.getMedicoSessao()));
 		carregarReceitaMedicaPorMedicoList();
 		carregarPacienteList();
+		carregarMedicamentoAtivoList();
 	}
     
 	public void inserirAlterar() {
@@ -120,6 +127,11 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		this.setPacienteList(new ArrayList<>());
 		this.getPacienteList().addAll(this.getPacienteDAO().getPacienteAtivoList());
 	}
+	
+	public void carregarMedicamentoAtivoList() {
+		this.setMedicamentoList(new ArrayList<Medicamento>());
+		this.getMedicamentoList().addAll(this.getMedicamentoDAO().getMedicamentoAtivoList());
+	}
 
 	public ReceitaMedicaDAO getReceitaMedicaDAO() {
 		return receitaMedicaDAO;
@@ -167,6 +179,22 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 
 	public void setPacienteDAO(PacienteDAO pacienteDAO) {
 		this.pacienteDAO = pacienteDAO;
+	}
+
+	public List<Medicamento> getMedicamentoList() {
+		return medicamentoList;
+	}
+
+	public void setMedicamentoList(List<Medicamento> medicamentoList) {
+		this.medicamentoList = medicamentoList;
+	}
+
+	public MedicamentoDAO getMedicamentoDAO() {
+		return medicamentoDAO;
+	}
+
+	public void setMedicamentoDAO(MedicamentoDAO medicamentoDAO) {
+		this.medicamentoDAO = medicamentoDAO;
 	}
 
 }

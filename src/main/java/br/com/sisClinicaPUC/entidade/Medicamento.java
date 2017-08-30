@@ -13,13 +13,15 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "medicamento.MEDICAMENTO_POR_SITUACAO", query = "select m from Medicamento m where m.ativoInaivo = :situacao")
+	  @NamedQuery(name = "medicamento.MEDICAMENTO_POR_SITUACAO", query = "select m from Medicamento m where m.ativoInaivo = :situacao"),
+	  @NamedQuery(name = "medicamento.MEDICAMENTO_POR_ID", query = "select m from Medicamento m where m.id in :id")
 })
 public class Medicamento implements Serializable{
       
 	private static final long serialVersionUID = 1L;
 
 	public static final String MEDICAMENTO_POR_SITUACAO = "medicamento.MEDICAMENTO_POR_SITUACAO";
+	public static final String MEDICAMENTO_POR_ID = "medicamento.MEDICAMENTO_POR_ID";
 
 	public Medicamento() {
 		this.setAtivoInaivo(SituacaoEnum.ATIVO);
@@ -41,7 +43,6 @@ public class Medicamento implements Serializable{
 	
 	@Column(name="ativo_inativo", nullable=false, unique=false)
 	private String ativoInaivo;
-	
 
 	public Long getId() {
 		return id;
@@ -82,5 +83,30 @@ public class Medicamento implements Serializable{
 	public void setAtivoInaivo(SituacaoEnum ativoInaivo) {
 		this.ativoInaivo = ativoInaivo.getCodigo();
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Medicamento other = (Medicamento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
  }

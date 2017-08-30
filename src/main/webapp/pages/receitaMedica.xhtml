@@ -11,54 +11,51 @@
       	<h:panelGrid>
       		
         	<h:panelGroup>
-	        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedicoResponsavel" value="nome medico responsavel" />
+	        	<h:outputText value="Data Emissão: " /><h:outputText id="idDataEmissaoReceita" value="#{manterReceitaMedicaManagedBean.receitaMedica.dataEmissao}" >
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>	        		
+	        	</h:outputText>
+        	</h:panelGroup>
+        	<h:panelGroup>
+	        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedResponsavel" value="#{manterReceitaMedicaManagedBean.receitaMedica.medico.nome}" />
         	</h:panelGroup>
 
         	<br />
-        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" colMd="2" required="true" label="Paciente " labelColMd="2">
-            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var=paciente"" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" label="Paciente " labelColMd="2">
+            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
         	</b:selectOneMenu>
         	
+        	
+        	<p:selectManyMenu id="idMedicamentoReceitaPesquisa" value="#{manterReceitaMedicaManagedBean.receitaMedica.medicamentoList}" converter="medicamentoReceitaConverter" 
+        						var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
+	            <f:selectItems value="#{manterReceitaMedicaManagedBean.medicamentoList}" var="medicamento" itemLabel="#{medicamento.nomeDeFabrica}" itemValue="#{medicamento}" />
+	 
+	            <p:column>
+	                <h:outputText value="#{m.nomeDeFabrica}" />
+	            </p:column>
+	        </p:selectManyMenu>
+        	
+        	<br />
         	<h:panelGroup>
 	        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" />
+        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" maxlength="500" />
         	
-        	<h:panelGroup>
-	        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" />
-        	<br/>
-        	
-        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterMedicoManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterReceitaMedicaManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>
   	
-  	<b:dataTable id="tableMedicos" value="#{manterMedicoManagedBean.medicoList}" var="medico" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{medico.CRM}"  label="CRM" >
-        	<h:outputText value="#{medico.CRM}" converter="crmConverter"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn data-order="#{medico.dataNascimento}" label="Data Nascimento" >
-        	<h:outputText value="#{medico.dataNascimento}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
-        <b:dataTableColumn value="#{medico.descricaoSexo.descricao}" label="Sexo"/>
-        <b:dataTableColumn value="#{medico.RG}" label="RG"/>
-        <b:dataTableColumn data-order="#{medico.CPF}" mask="999.999.999-99" label="CPF">
-        	<h:outputText value="#{medico.CPF}" converter="cpfConverter"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{medico.endereco}" label="Endereço"/>
-        <b:dataTableColumn value="#{medico.bairro}" label="Bairro"/>
-        <b:dataTableColumn value="#{medico.cidade}" label="Cidade"/>
-        <b:dataTableColumn value="#{medico.UF}" label="UF"/>
-        <b:dataTableColumn data-order="#{medico.telefone}" label="Telefone" >
-        	<h:outputText value="#{medico.telefone}" converter="telefoneConverter"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn label="Ações" >
+  	
+  	<b:dataTable id="tableReceitaMedica" value="#{manterReceitaMedicaManagedBean.receitaMedicaList}" var="rec" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn value="#{rec.dataEmissao}" order="asc" label="Data Emissão"/>
+        <b:dataTableColumn value="" label="Medicamento"/>
+        <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
+        <b:dataTableColumn label="Ações">
+       	<div class="btn-group" role="group"  >
+           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+       	</div>
         	
        </b:dataTableColumn>
     </b:dataTable>
+  	
     
 </ui:fragment>

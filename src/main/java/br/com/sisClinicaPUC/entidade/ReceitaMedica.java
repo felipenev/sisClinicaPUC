@@ -2,6 +2,7 @@ package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,17 +10,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({
 	  @NamedQuery(name = "receitaMedica.RECEITA_POR_MEDICO", query = "select rm from ReceitaMedica rm where rm.medico.id = :idMedico")
 })
+
 public class ReceitaMedica implements Serializable{
       
 	private static final long serialVersionUID = 1L;
@@ -32,17 +39,22 @@ public class ReceitaMedica implements Serializable{
 	public ReceitaMedica(Medico medico) {
 		this.setMedico(medico);
 		this.setDataEmissao(new Date());
+		this.setMedicamentoList(new HashSet<Medicamento>());
 	}
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_receitamedica")
+    @SequenceGenerator(name="sequence_receitamedica", sequenceName="sequence_receitamedica", allocationSize=1)
     @Column(name="id_receita", nullable=false, unique=true)
     private Long id;
 	
-    @Column(name="descricao_receita", nullable=false, unique=false)
+    @Column(name="descricao_receita", length=500)
     private String descricaoReceita;
-      
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(name = "receitamedica_medicamento", joinColumns = { @JoinColumn(name = "id_receita", nullable = false, updatable = false) },
+//										inverseJoinColumns = { @JoinColumn(name = "id_medicamento", nullable = false, updatable = false) })
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     private Set<Medicamento> medicamentoList;
 
     @OneToOne
@@ -51,7 +63,7 @@ public class ReceitaMedica implements Serializable{
     @ManyToOne
     private Paciente paciente;
     
-    @Column(name="data_emissao", nullable=false)
+    @Column(name="data_emissao")
 	private Date dataEmissao;
 
 	public Long getId() {
@@ -101,5 +113,5 @@ public class ReceitaMedica implements Serializable{
 	public void setDataEmissao(Date dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
-	
- }
+
+}

@@ -9,30 +9,30 @@
 
 	<b:panel id="panelMedicamento" title="Cadastramento de Medicamento" look="primary">
       	<h:panelGrid>
-      	
-        	<h:panelGroup>
-	        	<h:outputText value="Nome Fabricante" /><h:outputText value="*" styleClass="obrigatorio" />
-	        </h:panelGroup>
-        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
 
+			<h:panelGroup>
+    	    	<h:outputText value="Nome de Fábrica" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
+      	
         	<h:panelGroup>
 	        	<h:outputText value="Nome Genérico" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
         	<b:inputText id="nomeGenerico" value="#{medicamentoManagedBean.medicamento.nomeGenerico}" />
         	
         	<h:panelGroup>
-    	    	<h:outputText value="Nome de Fábrica" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
+	        	<h:outputText value="Nome Fabricante" /><h:outputText value="*" styleClass="obrigatorio" />
+	        </h:panelGroup>
+        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
 
         	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>
   	
   	<b:dataTable id="tableMedicamentos" value="#{medicamentoManagedBean.medicamentoList}" var="med" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn value="#{med.nomeFabricante}" order="asc" label="Nome Fabricante"/>
+        <b:dataTableColumn value="#{med.nomeDeFabrica}" order="asc" label="Nome de Fábrica"/>
         <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
-        <b:dataTableColumn value="#{med.nomeDeFabrica}" label="Nome de Fábrica"/>
+        <b:dataTableColumn value="#{med.nomeFabricante}" label="Nome Fabricante"/>
         <b:dataTableColumn label="Ações">
        	<div class="btn-group" role="group"  >
            	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />

@@ -1,6 +1,7 @@
 package br.com.sisClinicaPUC.persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,42 +40,66 @@ private Class<T> persistedClass;
    }
 
    public T salvar(@Valid T entity) {
-       EntityTransaction t = getEntityManager().getTransaction();
-       t.begin();
-       getEntityManager().persist(entity);
-       getEntityManager().flush();
-       t.commit();
-       return entity;
+	   	try {
+	   		EntityTransaction t = getEntityManager().getTransaction();
+	   		t.begin();
+	   		getEntityManager().persist(entity);
+	   		getEntityManager().flush();
+	   		t.commit();
+	   		return entity;
+	   	} catch (Exception e) {
+	   		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+   		}
+	return entity;
    }
 
    public T atualizar(@Valid T entity) {
-       EntityTransaction t = getEntityManager().getTransaction();
-       t.begin();
-       getEntityManager().merge(entity);
-       getEntityManager().flush();
-       t.commit();
-       return entity;
+	   try {
+		   EntityTransaction t = getEntityManager().getTransaction();
+	       t.begin();
+	       getEntityManager().merge(entity);
+	       getEntityManager().flush();
+	       t.commit();
+	       return entity;
+   		} catch (Exception e) {
+   			this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+		}
+	   return entity;
    }
 
    public void remover(I id) {
-       T entity = encontrar(id);
-       EntityTransaction tx = getEntityManager().getTransaction();
-       tx.begin();
-       T mergedEntity = getEntityManager().merge(entity);
-       getEntityManager().remove(mergedEntity);
-       getEntityManager().flush();
-       tx.commit();
+	   try {
+		   T entity = encontrar(id);
+	       EntityTransaction tx = getEntityManager().getTransaction();
+	       tx.begin();
+	       T mergedEntity = getEntityManager().merge(entity);
+	       getEntityManager().remove(mergedEntity);
+	       getEntityManager().flush();
+	       tx.commit();
+	   } catch (Exception e) {
+		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }
    }
 
    public List<T> getList() {
-       CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-       CriteriaQuery<T> query = builder.createQuery(persistedClass);
-       query.from(persistedClass);
-       return getEntityManager().createQuery(query).getResultList();
+	   try {
+		   CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		   CriteriaQuery<T> query = builder.createQuery(persistedClass);
+		   query.from(persistedClass);
+		   return getEntityManager().createQuery(query).getResultList();
+	   } catch (Exception e) {
+		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }
+	   return new ArrayList<T>();
    }
 
    public T encontrar(I id) {
-       return getEntityManager().find(persistedClass, id);
+	   try {
+		   return getEntityManager().find(persistedClass, id);
+	   } catch (Exception e) {
+		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }
+	   return null;
    }
 
 	public EntityManager getEntityManager() {

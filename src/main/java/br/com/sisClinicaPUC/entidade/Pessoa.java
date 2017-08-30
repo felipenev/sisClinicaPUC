@@ -20,20 +20,26 @@ public abstract class Pessoa implements Serializable{
 	@GeneratedValue
     @Column(name="id", nullable=false, unique=true)
     private Long id;
+	@Column(length = 500)
 	private String nome;
+	@Column(length = 500)
 	private String sexo;
 	private String tipoSanguineo;
 	private Long RG;
 	private String CPF;
+	@Column(length = 500)
 	private String endereco;
+	@Column(length = 500)
 	private String bairro;
+	@Column(length = 500)
 	private String cidade;
+	@Column(length = 2)
 	private String UF;
-	@Column(name="data_nascimento", nullable=false, unique=false)
+	@Column(name="data_nascimento")
 	private Date dataNascimento;
+	@Column(length = 500)
 	private String telefone;
-	
-	@Column(name="ativo_inativo", nullable=false, unique=false)
+	@Column(name="ativo_inativo")
 	private String ativoInaivo;
 	
 	public Long getId() {

@@ -2,6 +2,7 @@ package br.com.sisClinicaPUC.persistencia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -59,5 +60,25 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		return new ArrayList<Medicamento>();
 	    	}
 	    }
+
+		public List<Medicamento> getMedicamentoPorIdList(Set<Medicamento> medicamentoList) {
+			try {
+				List<Long> idList = new ArrayList<Long>();
+				idList = recuperaIds(medicamentoList);
+	    		List<Medicamento> medicamentoPorIdList = getEntityManager().createNamedQuery(Medicamento.MEDICAMENTO_POR_ID, Medicamento.class).setParameter("id", idList).getResultList();
+	    		return medicamentoPorIdList;
+	    	} catch (Exception e) {
+	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		return new ArrayList<Medicamento>();
+	    	}
+		}
+
+		private List<Long> recuperaIds(Set<Medicamento> medicamentoList) {
+			List<Long> list = new ArrayList<Long>();
+			for (Medicamento m : medicamentoList) {
+				list.add(m.getId());
+			}
+			return list;
+		}
 
 	}

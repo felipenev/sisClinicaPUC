@@ -50,7 +50,7 @@
 	                    <b:listLinks>
 	                        <b:navLink header="Menu Médico" />
 	                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'agendaMedico.xhtml'}" />
-	                        <b:navLink value="Receita" onclick="ajax:navigationManagedBean.setPagina('receitaMedica.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'receitaMedica.xhtml'}" />
+	                        <b:navLink value="Receita" onclick="ajax:navigationManagedBean.setPagina('receitaMedica.xhtml')" update="formPrincipal conteudo" active="#{navigationManagedBean.pagina == 'receitaMedica.xhtml'}" />
 	                    </b:listLinks>
 	                    <b:listLinks>
 	                        <b:navLink header="Menu Recepcionista" />
@@ -139,6 +139,7 @@
 	  		<ui:include src="manterMedico.xhtml" />
 	  		<ui:include src="manterRecepcionista.xhtml" />
 	  		<ui:include src="manterPaciente.xhtml" />
+	  		<ui:include src="receitaMedica.xhtml" />
 	  	</h:panelGroup>
 
     </h:body>

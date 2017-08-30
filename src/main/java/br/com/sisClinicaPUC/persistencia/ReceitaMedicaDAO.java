@@ -15,32 +15,32 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 			super(ReceitaMedica.class);
 		}
 	  
-	    public boolean inserir(ReceitaMedica ReceitaMedica) {
+	    public boolean inserir(ReceitaMedica receitaMedica) {
 	    	try {
-	    		this.salvar(ReceitaMedica);
+	    		this.salvar(receitaMedica);
 	            return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	            return false;
 	    	}
 		}
 	    
-	    public boolean alterar(ReceitaMedica ReceitaMedica) {
+	    public boolean alterar(ReceitaMedica receitaMedica) {
 	    	try {
-	    		this.atualizar(ReceitaMedica);
+	    		this.atualizar(receitaMedica);
 	    		return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	    		return false;
 	    	}
 	    }
 	    
-	    public boolean excluir(ReceitaMedica ReceitaMedica) {
+	    public boolean excluir(ReceitaMedica receitaMedica) {
 	    	try {
-	    		this.remover(ReceitaMedica.getId());
+	    		this.remover(receitaMedica.getId());
 	    		return true;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	    		return false;
 	    	}
 	    }
@@ -55,7 +55,7 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 	    		List<ReceitaMedica> receitaMedicaList = getEntityManager().createNamedQuery(ReceitaMedica.RECEITA_POR_MEDICO, ReceitaMedica.class).setParameter("idMedico", medico.getId()).getResultList();
 	    		return receitaMedicaList;
 	    	} catch (Exception e) {
-	    		this.tratarMensagemErro(null, e.getMessage(), "");
+	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	    		return new ArrayList<ReceitaMedica>();
 	    	}
 	    }

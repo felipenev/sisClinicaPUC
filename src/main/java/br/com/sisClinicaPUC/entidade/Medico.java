@@ -17,6 +17,7 @@ public class Medico extends Pessoa {
       
 	private static final long serialVersionUID = 1L;
 	
+	@Column(length = 500)
 	public static final String MEDICO_POR_SITUACAO = "medico.MEDICO_POR_SITUACAO";
 
 	public Medico() {

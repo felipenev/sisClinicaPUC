@@ -75,6 +75,11 @@
 	    <converter-id>crmConverter</converter-id>
 	    <converter-class>br.com.sisClinicaPUC.converter.CRMConverter</converter-class>
 	</converter>
+	 <converter>
+	    <description>Medicamento Receita converter</description>
+	    <converter-id>medicamentoReceitaConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.MedicamentoReceitaConverter</converter-class>
+	</converter>
 	 
  	<!-- Geral -->
 	<navigation-rule>

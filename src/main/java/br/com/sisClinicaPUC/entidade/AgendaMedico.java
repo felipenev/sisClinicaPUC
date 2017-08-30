@@ -25,6 +25,7 @@ public class AgendaMedico implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(length = 500)
 	public static final String AGENDA_MEDICO_POR_SITUACAO = "agendaMedico.AGENDA_MEDICO_POR_SITUACAO";
 
 	public AgendaMedico() {
