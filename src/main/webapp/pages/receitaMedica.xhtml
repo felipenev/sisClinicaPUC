@@ -26,9 +26,10 @@
         	
         	
         	<p:selectManyMenu id="idMedicamentoReceitaPesquisa" value="#{manterReceitaMedicaManagedBean.receitaMedica.medicamentoList}" converter="medicamentoReceitaConverter" 
-        						var="m" filter="true" filterMatchMode="contains" showCheckbox="true">
+        						var="m" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
 	            <f:selectItems value="#{manterReceitaMedicaManagedBean.medicamentoList}" var="medicamento" itemLabel="#{medicamento.nomeDeFabrica}" itemValue="#{medicamento}" />
-	 
+	            
+	 			<f:attribute name="collectionType" value="java.util.HashSet" />
 	            <p:column>
 	                <h:outputText value="#{m.nomeDeFabrica}" />
 	            </p:column>
@@ -46,12 +47,16 @@
   	
   	
   	<b:dataTable id="tableReceitaMedica" value="#{manterReceitaMedicaManagedBean.receitaMedicaList}" var="rec" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn value="#{rec.dataEmissao}" order="asc" label="Data Emissão"/>
-        <b:dataTableColumn value="" label="Medicamento"/>
+        <b:dataTableColumn data-order="#{rec.dataEmissao}" order="asc" label="Data Emissão">
+        	<h:outputText value="#{rec.dataEmissao}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{rec.medicamentosPrescritos}" label="Medicamento"/>
         <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
         <b:dataTableColumn label="Ações">
        	<div class="btn-group" role="group"  >
-           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formPrincipal" />
        	</div>
         	
        </b:dataTableColumn>

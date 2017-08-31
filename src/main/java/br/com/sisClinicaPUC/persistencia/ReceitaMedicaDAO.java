@@ -1,7 +1,9 @@
 package br.com.sisClinicaPUC.persistencia;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.ReceitaMedica;
@@ -50,10 +52,14 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 	     * 
 	     * @return
 	     */
-	    public List<ReceitaMedica> getReceitasPorMedicoList(Medico medico) {
+	    @SuppressWarnings("unchecked")
+		public List<ReceitaMedica> getReceitasPorMedicoList(Medico medico) {
 	    	try {
 	    		List<ReceitaMedica> receitaMedicaList = getEntityManager().createNamedQuery(ReceitaMedica.RECEITA_POR_MEDICO, ReceitaMedica.class).setParameter("idMedico", medico.getId()).getResultList();
-	    		return receitaMedicaList;
+	    		Set<ReceitaMedica> receitaSet = new HashSet<ReceitaMedica>(receitaMedicaList);
+	    		List<ReceitaMedica> retorno = new ArrayList<ReceitaMedica>(receitaSet);
+	    		
+	    		return retorno;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	    		return new ArrayList<ReceitaMedica>();

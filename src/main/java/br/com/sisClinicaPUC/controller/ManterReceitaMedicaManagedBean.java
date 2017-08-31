@@ -66,9 +66,9 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 	}
 	
 	@Override
-	public void alterar(ReceitaMedica ReceitaMedica) {
+	public void alterar(ReceitaMedica receitaMedica) {
 		if(validarCampos()) {
-			boolean alteracao = this.getReceitaMedicaDAO().alterar(ReceitaMedica);
+			boolean alteracao = this.getReceitaMedicaDAO().alterar(receitaMedica);
 			if (alteracao) {
 				init();
 				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
@@ -81,11 +81,11 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 	public void excluir() {}
 	
 	@Override
-	public void excluir(ReceitaMedica ReceitaMedica) {}
+	public void excluir(ReceitaMedica receitaMedica) {}
 
-	public void carregarAlteracao(ReceitaMedica ReceitaMedicaAlterar) {
-		this.setReceitaMedica(ReceitaMedicaAlterar);
-		this.getReceitaMedicaList().remove(ReceitaMedicaAlterar);
+	public void carregarAlteracao(ReceitaMedica receitaMedicaAlterar) {
+		this.setReceitaMedica(receitaMedicaAlterar);
+		this.getReceitaMedicaList().remove(receitaMedicaAlterar);
 	}
 	
 	/**

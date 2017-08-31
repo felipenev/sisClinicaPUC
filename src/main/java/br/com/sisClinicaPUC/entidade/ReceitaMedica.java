@@ -1,8 +1,10 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,7 +26,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "receitaMedica.RECEITA_POR_MEDICO", query = "select rm from ReceitaMedica rm where rm.medico.id = :idMedico")
+	  @NamedQuery(name = "receitaMedica.RECEITA_POR_MEDICO", query = "select rm from ReceitaMedica rm JOIN FETCH rm.medicamentoList where rm.medico.id = :idMedico")
 })
 
 public class ReceitaMedica implements Serializable{
@@ -54,7 +56,7 @@ public class ReceitaMedica implements Serializable{
 //    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@JoinTable(name = "receitamedica_medicamento", joinColumns = { @JoinColumn(name = "id_receita", nullable = false, updatable = false) },
 //										inverseJoinColumns = { @JoinColumn(name = "id_medicamento", nullable = false, updatable = false) })
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Medicamento> medicamentoList;
 
     @OneToOne
@@ -114,4 +116,13 @@ public class ReceitaMedica implements Serializable{
 		this.dataEmissao = dataEmissao;
 	}
 
+	public String getMedicamentosPrescritos() {
+		List<String> medList = new ArrayList<String>();
+		for (Medicamento med : this.getMedicamentoList()) {
+			medList.add(med.getNomeDeFabrica());
+		}
+		String retorno = String.join(", ", medList);
+		
+		return retorno;
+	}
 }
