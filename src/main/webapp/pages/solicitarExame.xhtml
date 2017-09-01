@@ -10,10 +10,10 @@
 	<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
       	<h:panelGrid>
 
-			<h:panelGroup>
-    	    	<h:outputText value="Nome de Fábrica" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="nomeDeFrabrica" value="#{medicamentoManagedBean.medicamento.nomeDeFabrica}" />
+			<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" label="Paciente " labelColMd="2">
+        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+        	</b:selectOneMenu>
       	
         	<h:panelGroup>
 	        	<h:outputText value="Nome Genérico" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -29,31 +29,4 @@
         </h:panelGrid>
   	</b:panel>
   	
-  	<b:dataTable id="tableMedicamentos" value="#{medicamentoManagedBean.medicamentoList}" var="med" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn value="#{med.nomeDeFabrica}" order="asc" label="Nome de Fábrica"/>
-        <b:dataTableColumn value="#{med.nomeGenerico}" label="Nome Genérico"/>
-        <b:dataTableColumn value="#{med.nomeFabricante}" label="Nome Fabricante"/>
-        <b:dataTableColumn label="Ações">
-       	<div class="btn-group" role="group"  >
-           	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
-       	</div>
-       	<div class="btn-group" role="group" >
-	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
-	        	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
-	        </b:commandButton>
-        </div>
-        	
-       </b:dataTableColumn>
-    </b:dataTable>
-    
-    <b:modal id="modalExcluirMedicamento" title="Exclusão">
-        <h:panelGroup id="panelModalExcluirMedicamento" layout="block">
-            #{msgs.MSG007}
-        </h:panelGroup>
-        <f:facet name="footer">
-        	<b:button value="Não" dismiss="modal" />
-            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedicamento')).modal('hide');return false;" update="formPrincipal" />
-        </f:facet>
-    </b:modal>
-    
 </ui:fragment>

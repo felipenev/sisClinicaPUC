@@ -1,19 +1,19 @@
 package br.com.sisClinicaPUC.persistencia;
 
-import br.com.sisClinicaPUC.entidade.SolicitarExame;
+import br.com.sisClinicaPUC.entidade.Exame;
    
    
-	public class SolicitarExameDAO extends GenericDAO<SolicitarExame, Long>{
+	public class ExameDAO extends GenericDAO<Exame, Long>{
 		
 		private static final long serialVersionUID = 1L;
 
-		public SolicitarExameDAO() {
-			super(SolicitarExame.class);
+		public ExameDAO() {
+			super(Exame.class);
 		}
 	  
-	    public boolean inserir(SolicitarExame solicitarExame) {
+	    public boolean inserir(Exame exame) {
 	    	try {
-	    		this.salvar(solicitarExame);
+	    		this.salvar(exame);
 	            return true;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
@@ -21,9 +21,9 @@ import br.com.sisClinicaPUC.entidade.SolicitarExame;
 	    	}
 		}
 	    
-	    public boolean alterar(SolicitarExame solicitarExame) {
+	    public boolean alterar(Exame exame) {
 	    	try {
-	    		this.atualizar(solicitarExame);
+	    		this.atualizar(exame);
 	    		return true;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
@@ -31,9 +31,9 @@ import br.com.sisClinicaPUC.entidade.SolicitarExame;
 	    	}
 	    }
 	    
-	    public boolean excluir(SolicitarExame solicitarExame) {
+	    public boolean excluir(Exame exame) {
 	    	try {
-	    		this.remover(solicitarExame.getId());
+	    		this.remover(exame.getId());
 	    		return true;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");

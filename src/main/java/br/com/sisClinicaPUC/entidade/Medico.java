@@ -11,7 +11,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "medico.MEDICO_POR_SITUACAO", query = "select m from Medico m where m.ativoInaivo = :situacao")
+	  @NamedQuery(name = "medico.MEDICO_POR_SITUACAO", query = "select m from Medico m where m.ativoInaivo = :situacao order by m.nome")
 })
 public class Medico extends Pessoa {
       

@@ -52,7 +52,6 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 	     * 
 	     * @return
 	     */
-	    @SuppressWarnings("unchecked")
 		public List<ReceitaMedica> getReceitasPorMedicoList(Medico medico) {
 	    	try {
 	    		List<ReceitaMedica> receitaMedicaList = getEntityManager().createNamedQuery(ReceitaMedica.RECEITA_POR_MEDICO, ReceitaMedica.class).setParameter("idMedico", medico.getId()).getResultList();

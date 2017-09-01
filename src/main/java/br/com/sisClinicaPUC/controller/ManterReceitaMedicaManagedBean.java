@@ -33,9 +33,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     
     private Date dataAtual = new Date();
     
-    public ManterReceitaMedicaManagedBean() {
-    	System.out.println("teste inicializacao");
-    }
+    public ManterReceitaMedicaManagedBean() {}
 
     @PostConstruct
 	public void init() {

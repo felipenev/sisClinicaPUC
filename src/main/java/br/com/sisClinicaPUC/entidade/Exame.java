@@ -1,39 +1,53 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
 
 @Entity
 public class Exame implements Serializable{
       
 	private static final long serialVersionUID = 1L;
 
-	public Exame() {
+	public Exame() {}
+	
+	public Exame(Medico medico) {
+		this.setMedico(medico);
+		this.setExameSolicitadoList(new HashSet<ExameSolicitado>());
+		this.setDataSolicitacao(new Date());
 	}
+
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_exame")
-    @SequenceGenerator(name="sequence_exame", sequenceName="sequence_exame", allocationSize=1)
-    @Column(name="id_exame", nullable=false, unique=true)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_solicitacao_exame")
+    @SequenceGenerator(name="sequence_solicitacao_exame", sequenceName="sequence_solicitacao_exame", allocationSize=1)
+    @Column(name="id_solicitacao_exame", nullable=false, unique=true)
     private Long id;
 	
-    @ManyToOne
-    private TipoExame tipoExame;
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    private Set<ExameSolicitado> exameSolicitadoList;
+
+	@ManyToOne
+	private Medico medico;
     
-    private String situacaoExame;
-
-    @Column(name="resultado", length=500)
-    private String resultado;
-
+    @ManyToOne
+    private Paciente paciente;
+    
+    @Column(name="data_solicitacao")
+	private Date dataSolicitacao;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,28 +56,36 @@ public class Exame implements Serializable{
 		this.id = id;
 	}
 
-	public TipoExame getTipoExame() {
-		return tipoExame;
+	public Set<ExameSolicitado> getExameSolicitadoList() {
+		return exameSolicitadoList;
 	}
 
-	public void setTipoExame(TipoExame tipoExame) {
-		this.tipoExame = tipoExame;
+	public void setExameSolicitadoList(Set<ExameSolicitado> exameSolicitadoList) {
+		this.exameSolicitadoList = exameSolicitadoList;
 	}
 
-	public SituacaoExameEnum getSituacaoExame() {
-		return SituacaoExameEnum.getValor(this.situacaoExame);
+	public Medico getMedico() {
+		return medico;
 	}
 
-	public void setSituacaoExame(SituacaoExameEnum situacaoExame) {
-		this.situacaoExame = situacaoExame.getCodigo();
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
 
-	public String getResultado() {
-		return resultado;
+	public Paciente getPaciente() {
+		return paciente;
 	}
 
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public Date getDataSolicitacao() {
+		return dataSolicitacao;
+	}
+
+	public void setDataSolicitacao(Date dataSolicitacao) {
+		this.dataSolicitacao = dataSolicitacao;
 	}
 
 }

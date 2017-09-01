@@ -21,6 +21,7 @@
 
         	<br />
         	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" label="Paciente " labelColMd="2">
+        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
             	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
         	</b:selectOneMenu>
         	
