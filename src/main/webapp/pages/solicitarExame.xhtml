@@ -10,22 +10,29 @@
 	<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
       	<h:panelGrid>
 
-			<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" label="Paciente " labelColMd="2">
+        	<h:panelGroup>
+	        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+			<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
         	 	<f:selectItem itemLabel="Selecione" itemValue="" />
-            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
         	</b:selectOneMenu>
       	
+        	<br />
         	<h:panelGroup>
-	        	<h:outputText value="Nome Genérico" /><h:outputText value="*" styleClass="obrigatorio" />
+	        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<b:inputText id="nomeGenerico" value="#{medicamentoManagedBean.medicamento.nomeGenerico}" />
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="Nome Fabricante" /><h:outputText value="*" styleClass="obrigatorio" />
-	        </h:panelGroup>
-        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
-
-        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<p:selectManyMenu id="idSolicitarExamePesquisa" value="#{solicitarExameManagedBean.exame.exameSolicitadoList}" converter="solicitarExameConverter" 
+        						var="e" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
+	            <f:selectItems value="#{solicitarExameManagedBean.exameSolicitadoList}" var="exameSolicitado" itemLabel="#{exameSolicitado.tipoExame.descricaoExame}" itemValue="#{exameSolicitado}" />
+	            
+	 			<f:attribute name="collectionType" value="java.util.HashSet" />
+	            <p:column>
+	                <h:outputText value="#{e.tipoExame.descricaoExame}" />
+	            </p:column>
+	        </p:selectManyMenu>
+	        
+        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>
   	

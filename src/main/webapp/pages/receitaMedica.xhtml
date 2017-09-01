@@ -20,12 +20,20 @@
         	</h:panelGroup>
 
         	<br />
-        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" label="Paciente " labelColMd="2">
+        	
+        	<h:panelGroup>
+	        	<h:outputText value="Paciente" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+        	
+        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
         	 	<f:selectItem itemLabel="Selecione" itemValue="" />
             	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
         	</b:selectOneMenu>
         	
-        	
+        	<br />
+        	<h:panelGroup>
+	        	<h:outputText value="Medicamento" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
         	<p:selectManyMenu id="idMedicamentoReceitaPesquisa" value="#{manterReceitaMedicaManagedBean.receitaMedica.medicamentoList}" converter="medicamentoReceitaConverter" 
         						var="m" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
 	            <f:selectItems value="#{manterReceitaMedicaManagedBean.medicamentoList}" var="medicamento" itemLabel="#{medicamento.nomeDeFabrica}" itemValue="#{medicamento}" />

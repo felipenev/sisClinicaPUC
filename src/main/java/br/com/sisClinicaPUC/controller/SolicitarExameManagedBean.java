@@ -119,7 +119,7 @@ private static final long serialVersionUID = 1L;
 	 */
 	private void carregarSolicitacoesExamePorMedicoList() {
 		// TODO Auto-generated method stub
-		
+		//Para tabela que sera mostrada embaixo
 	}
 	
 	//TODO:Carregar pacientes da consulta do medico

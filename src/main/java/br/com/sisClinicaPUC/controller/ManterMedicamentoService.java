@@ -22,10 +22,6 @@ public class ManterMedicamentoService {
     	carregarMedicamentoAtivoList();
     }
      
-    public List<Medicamento> getMedicamentosDisponivelList() {
-        return medicamentoDisponivelList;
-    }
-    
     public void carregarMedicamentoAtivoList() {
 		this.setMedicamentoDisponivelList(new ArrayList<Medicamento>());
 		this.getMedicamentoDisponivelList().addAll(this.getMedicamentoDAO().getMedicamentoAtivoList());
@@ -48,7 +44,7 @@ public class ManterMedicamentoService {
 	}
 
 	public Medicamento getMedicamentosDisponivelPorId(long id) {
-		for (Medicamento medicamento : medicamentoDisponivelList) {
+		for (Medicamento medicamento : this.getMedicamentoDisponivelList()) {
 			if(medicamento.getId().equals(id))
 				return medicamento;
 		}

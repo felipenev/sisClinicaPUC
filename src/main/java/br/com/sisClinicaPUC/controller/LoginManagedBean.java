@@ -42,9 +42,8 @@ public class LoginManagedBean implements Serializable{
         	
         	//TODO:FIX ME - Terminar login
         	Medico med = new Medico();
-        	med.setId(34L);
-        	med.setNome("medico 1");
-        	ManterMedicamentoService m = new ManterMedicamentoService();
+        	med.setId(2L);
+        	med.setNome("medico 1 teste");
         	
         	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("medico", med);
         	

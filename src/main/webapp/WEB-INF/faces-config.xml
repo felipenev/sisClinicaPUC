@@ -85,6 +85,11 @@
 	    <converter-id>medicamentoReceitaConverter</converter-id>
 	    <converter-class>br.com.sisClinicaPUC.converter.MedicamentoReceitaConverter</converter-class>
 	</converter>
+	 <converter>
+	    <description>Solicitar Exame converter</description>
+	    <converter-id>solicitarExameConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.SolicitarExameConverter</converter-class>
+	</converter>
 	 
  	<!-- Geral -->
 	<navigation-rule>
