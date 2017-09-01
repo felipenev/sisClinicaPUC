@@ -1,6 +1,6 @@
 package br.com.sisClinicaPUC.controller;
 
-  import java.io.Serializable;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.Exame;
-import br.com.sisClinicaPUC.entidade.ExameSolicitado;
 import br.com.sisClinicaPUC.entidade.Paciente;
+import br.com.sisClinicaPUC.entidade.TipoExame;
 import br.com.sisClinicaPUC.persistencia.ExameDAO;
 import br.com.sisClinicaPUC.persistencia.ExameSolicitadoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
@@ -26,12 +26,12 @@ private static final long serialVersionUID = 1L;
 	
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
-	private ExameSolicitadoDAO exameSolicitadoDAO = new ExameSolicitadoDAO();
+//	private ExameSolicitadoDAO exameSolicitadoDAO = new ExameSolicitadoDAO();
 	private TipoExameDAO tipoExameDAO = new TipoExameDAO();
     private Exame exame = new Exame();
     private List<Exame> exameList = new ArrayList<Exame>();
     private List<Paciente> pacienteList = new ArrayList<Paciente>();
-    private List<ExameSolicitado> exameSolicitadoList = new ArrayList<ExameSolicitado>();
+    private List<TipoExame> tipoExameList = new ArrayList<TipoExame>();
     
     private Date dataAtual = new Date();
 
@@ -46,7 +46,7 @@ private static final long serialVersionUID = 1L;
     	this.setExame(new Exame(this.getMedicoSessao()));
 		carregarSolicitacoesExamePorMedicoList();
 		carregarPacienteMedicoList();
-		carregarExameSolicitadoList();
+		carregarTipoExameList();
 	}
     
 	public void inserirAlterar() {
@@ -105,7 +105,7 @@ private static final long serialVersionUID = 1L;
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isColecaoVazia(this.getExame().getExameSolicitadoList())){
+		if(!Util.isColecaoVazia(this.getExame().getTipoExameList())){
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -132,12 +132,12 @@ private static final long serialVersionUID = 1L;
 	}
 
 	/**
-	 * Carrega os exames que podem ser solicitados pelo medico
+	 * Carrega os tipos de exames disponiveis para solicitacao.
 	 */
-	private void carregarExameSolicitadoList() {
+	private void carregarTipoExameList() {
 		// TODO Auto-generated method stub
-		this.setExameSolicitadoList(new ArrayList<ExameSolicitado>());
-		this.getExameSolicitadoList().addAll(this.getExameSolicitadoDAO().getExameSolicitadoDisponivelList(tipoExameDAO));
+		this.setTipoExameList(new ArrayList<TipoExame>());
+		this.getTipoExameList().addAll(this.getTipoExameDAO().getList());
 	}
 	
 	//GETTERS AND SETTERS
@@ -155,14 +155,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setPacienteDAO(PacienteDAO pacienteDAO) {
 		this.pacienteDAO = pacienteDAO;
-	}
-
-	public ExameSolicitadoDAO getExameSolicitadoDAO() {
-		return exameSolicitadoDAO;
-	}
-
-	public void setExameSolicitadoDAO(ExameSolicitadoDAO exameSolicitadoDAO) {
-		this.exameSolicitadoDAO = exameSolicitadoDAO;
 	}
 
 	public Exame getExame() {
@@ -189,20 +181,28 @@ private static final long serialVersionUID = 1L;
 		this.pacienteList = pacienteList;
 	}
 
-	public List<ExameSolicitado> getExameSolicitadoList() {
-		return exameSolicitadoList;
-	}
-
-	public void setExameSolicitadoList(List<ExameSolicitado> exameSolicitadoList) {
-		this.exameSolicitadoList = exameSolicitadoList;
-	}
-
 	public Date getDataAtual() {
 		return dataAtual;
 	}
 
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
+	}
+
+	public TipoExameDAO getTipoExameDAO() {
+		return tipoExameDAO;
+	}
+
+	public void setTipoExameDAO(TipoExameDAO tipoExameDAO) {
+		this.tipoExameDAO = tipoExameDAO;
+	}
+
+	public List<TipoExame> getTipoExameList() {
+		return tipoExameList;
+	}
+
+	public void setTipoExameList(List<TipoExame> tipoExameList) {
+		this.tipoExameList = tipoExameList;
 	}
 
 }

@@ -22,7 +22,7 @@
         	<h:panelGroup>
 	        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-        	<p:selectManyMenu id="idSolicitarExamePesquisa" value="#{solicitarExameManagedBean.exame.exameSolicitadoList}" converter="solicitarExameConverter" 
+        	<p:selectManyMenu id="idSolicitarExamePesquisa" value="#{solicitarExameManagedBean.exame.exameSolicitadoList}" converter="tipoExameConverter" 
         						var="e" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
 	            <f:selectItems value="#{solicitarExameManagedBean.exameSolicitadoList}" var="exameSolicitado" itemLabel="#{exameSolicitado.tipoExame.descricaoExame}" itemValue="#{exameSolicitado}" />
 	            
@@ -32,6 +32,7 @@
 	            </p:column>
 	        </p:selectManyMenu>
 	        
+	        <br />
         	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>

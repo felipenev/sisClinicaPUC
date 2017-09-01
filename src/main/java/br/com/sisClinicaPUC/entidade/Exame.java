@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
+
 @Entity
 public class Exame implements Serializable{
       
@@ -25,19 +27,19 @@ public class Exame implements Serializable{
 	
 	public Exame(Medico medico) {
 		this.setMedico(medico);
-		this.setExameSolicitadoList(new HashSet<ExameSolicitado>());
+		this.setTipoExameList(new HashSet<TipoExame>());
 		this.setDataSolicitacao(new Date());
+		this.setSituacaoExame(SituacaoExameEnum.AGUARDANDO_RESULTADO);
 	}
 
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_solicitacao_exame")
-    @SequenceGenerator(name="sequence_solicitacao_exame", sequenceName="sequence_solicitacao_exame", allocationSize=1)
-    @Column(name="id_solicitacao_exame", nullable=false, unique=true)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_exame")
+    @SequenceGenerator(name="sequence_exame", sequenceName="sequence_exame", allocationSize=1)
+    @Column(name="sequence_exame", nullable=false, unique=true)
     private Long id;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    private Set<ExameSolicitado> exameSolicitadoList;
+    private Set<TipoExame> tipoExameList;
 
 	@ManyToOne
 	private Medico medico;
@@ -45,9 +47,14 @@ public class Exame implements Serializable{
     @ManyToOne
     private Paciente paciente;
     
+    private String situacaoExame;
+
+    @Column(name="resultado", length=1000)
+    private String resultado;
+    
     @Column(name="data_solicitacao")
 	private Date dataSolicitacao;
-	
+    
 	public Long getId() {
 		return id;
 	}
@@ -56,12 +63,12 @@ public class Exame implements Serializable{
 		this.id = id;
 	}
 
-	public Set<ExameSolicitado> getExameSolicitadoList() {
-		return exameSolicitadoList;
+	public Set<TipoExame> getTipoExameList() {
+		return tipoExameList;
 	}
 
-	public void setExameSolicitadoList(Set<ExameSolicitado> exameSolicitadoList) {
-		this.exameSolicitadoList = exameSolicitadoList;
+	public void setTipoExameList(Set<TipoExame> tipoExameList) {
+		this.tipoExameList = tipoExameList;
 	}
 
 	public Medico getMedico() {
@@ -86,6 +93,22 @@ public class Exame implements Serializable{
 
 	public void setDataSolicitacao(Date dataSolicitacao) {
 		this.dataSolicitacao = dataSolicitacao;
+	}
+	
+	public SituacaoExameEnum getSituacaoExame() {
+		return SituacaoExameEnum.getValor(this.situacaoExame);
+	}
+
+	public void setSituacaoExame(SituacaoExameEnum situacaoExame) {
+		this.situacaoExame = situacaoExame.getCodigo();
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
 	}
 
 }

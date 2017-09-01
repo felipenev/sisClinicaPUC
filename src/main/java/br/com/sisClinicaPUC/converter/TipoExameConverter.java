@@ -9,7 +9,7 @@ import javax.faces.convert.ConverterException;
 import br.com.sisClinicaPUC.controller.ExameSolicitadoService;
 import br.com.sisClinicaPUC.entidade.ExameSolicitado;
 
-public class SolicitarExameConverter implements Converter {
+public class TipoExameConverter implements Converter {
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {

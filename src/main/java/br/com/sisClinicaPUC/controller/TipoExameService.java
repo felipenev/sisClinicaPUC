@@ -7,15 +7,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import br.com.sisClinicaPUC.entidade.ExameSolicitado;
 import br.com.sisClinicaPUC.persistencia.ExameSolicitadoDAO;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 
-@ManagedBean(name="exameSolicitadoService", eager = true)
+@ManagedBean(name="tipoExameService", eager = true)
 @ApplicationScoped
-public class ExameSolicitadoService {
+public class TipoExameService {
      
-	private ExameSolicitadoDAO exameSolicitadoDAO = new ExameSolicitadoDAO();
 	private TipoExameDAO tipoExameDAO = new TipoExameDAO();
     private List<ExameSolicitado> exameSolicitadoList;
      

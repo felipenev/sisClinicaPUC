@@ -1,3 +1,5 @@
+
+--TABLES--
 DROP TABLE IF EXISTS agendamedico CASCADE;
 DROP TABLE IF EXISTS dataatendimento CASCADE;
 DROP TABLE IF EXISTS medicamento CASCADE;
@@ -8,5 +10,11 @@ DROP TABLE IF EXISTS receitamedica_medicamento CASCADE;
 DROP TABLE IF EXISTS tipoexame CASCADE;
 DROP TABLE IF EXISTS recepcionista CASCADE;
 DROP TABLE IF EXISTS usuario CASCADE;
+DROP TABLE IF EXISTS exame CASCADE;
+DROP TABLE IF EXISTS exame_examesolicitado CASCADE;
+DROP TABLE IF EXISTS examesolicitado CASCADE;
 
-
+--SEQUENCES--
+DROP SEQUENCE sequence_solicitacao_exame;
+DROP SEQUENCE sequence_receitamedica;
+DROP SEQUENCE sequence_exame;

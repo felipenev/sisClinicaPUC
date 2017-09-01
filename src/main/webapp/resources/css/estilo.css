@@ -15,3 +15,7 @@
 .alinhamento-esquerda {
 	text-align: right !important;
 }
+
+.ui-selectmanymenu {
+	width: 100% !important;
+}
