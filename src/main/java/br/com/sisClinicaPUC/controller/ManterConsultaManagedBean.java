@@ -10,9 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.entidade.Consulta;
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Paciente;
+import br.com.sisClinicaPUC.persistencia.AgendaMedicoDAO;
 import br.com.sisClinicaPUC.persistencia.ConsultaDAO;
 import br.com.sisClinicaPUC.persistencia.MedicoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
@@ -28,11 +30,13 @@ private static final long serialVersionUID = 1L;
 	private ConsultaDAO consultaDAO = new ConsultaDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
 	private MedicoDAO medicoDAO = new MedicoDAO();
+	private AgendaMedicoDAO agendaMedicoDAO = new AgendaMedicoDAO();
     private Consulta consulta = new Consulta();
     private Consulta consultaExclusao = new Consulta();
     private List<Consulta> consultaList = new ArrayList<Consulta>();
     private List<Paciente> pacienteList = new ArrayList<Paciente>();
     private List<Medico> medicoList = new ArrayList<Medico>();
+    private List<AgendaMedico> agendaMedicoList = new ArrayList<AgendaMedico>();
     
     public ManterConsultaManagedBean() {
     	//TODO:
@@ -111,14 +115,14 @@ private static final long serialVersionUID = 1L;
 		boolean valid = true;
 
 		if(!Util.isObjectNotNull(this.getConsulta().getPaciente())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG999");
+			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getConsulta().getMedico())) {
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
-		if(!Util.isDateNotNull(this.getConsulta().getDataConsulta())){
+		if(!Util.isObjectNotNull(this.getConsulta().getAgendaMedico())){
 			this.tratarMensagemErro("formPrincipal:growlMsgm");
 			valid = false;
 		}
@@ -126,8 +130,10 @@ private static final long serialVersionUID = 1L;
 		return valid;
 	}
 
-	public void alterarCalendario() {
-		System.out.println("Alterei o medico " + this.getConsulta().getMedico().getId());
+	public void alterarCalendarioMedico() {
+		if(Util.isObjectNotNull(this.getConsulta().getMedico())) {
+			this.setAgendaMedicoList(this.getAgendaMedicoDAO().getAgendaMedicoList(this.getConsulta().getMedico()));
+		}
 	}
 	
 	/**
@@ -244,6 +250,22 @@ private static final long serialVersionUID = 1L;
 		result[2] = String.format("'%s'", sdf.format(cal3.getTime()));
 
 		return result;
+	}
+
+	public AgendaMedicoDAO getAgendaMedicoDAO() {
+		return agendaMedicoDAO;
+	}
+
+	public void setAgendaMedicoDAO(AgendaMedicoDAO agendaMedicoDAO) {
+		this.agendaMedicoDAO = agendaMedicoDAO;
+	}
+
+	public List<AgendaMedico> getAgendaMedicoList() {
+		return agendaMedicoList;
+	}
+
+	public void setAgendaMedicoList(List<AgendaMedico> agendaMedicoList) {
+		this.agendaMedicoList = agendaMedicoList;
 	}
 	
 }

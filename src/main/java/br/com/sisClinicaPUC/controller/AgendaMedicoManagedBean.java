@@ -34,11 +34,10 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 
     @PostConstruct
 	public void init() {
-    	//TODO: COLOCAR NOME DO MEDICO NA TELA
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Inicializei o AgendaMedicamentoManagedBean!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		this.setAgendaMedico(new AgendaMedico(this.getMedicoSessao()));
 		this.setAgendaMedicoExclusao(new AgendaMedico());
-		carregarAgendaMedicoAtivoList();
+		carregarAgendaMedicoList();
 	}
     
     public void inserirAlterar() {
@@ -56,7 +55,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
     		boolean inclusao = this.getAgendaMedicoDAO().inserir(this.getAgendaMedico());
     		if (inclusao) {
     			this.setAgendaMedico(new AgendaMedico());
-    			carregarAgendaMedicoAtivoList();
+    			carregarAgendaMedicoList();
     			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
     		}
     	}
@@ -68,7 +67,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 			boolean alteracao = this.getAgendaMedicoDAO().alterar(objeto);
 			if (alteracao) {
 				this.setAgendaMedico(new AgendaMedico());
-				carregarAgendaMedicoAtivoList();
+				carregarAgendaMedicoList();
 				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 			}
 		}
@@ -83,7 +82,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		if(exclusao) {
 			agendaMedico = new AgendaMedico();
 			agendaMedicoExclusao = new AgendaMedico();
-			carregarAgendaMedicoAtivoList();
+			carregarAgendaMedicoList();
 			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
 		}
 		
@@ -94,7 +93,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 
 	public void carregarAlteracao(AgendaMedico agendaMedicoAlterar) {
 		this.setAgendaMedico(new AgendaMedico(this.getMedicoSessao()));
-		carregarAgendaMedicoAtivoList();
+		carregarAgendaMedicoList();
 		AgendaMedico agAlterar = Util.cloneSerializable(agendaMedicoAlterar);
 		this.setAgendaMedico(agAlterar);
 		
@@ -153,9 +152,9 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 	 * Carrega os medicamentos ativos que podem ser apresentados
 	 * 
 	 */
-	private void carregarAgendaMedicoAtivoList() {
+	private void carregarAgendaMedicoList() {
 		this.setAgendaMedicoList(new ArrayList<AgendaMedico>());
-		this.getAgendaMedicoList().addAll(this.getAgendaMedicoDAO().getAgendaMedicoAtivoList());
+		this.getAgendaMedicoList().addAll(this.getAgendaMedicoDAO().getAgendaMedicoList(this.getMedicoSessao()));
 	}
 
 	//Get and Setter

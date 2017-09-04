@@ -58,7 +58,7 @@
 	       	</div>
 	       	<div class="btn-group" role="group" >
 		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirAgendamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirAgendamento').modal();return false;">
-		        	<f:setPropertyActionListener target="#{agendaMedicoManagedBean.agendaMedicoExclusao}" value="#{medico}" />
+		        	<f:setPropertyActionListener target="#{agendaMedicoManagedBean.agendaMedicoExclusao}" value="#{agendaH}" />
 		        </b:commandButton>
 	        </div>
         	

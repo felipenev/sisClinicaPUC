@@ -47,14 +47,16 @@
 			<b:selectOneMenu value="#{manterConsultaManagedBean.consulta.medico}" labelColMd="2">
         	 	<f:selectItem itemLabel="Selecione" itemValue="" />
             	<f:selectItems value="#{manterConsultaManagedBean.medicoList}" var="medico" itemLabel="#{medico.nome}" itemValue="#{medico}" />
-            	<f:ajax listener="#{manterConsultaManagedBean.alterarCalendario}" render="idDataConsulta" />
+            	<f:ajax listener="#{manterConsultaManagedBean.alterarCalendarioMedico}" render="idDataConsulta" />
         	</b:selectOneMenu>	        
 	        <br/>
       		<h:panelGroup>
-	        	<h:outputText value="Data Consulta" /><h:outputText value="*" styleClass="obrigatorio" />
+	        	<h:outputText value="Data Atendimento Médico" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
-			<p:calendar id="idDataConsulta" value="#{manterConsultaManagedBean.consulta.dataConsulta}" beforeShowDay="processDay" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" />
-	        
+			<b:selectOneMenu id="idDataConsulta" value="#{manterConsultaManagedBean.consulta.agendaMedico}" labelColMd="2">
+        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+            	<f:selectItems value="#{manterConsultaManagedBean.agendaMedicoList}" var="agenda" itemLabel="#{agenda.apresentacaoCompleta}" itemValue="#{agenda}" />
+        	</b:selectOneMenu>	        
 	        <br />
         	<b:commandButton id="salvarManterConsulta" value="Cadastrar" action="#{manterConsultaManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
@@ -62,8 +64,8 @@
 
 
   	<b:dataTable id="tableConsulta" value="#{manterConsultaManagedBean.consultaList}" var="cons" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{cons.dataConsulta}" order="asc" label="Data Consulta">
-        	<h:outputText value="#{cons.dataConsulta}">
+        <b:dataTableColumn data-order="#{cons.agendaMedico.apresentacaoCompleta}" order="asc" label="Data Consulta">
+        	<h:outputText value="#{cons.agendaMedico.apresentacaoCompleta}">
        			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
             </h:outputText>
         </b:dataTableColumn>
@@ -74,7 +76,7 @@
         </b:dataTableColumn>
         <b:dataTableColumn label="Ação">
 	       	<div class="btn-group" role="group" >
-		       	<b:commandButton icon="trash" look="danger" update="panelModalCancelarConsulta" process="@this" oncomplete="$('#formPrincipal\\:modalCancelarConsulta').modal();return false;">
+		       	<b:commandButton icon="trash" look="danger" rendered="#{!cons.situacaoCancelada}" update="panelModalCancelarConsulta" process="@this" oncomplete="$('#formPrincipal\\:modalCancelarConsulta').modal();return false;">
 		        	<f:setPropertyActionListener target="#{manterConsultaManagedBean.consultaExclusao}" value="#{cons}" />
 		        </b:commandButton>
 	        </div>

@@ -12,6 +12,7 @@ import javax.inject.Named;
 import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.TipoExame;
+import br.com.sisClinicaPUC.persistencia.ConsultaDAO;
 import br.com.sisClinicaPUC.persistencia.ExameDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
@@ -26,6 +27,7 @@ private static final long serialVersionUID = 1L;
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
 	private TipoExameDAO tipoExameDAO = new TipoExameDAO();
+	private ConsultaDAO consultaDAO = new ConsultaDAO();
     private Exame exame = new Exame();
     private List<Exame> exameList = new ArrayList<Exame>();
     private List<Paciente> pacienteList = new ArrayList<Paciente>();
@@ -130,7 +132,7 @@ private static final long serialVersionUID = 1L;
 	 */
 	private void carregarPacienteMedicoList() {
 		this.setPacienteList(new ArrayList<Paciente>());
-		this.getPacienteList().addAll(this.getPacienteDAO().getPacientePorMedicoDataConsultaList(this.getMedicoSessao()));
+		this.getPacienteList().addAll(this.getConsultaDAO().getPacientePorMedicoDataConsultaList(this.getMedicoSessao()));
 	}
 
 	/**
@@ -204,6 +206,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setTipoExameList(List<TipoExame> tipoExameList) {
 		this.tipoExameList = tipoExameList;
+	}
+
+	public ConsultaDAO getConsultaDAO() {
+		return consultaDAO;
+	}
+
+	public void setConsultaDAO(ConsultaDAO consultaDAO) {
+		this.consultaDAO = consultaDAO;
 	}
 
 }

@@ -1,10 +1,12 @@
 package br.com.sisClinicaPUC.entidade;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
@@ -27,9 +29,11 @@ public class Medico extends Pessoa {
 	@Column(name="crm", nullable=false, unique=false)
 	private String CRM;
 
-	@OneToOne
-	private AgendaMedico agendaMedico;
-
+//	@OneToMany
+//	private Set<AgendaMedico> agendaMedicoList;
+	@Transient
+	private Set<AgendaMedico> agendaMedicoList;
+	
 	public String getCRM() {
 		return CRM;
 	}
@@ -38,12 +42,12 @@ public class Medico extends Pessoa {
 		CRM = cRM;
 	}
 
-	public AgendaMedico getAgendaMedico() {
-		return agendaMedico;
+	public Set<AgendaMedico> getAgendaMedicoList() {
+		return agendaMedicoList;
 	}
 
-	public void setAgendaMedico(AgendaMedico agendaMedico) {
-		this.agendaMedico = agendaMedico;
+	public void setAgendaMedicoList(Set<AgendaMedico> agendaMedicoList) {
+		this.agendaMedicoList = agendaMedicoList;
 	}
-	
+
  }

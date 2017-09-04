@@ -20,7 +20,7 @@ public class LoginManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private static final Long LOGIN_TESTE_MEDICO = 1L;
-	private static final Long LOGIN_TESTE_RECEPCIONISTA = 1L;
+	private static final Long LOGIN_TESTE_RECEPCIONISTA = 3L;
 	
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private Usuario usuario = new Usuario();
@@ -47,14 +47,14 @@ public class LoginManagedBean implements Serializable{
         	//TODO:FIX ME - Terminar login
         	Medico med = new Medico();
         	med.setId(LOGIN_TESTE_MEDICO);
-        	med.setNome("medico 1 teste");
+        	med.setNome("medico 2 teste");
         	
         	
         	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("medico", med);
         	
         	Recepcionista recep = new Recepcionista();
         	recep.setId(LOGIN_TESTE_RECEPCIONISTA);
-        	recep.setNome("recepcionista 1 teste");
+        	recep.setNome("recepcionista 1");
         	
         	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("recepcionista", recep);
         	

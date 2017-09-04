@@ -7,22 +7,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 
+import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "agendaMedico.AGENDA_MEDICO_POR_SITUACAO", query = "select am from AgendaMedico am where am.ativoInaivo = :situacao")
+	  @NamedQuery(name = "agendaMedico.AGENDA_MEDICO", query = "select am from AgendaMedico am where am.ativoInaivo = :situacao and am.medico.id = :idMedico")
 })
 public class AgendaMedico implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(length = 500)
-	public static final String AGENDA_MEDICO_POR_SITUACAO = "agendaMedico.AGENDA_MEDICO_POR_SITUACAO";
+	public static final String AGENDA_MEDICO = "agendaMedico.AGENDA_MEDICO";
 
 	public AgendaMedico(){
 	}
@@ -45,7 +45,9 @@ public class AgendaMedico implements Serializable{
 	@Column(name="horario_fim_atendimento", nullable=false)
 	private Date horarioFimAtendimento;
 
-    @OneToOne
+//    @ManyToOne
+//	private Medico medico;
+	@ManyToOne
 	private Medico medico;
     
     @Column(name="ativo_inativo", nullable=false, unique=false)
@@ -93,4 +95,13 @@ public class AgendaMedico implements Serializable{
 		this.horarioFimAtendimento = horarioFimAtendimento;
 	}
 
+	public String getApresentacaoCompleta() {
+	
+		String retornoData = Util.formatoData.format(this.getData());
+		String retornoInicioAtendimento = Util.formatoHoraMinuto.format(this.getHorarioInicioAtendimento());
+		String retornoFimAtendimento = Util.formatoHoraMinuto.format(this.getHorarioFimAtendimento());
+		
+		return retornoData + ": " +retornoInicioAtendimento+" - "+retornoFimAtendimento; 
+	}
+	
  }

@@ -14,6 +14,11 @@ DROP TABLE IF EXISTS exame CASCADE;
 DROP TABLE IF EXISTS exame_tipoexame CASCADE;
 DROP TABLE IF EXISTS examesolicitado CASCADE;
 DROP TABLE IF EXISTS agendamedico_dataatendimento CASCADE;
+DROP TABLE IF EXISTS consulta CASCADE;
+
+
+DROP TABLE IF EXISTS exame_examesolicitado CASCADE;
+DROP TABLE IF EXISTS medico_agendamedico CASCADE;
 
 --SEQUENCES--
 DROP SEQUENCE IF EXISTS hibernate_sequence;

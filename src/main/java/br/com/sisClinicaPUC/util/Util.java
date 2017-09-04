@@ -7,9 +7,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Transient;
 import javax.swing.text.MaskFormatter;
 
 public class Util {
@@ -20,6 +22,9 @@ public class Util {
 	public static final String MASCARA_CPF = "###.###.###-##";
 	public static final String MASCARA_CRM = "####/UU";
 	public static final String MASCARA_TELEFONE = "(##)#####-####";
+	
+	public static SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+	public static SimpleDateFormat formatoHoraMinuto = new SimpleDateFormat("HH:mm");
 
 	public static boolean isStringNotBlankOrNotNull(String str) {
 		return str != null && !str.isEmpty() && !"null".equals(str) && !"".equals(str);

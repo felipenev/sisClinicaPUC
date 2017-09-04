@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
+import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
@@ -48,13 +49,17 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    }
 	    
 	    /**
-	     * Recupera os medicamentos na situacao ativo
+	     * Recupera a agenda do medico.
+	     * @param medico 
 	     * 
 	     * @return
 	     */
-	    public List<AgendaMedico> getAgendaMedicoAtivoList() {
+	    public List<AgendaMedico> getAgendaMedicoList(Medico medico) {
 	    	try {
-	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO_POR_SITUACAO, AgendaMedico.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
+	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO, AgendaMedico.class)
+	    												.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
+	    												.setParameter("idMedico", medico.getId())
+	    												.getResultList();
 	    		Set<AgendaMedico> agendaSet = new HashSet<AgendaMedico>(agendaMedicoList);
 	    		List<AgendaMedico> retorno = new ArrayList<AgendaMedico>(agendaSet);
 	    		
