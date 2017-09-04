@@ -11,10 +11,13 @@ DROP TABLE IF EXISTS tipoexame CASCADE;
 DROP TABLE IF EXISTS recepcionista CASCADE;
 DROP TABLE IF EXISTS usuario CASCADE;
 DROP TABLE IF EXISTS exame CASCADE;
-DROP TABLE IF EXISTS exame_examesolicitado CASCADE;
+DROP TABLE IF EXISTS exame_tipoexame CASCADE;
 DROP TABLE IF EXISTS examesolicitado CASCADE;
+DROP TABLE IF EXISTS agendamedico_dataatendimento CASCADE;
 
 --SEQUENCES--
-DROP SEQUENCE sequence_solicitacao_exame;
-DROP SEQUENCE sequence_receitamedica;
-DROP SEQUENCE sequence_exame;
+DROP SEQUENCE IF EXISTS hibernate_sequence;
+DROP SEQUENCE IF EXISTS sequence_solicitacao_exame;
+DROP SEQUENCE IF EXISTS sequence_receitamedica;
+DROP SEQUENCE IF EXISTS sequence_exame;
+DROP SEQUENCE IF EXISTS sequence_consulta;

@@ -33,12 +33,12 @@
 	        </p:selectManyMenu>
 	        
 	        <br />
-        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formPrincipal" />
         </h:panelGrid>
   	</b:panel>
 
 
-  	<b:dataTable id="tableSolicitarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+  	<b:dataTable id="tableAvaliarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
         <b:dataTableColumn data-order="#{exa.dataSolicitacao}" order="asc" label="Data Solicitação">
         	<h:outputText value="#{exa.dataSolicitacao}">
        			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>

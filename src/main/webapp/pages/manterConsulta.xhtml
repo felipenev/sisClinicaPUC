@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	 <h:outputScript>
+	   	//<![CDATA[
+	    	function processDay(date) {
+	         var specialDays = new Array(#{fn:join(manterConsultaManagedBean.getSpecialDays(), ',')});
+	         
+	         for (var i = 0; i < specialDays.length; i++) {
+	             var sDate = new Date(specialDays[i]);
+	             
+	             var compare1 = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+	             var compare2 = new Date(sDate.getFullYear(),sDate.getMonth(),sDate.getDate());
+	             
+	             if(compare1.getTime() == compare2.getTime()) {
+	                 return [true, ''];
+	             }
+	         }
+	         
+	         return [false, ''];
+	     };
+	 	//]]>
+	 </h:outputScript>
+
+	<b:panel id="panelManterConsulta" title="Marcar Exame" look="primary">
+      	<h:panelGrid>
+
+			<br/>
+        	<h:panelGroup>
+	        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+			<b:selectOneMenu value="#{manterConsultaManagedBean.consulta.paciente}" labelColMd="2">
+        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+            	<f:selectItems value="#{manterConsultaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+        	</b:selectOneMenu>
+	        <br/>
+			<h:panelGroup>
+	        	<h:outputText value="Médico " /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+			<b:selectOneMenu value="#{manterConsultaManagedBean.consulta.medico}" labelColMd="2">
+        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+            	<f:selectItems value="#{manterConsultaManagedBean.medicoList}" var="medico" itemLabel="#{medico.nome}" itemValue="#{medico}" />
+            	<f:ajax listener="#{manterConsultaManagedBean.alterarCalendario}" render="idDataConsulta" />
+        	</b:selectOneMenu>	        
+	        <br/>
+      		<h:panelGroup>
+	        	<h:outputText value="Data Consulta" /><h:outputText value="*" styleClass="obrigatorio" />
+        	</h:panelGroup>
+			<p:calendar id="idDataConsulta" value="#{manterConsultaManagedBean.consulta.dataConsulta}" beforeShowDay="processDay" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" />
+	        
+	        <br />
+        	<b:commandButton id="salvarManterConsulta" value="Cadastrar" action="#{manterConsultaManagedBean.inserirAlterar}" update="formPrincipal" />
+        </h:panelGrid>
+  	</b:panel>
+
+
+  	<b:dataTable id="tableConsulta" value="#{manterConsultaManagedBean.consultaList}" var="cons" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+        <b:dataTableColumn data-order="#{cons.dataConsulta}" order="asc" label="Data Consulta">
+        	<h:outputText value="#{cons.dataConsulta}">
+       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+            </h:outputText>
+        </b:dataTableColumn>
+        <b:dataTableColumn value="#{cons.paciente.nome}" label="Paciente"/>
+        <b:dataTableColumn value="#{cons.medico.nome}" label="Médico"/>
+        <b:dataTableColumn data-order="#{cons.situacaoConsulta.descricao}" label="Situação">
+        	<b:label text="#{cons.situacaoConsulta.descricao}" severity="#{cons.situacaoConsulta.severity}"/>
+        </b:dataTableColumn>
+        <b:dataTableColumn label="Ação">
+	       	<div class="btn-group" role="group" >
+		       	<b:commandButton icon="trash" look="danger" update="panelModalCancelarConsulta" process="@this" oncomplete="$('#formPrincipal\\:modalCancelarConsulta').modal();return false;">
+		        	<f:setPropertyActionListener target="#{manterConsultaManagedBean.consultaExclusao}" value="#{cons}" />
+		        </b:commandButton>
+	        </div>
+       </b:dataTableColumn>
+    </b:dataTable>
+
+    <b:modal id="modalCancelarConsulta" title="Cancelamento">
+    	<h:panelGroup id="panelModalCancelarConsulta" layout="block">
+            #{msgs.MSG010}
+        </h:panelGroup>
+        <f:facet name="footer">
+        	<b:button value="Não" dismiss="modal" />
+            <b:commandButton value="Sim" look="danger" action="#{manterConsultaManagedBean.cancelarConsulta()}" onclick="$('#formPrincipal\\:modalCancelarConsulta')).modal('hide');return false;" update="formPrincipal" />
+        </f:facet>
+    </b:modal>
+      	
+</ui:fragment>

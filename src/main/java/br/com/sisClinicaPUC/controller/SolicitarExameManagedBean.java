@@ -13,7 +13,6 @@ import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.TipoExame;
 import br.com.sisClinicaPUC.persistencia.ExameDAO;
-import br.com.sisClinicaPUC.persistencia.ExameSolicitadoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 import br.com.sisClinicaPUC.util.Util;
@@ -26,7 +25,6 @@ private static final long serialVersionUID = 1L;
 	
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
-//	private ExameSolicitadoDAO exameSolicitadoDAO = new ExameSolicitadoDAO();
 	private TipoExameDAO tipoExameDAO = new TipoExameDAO();
     private Exame exame = new Exame();
     private List<Exame> exameList = new ArrayList<Exame>();
@@ -60,7 +58,8 @@ private static final long serialVersionUID = 1L;
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getExameDAO().inserir(this.getExame());
+//    		boolean inclusao = this.getExameDAO().inserir(this.getExame());
+    		boolean inclusao = this.getExameDAO().alterar(this.getExame());
     		if (inclusao) {
     			init();
     			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
@@ -87,8 +86,11 @@ private static final long serialVersionUID = 1L;
 	public void excluir(Exame exame) {}
 
 	public void carregarAlteracao(Exame exameAlterar) {
-		this.setExame(exameAlterar);
-		this.getExameList().remove(exameAlterar);
+		this.setExame(new Exame(this.getMedicoSessao()));
+		carregarSolicitacoesExamePorMedicoList();
+		Exame exaAlterar = Util.cloneSerializable(exameAlterar);
+		this.setExame(exaAlterar);
+//		this.getExameList().remove(exaAlterar);
 	}
 	
 	/**
@@ -118,24 +120,23 @@ private static final long serialVersionUID = 1L;
 	 * Carrega as solicitacoes de exames que foram feitas pelo medico
 	 */
 	private void carregarSolicitacoesExamePorMedicoList() {
-		// TODO Auto-generated method stub
-		//Para tabela que sera mostrada embaixo
+		this.setExameList(new ArrayList<Exame>());
+		this.getExameList().addAll(this.getExameDAO().getExamesSolicitadosPorMedico(this.getMedicoSessao()));
 	}
 	
 	//TODO:Carregar pacientes da consulta do medico
 	/**
-	 * Carrega os pacientes que possuem consulta marcada com o medico no dia
+	 * Carrega os pacientes que possuem consulta marcada com o medico na data do atendimento
 	 */
 	private void carregarPacienteMedicoList() {
 		this.setPacienteList(new ArrayList<Paciente>());
-		this.getPacienteList().addAll(this.getPacienteDAO().getPacienteAtivoList());
+		this.getPacienteList().addAll(this.getPacienteDAO().getPacientePorMedicoDataConsultaList(this.getMedicoSessao()));
 	}
 
 	/**
 	 * Carrega os tipos de exames disponiveis para solicitacao.
 	 */
 	private void carregarTipoExameList() {
-		// TODO Auto-generated method stub
 		this.setTipoExameList(new ArrayList<TipoExame>());
 		this.getTipoExameList().addAll(this.getTipoExameDAO().getList());
 	}

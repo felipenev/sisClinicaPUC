@@ -1,8 +1,11 @@
 package br.com.sisClinicaPUC.persistencia;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
+import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
@@ -53,6 +56,26 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    public List<Paciente> getPacienteAtivoList() {
 	    	try {
 	    		List<Paciente> pacienteList = getEntityManager().createNamedQuery(Paciente.PACIENTE_POR_SITUACAO, Paciente.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
+	    		return pacienteList;
+	    	} catch (Exception e) {
+	    		this.tratarMensagemErro(null, e.getMessage());
+	    		return new ArrayList<Paciente>();
+	    	}
+	    }
+	    
+	    /**
+	     * Carrega os pacientes que possuem consulta marcada com o medico na data do atendimento
+	     * 
+	     * @return
+	     */
+	    public List<Paciente> getPacientePorMedicoDataConsultaList(Medico medico) {
+	    	try {
+	    		List<Paciente> pacienteList = getEntityManager()
+	    				.createNamedQuery(Paciente.PACIENTE_POR_MEDICO_DATA_CONSULTA, Paciente.class)
+	    				.setParameter("idMedico", medico.getId())
+	    				.setParameter("dataAtual", new Date())
+	    				.getResultList();
+	    		
 	    		return pacienteList;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());

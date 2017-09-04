@@ -55,7 +55,8 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getReceitaMedicaDAO().inserir(this.getReceitaMedica());
+//    		boolean inclusao = this.getReceitaMedicaDAO().inserir(this.getReceitaMedica());
+    		boolean inclusao = this.getReceitaMedicaDAO().alterar(this.getReceitaMedica());
     		if (inclusao) {
     			init();
     			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
@@ -82,8 +83,14 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 	public void excluir(ReceitaMedica receitaMedica) {}
 
 	public void carregarAlteracao(ReceitaMedica receitaMedicaAlterar) {
-		this.setReceitaMedica(receitaMedicaAlterar);
-		this.getReceitaMedicaList().remove(receitaMedicaAlterar);
+		//TODO: carregar a lista de novo para mudar alteracao.
+		//TODO:FUncionando. Replicar!
+		
+		this.setReceitaMedica(new ReceitaMedica(this.getMedicoSessao()));
+		carregarReceitaMedicaPorMedicoList();
+		ReceitaMedica recAlterar = Util.cloneSerializable(receitaMedicaAlterar);
+		this.setReceitaMedica(recAlterar);
+//		this.getReceitaMedicaList().remove(receitaMedicaAlterar);
 	}
 	
 	/**

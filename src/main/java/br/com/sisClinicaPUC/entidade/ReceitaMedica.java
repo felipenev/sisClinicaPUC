@@ -14,17 +14,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({
 	  @NamedQuery(name = "receitaMedica.RECEITA_POR_MEDICO", query = "select rm from ReceitaMedica rm JOIN FETCH rm.medicamentoList where rm.medico.id = :idMedico")
 })
-
 public class ReceitaMedica implements Serializable{
       
 	private static final long serialVersionUID = 1L;
@@ -34,6 +35,16 @@ public class ReceitaMedica implements Serializable{
 	public ReceitaMedica() {
 	}
 	
+	public ReceitaMedica(ReceitaMedica rm) {
+		super();
+		this.id = rm.id;
+		this.descricaoReceita = rm.descricaoReceita;
+		this.medicamentoList = rm.medicamentoList;
+		this.medico = rm.medico;
+		this.paciente = rm.paciente;
+		this.dataEmissao = rm.dataEmissao;
+	}
+
 	public ReceitaMedica(Medico medico) {
 		this.setMedico(medico);
 		this.setDataEmissao(new Date());
@@ -49,10 +60,10 @@ public class ReceitaMedica implements Serializable{
     @Column(name="descricao_receita", length=500)
     private String descricaoReceita;
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinTable(name = "receitamedica_medicamento", joinColumns = { @JoinColumn(name = "id_receita", nullable = false, updatable = false) },
-//										inverseJoinColumns = { @JoinColumn(name = "id_medicamento", nullable = false, updatable = false) })
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "receitamedica_medicamento", joinColumns = { @JoinColumn(name = "id_receita", nullable = false, updatable = false) },
+										inverseJoinColumns = { @JoinColumn(name = "id_medicamento", nullable = false, updatable = false) })
+//    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Medicamento> medicamentoList;
 
     @ManyToOne

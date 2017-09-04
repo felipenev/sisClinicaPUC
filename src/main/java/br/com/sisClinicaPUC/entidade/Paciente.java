@@ -21,6 +21,9 @@ public class Paciente extends Pessoa {
 	@Column(length = 500)
 	public static final String PACIENTE_POR_SITUACAO = "paciente.PACIENTE_POR_SITUACAO";
 
+	//TODO:
+	public static final String PACIENTE_POR_MEDICO_DATA_CONSULTA = null;
+
 	public Paciente() {
 		this.setAtivoInaivo(SituacaoEnum.ATIVO);
 		this.setDataCadastro(new Date());

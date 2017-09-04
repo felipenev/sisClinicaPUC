@@ -61,6 +61,7 @@
        			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
             </h:outputText>
         </b:dataTableColumn>
+        <b:dataTableColumn value="#{rec.paciente.nome}" label="Paciente"/>
         <b:dataTableColumn value="#{rec.medicamentosPrescritos}" label="Medicamento"/>
         <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
         <b:dataTableColumn label="Ações">

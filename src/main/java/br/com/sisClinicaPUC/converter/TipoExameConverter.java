@@ -6,16 +6,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import br.com.sisClinicaPUC.controller.ExameSolicitadoService;
-import br.com.sisClinicaPUC.entidade.ExameSolicitado;
+import br.com.sisClinicaPUC.controller.TipoExameService;
+import br.com.sisClinicaPUC.entidade.TipoExame;
 
 public class TipoExameConverter implements Converter {
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {
             try {
-            	ExameSolicitadoService service = (ExameSolicitadoService) fc.getExternalContext().getApplicationMap().get("exameSolicitadoService");
-                return service.getExameSolicitadoPorId(Long.parseLong(value));
+            	TipoExameService service = (TipoExameService) fc.getExternalContext().getApplicationMap().get("tipoExameService");
+                return service.getTipoExamePorId(Long.parseLong(value));
             } catch(NumberFormatException e) {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
                 throw new ConverterException(facesMessage);
@@ -28,7 +28,7 @@ public class TipoExameConverter implements Converter {
 	 
 	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		if(object != null) {
-            return String.valueOf(((ExameSolicitado) object).getId());
+            return String.valueOf(((TipoExame) object).getId());
         }
         else {
             return null;

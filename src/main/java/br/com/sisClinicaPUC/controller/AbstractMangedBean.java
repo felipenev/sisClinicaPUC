@@ -3,6 +3,7 @@ package br.com.sisClinicaPUC.controller;
 import javax.faces.context.FacesContext;
 
 import br.com.sisClinicaPUC.entidade.Medico;
+import br.com.sisClinicaPUC.entidade.Recepcionista;
 import br.com.sisClinicaPUC.util.ValidacaoException;
 import br.com.sisClinicaPUC.vo.OperacaoEnum;
 
@@ -22,6 +23,14 @@ public abstract class AbstractMangedBean<T> extends ValidacaoException implement
 	public Medico getMedicoSessao() {
     	try {
     		return (Medico) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("medico");
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public Recepcionista getRecepcionistaSessao() {
+		try {
+			return (Recepcionista) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("recepcionista");
 		} catch (Exception e) {
 			throw e;
 		}

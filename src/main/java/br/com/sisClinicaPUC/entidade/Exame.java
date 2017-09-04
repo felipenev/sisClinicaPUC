@@ -1,8 +1,10 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,16 +14,25 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
 
 @Entity
+@NamedQueries({
+	  @NamedQuery(name = "exame.EXAME_SOLICITADO_POR_MEDICO", query = "select e from Exame e JOIN FETCH e.tipoExameList where e.medico.id = :idMedico")
+})
 public class Exame implements Serializable{
       
 	private static final long serialVersionUID = 1L;
+
+	public static final String EXAME_SOLICITADO_POR_MEDICO = "exame.EXAME_SOLICITADO_POR_MEDICO";
 
 	public Exame() {}
 	
@@ -35,10 +46,13 @@ public class Exame implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_exame")
     @SequenceGenerator(name="sequence_exame", sequenceName="sequence_exame", allocationSize=1)
-    @Column(name="sequence_exame", nullable=false, unique=true)
+    @Column(name="id_exame", nullable=false, unique=true)
     private Long id;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "exame_tipoexame", joinColumns = { @JoinColumn(name = "id_exame", nullable = false, updatable = false) },
+										inverseJoinColumns = { @JoinColumn(name = "id_tipoExame", nullable = false, updatable = false) })
+//	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<TipoExame> tipoExameList;
 
 	@ManyToOne
@@ -111,4 +125,13 @@ public class Exame implements Serializable{
 		this.resultado = resultado;
 	}
 
+	public String getexamesSolicitados() {
+		List<String> exaList = new ArrayList<String>();
+		for (TipoExame te : this.getTipoExameList()) {
+			exaList.add(te.getDescricaoExame());
+		}
+		String retorno = String.join(", ", exaList);
+		
+		return retorno;
+	}
 }

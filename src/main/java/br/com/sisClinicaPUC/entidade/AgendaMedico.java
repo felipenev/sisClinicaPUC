@@ -1,18 +1,14 @@
 package br.com.sisClinicaPUC.entidade;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -28,9 +24,11 @@ public class AgendaMedico implements Serializable{
 	@Column(length = 500)
 	public static final String AGENDA_MEDICO_POR_SITUACAO = "agendaMedico.AGENDA_MEDICO_POR_SITUACAO";
 
-	public AgendaMedico() {
-		this.setDataAtendimento(new HashSet<DataAtendimento>());
-		this.setMedico(new Medico());
+	public AgendaMedico(){
+	}
+	public AgendaMedico(Medico medico) {
+		this.setMedico(medico);
+		this.setAtivoInaivo(SituacaoEnum.ATIVO);
 	}
 
 	@Id
@@ -38,8 +36,14 @@ public class AgendaMedico implements Serializable{
     @Column(name="id_agenda_medico", nullable=false, unique=true)
     private Long id;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy="agendaMedico")
-    private Set<DataAtendimento> dataAtendimento;
+	@Column(name="data", nullable=false)
+	private Date data;
+	
+	@Column(name="horario_inicio_atendimento", nullable=false)
+	private Date horarioInicioAtendimento;
+	
+	@Column(name="horario_fim_atendimento", nullable=false)
+	private Date horarioFimAtendimento;
 
     @OneToOne
 	private Medico medico;
@@ -70,13 +74,23 @@ public class AgendaMedico implements Serializable{
 	public void setAtivoInaivo(SituacaoEnum ativoInaivo) {
 		this.ativoInaivo = ativoInaivo.getCodigo();
 	}
-
-	public Set<DataAtendimento> getDataAtendimento() {
-		return dataAtendimento;
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public Date getHorarioInicioAtendimento() {
+		return horarioInicioAtendimento;
+	}
+	public void setHorarioInicioAtendimento(Date horarioInicioAtendimento) {
+		this.horarioInicioAtendimento = horarioInicioAtendimento;
+	}
+	public Date getHorarioFimAtendimento() {
+		return horarioFimAtendimento;
+	}
+	public void setHorarioFimAtendimento(Date horarioFimAtendimento) {
+		this.horarioFimAtendimento = horarioFimAtendimento;
 	}
 
-	public void setDataAtendimento(Set<DataAtendimento> dataAtendimento) {
-		this.dataAtendimento = dataAtendimento;
-	}
-	
  }

@@ -1,7 +1,9 @@
 package br.com.sisClinicaPUC.persistencia;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -50,14 +52,18 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	     * 
 	     * @return
 	     */
-	    public List<AgendaMedico> getAgendaMedicamentoAtivoList() {
+	    public List<AgendaMedico> getAgendaMedicoAtivoList() {
 	    	try {
-	    		List<AgendaMedico> agendaMedicamentoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO_POR_SITUACAO, AgendaMedico.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
-	    		return agendaMedicamentoList;
+	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO_POR_SITUACAO, AgendaMedico.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
+	    		Set<AgendaMedico> agendaSet = new HashSet<AgendaMedico>(agendaMedicoList);
+	    		List<AgendaMedico> retorno = new ArrayList<AgendaMedico>(agendaSet);
+	    		
+	    		return retorno;
+	    		
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<AgendaMedico>();
 	    	}
 	    }
-
+	    
 	}

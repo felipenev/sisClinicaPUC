@@ -84,8 +84,10 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 	public void excluir(Paciente paciente) {}
 
 	public void carregarAlteracao(Paciente pacienteAlterar) {
-		this.setPaciente(pacienteAlterar);
-		this.getPacienteList().remove(pacienteAlterar);
+		this.setPaciente(new Paciente());
+		carregarPacienteAtivoList();
+		Paciente pacAlterar = Util.cloneSerializable(pacienteAlterar);
+		this.setPaciente(pacAlterar);
 	}
 	
 	/**

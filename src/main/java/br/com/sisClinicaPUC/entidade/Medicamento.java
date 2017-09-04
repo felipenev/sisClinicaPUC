@@ -83,7 +83,7 @@ public class Medicamento implements Serializable{
 	public void setAtivoInaivo(SituacaoEnum ativoInaivo) {
 		this.ativoInaivo = ativoInaivo.getCodigo();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,5 +108,5 @@ public class Medicamento implements Serializable{
 			return false;
 		return true;
 	}
-	
+
  }

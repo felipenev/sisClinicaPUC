@@ -12,12 +12,12 @@
       		
             <br/>
         	<h:panelGroup>
-	        	<h:outputText value="Data Cadastramento : " />
+	        	<h:outputText value="Data Cadastramento: " />
 	        	<h:outputText value="#{manterPacienteManagedBean.paciente.dataCadastro}">
 	       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
 	            </h:outputText>
         	</h:panelGroup>
-	         <br/>
+	        <br/>
         	<h:panelGroup>
 	        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
         	</h:panelGroup>
@@ -71,7 +71,7 @@
   	</b:panel>
   	
   	<b:dataTable id="tablePacientes" value="#{manterPacienteManagedBean.pacienteList}" var="paciente" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{paciente.dataCadastro}"  label="Data Admissão" >
+        <b:dataTableColumn data-order="#{paciente.dataCadastro}"  label="Data Cadastramento" >
         	<h:outputText value="#{paciente.dataCadastro}">
        			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
             </h:outputText>
@@ -100,7 +100,7 @@
 	       	</div>
 	       	<div class="btn-group" role="group" >
 		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirPaciente" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirPaciente').modal();return false;">
-		        	<f:setPropertyActionListener target="#{manterPacienteManagedBean.pacienteExclusao}" value="#{Paciente}" />
+		        	<f:setPropertyActionListener target="#{manterPacienteManagedBean.pacienteExclusao}" value="#{paciente}" />
 		        </b:commandButton>
 	        </div>
         	

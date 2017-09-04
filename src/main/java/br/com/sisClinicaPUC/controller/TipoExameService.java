@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import br.com.sisClinicaPUC.persistencia.ExameSolicitadoDAO;
+import br.com.sisClinicaPUC.entidade.TipoExame;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 
 @ManagedBean(name="tipoExameService", eager = true)
@@ -15,32 +15,24 @@ import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 public class TipoExameService {
      
 	private TipoExameDAO tipoExameDAO = new TipoExameDAO();
-    private List<ExameSolicitado> exameSolicitadoList;
+    private List<TipoExame> tipoExameList;
      
     @PostConstruct
     public void init() {
-    	carregarExameSolicitadoList();
+    	carregarTipoExameList();
     }
      
-    public void carregarExameSolicitadoList() {
-		this.setExameSolicitadoList(new ArrayList<ExameSolicitado>());
-		this.getExameSolicitadoList().addAll(this.getExameSolicitadoDAO().getExameSolicitadoDisponivelList(tipoExameDAO));
+    public void carregarTipoExameList() {
+		this.setTipoExameList(new ArrayList<TipoExame>());
+		this.getTipoExameList().addAll(this.getTipoExameDAO().getList());
 	}
 
-	public ExameSolicitado getExameSolicitadoPorId(long id) {
-		for (ExameSolicitado exameSol : this.getExameSolicitadoList()) {
-			if(exameSol.getId().equals(id))
-				return exameSol;
+	public TipoExame getTipoExamePorId(long id) {
+		for (TipoExame tipoExa : this.getTipoExameList()) {
+			if(tipoExa.getId().equals(id))
+				return tipoExa;
 		}
 		return null;
-	}
-
-	public ExameSolicitadoDAO getExameSolicitadoDAO() {
-		return exameSolicitadoDAO;
-	}
-
-	public void setExameSolicitadoDAO(ExameSolicitadoDAO exameSolicitadoDAO) {
-		this.exameSolicitadoDAO = exameSolicitadoDAO;
 	}
 
 	public TipoExameDAO getTipoExameDAO() {
@@ -51,12 +43,12 @@ public class TipoExameService {
 		this.tipoExameDAO = tipoExameDAO;
 	}
 
-	public List<ExameSolicitado> getExameSolicitadoList() {
-		return exameSolicitadoList;
+	public List<TipoExame> getTipoExameList() {
+		return tipoExameList;
 	}
 
-	public void setExameSolicitadoList(List<ExameSolicitado> exameSolicitadoList) {
-		this.exameSolicitadoList = exameSolicitadoList;
+	public void setTipoExameList(List<TipoExame> tipoExameList) {
+		this.tipoExameList = tipoExameList;
 	}
-	
+
 }

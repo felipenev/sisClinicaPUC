@@ -1,6 +1,12 @@
 package br.com.sisClinicaPUC.persistencia;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import br.com.sisClinicaPUC.entidade.Exame;
+import br.com.sisClinicaPUC.entidade.Medico;
    
    
 	public class ExameDAO extends GenericDAO<Exame, Long>{
@@ -40,5 +46,19 @@ import br.com.sisClinicaPUC.entidade.Exame;
 	    		return false;
 	    	}
 	    }
+
+		public List<Exame> getExamesSolicitadosPorMedico(Medico medico) {
+			try {
+	    		List<Exame> exameList = getEntityManager().createNamedQuery(Exame.EXAME_SOLICITADO_POR_MEDICO, Exame.class).setParameter("idMedico", medico.getId()).getResultList();
+	    		Set<Exame> exameSet = new HashSet<Exame>(exameList);
+	    		List<Exame> retorno = new ArrayList<Exame>(exameSet);
+	    		
+	    		return retorno;
+	    		
+	    	} catch (Exception e) {
+	    		this.tratarMensagemErro(null, e.getMessage());
+	    		return new ArrayList<Exame>();
+	    	}
+		}
 	    
 	}

@@ -50,15 +50,19 @@
 	                    <b:listLinks>
 	                        <b:navLink header="Menu Médico" />
 	                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'agendaMedico.xhtml'}" />
-	                        <b:navLink value="Solicitar Exame" onclick="ajax:navigationManagedBean.setPagina('solicitarExame.xhtml')" update="formPrincipal conteudo" active="#{navigationManagedBean.pagina == 'solicitarExame.xhtml'}" />
-	                        <b:navLink value="Avaliar Exame" onclick="ajax:navigationManagedBean.setPagina('solicitarExame.xhtml')" update="formPrincipal conteudo" active="#{navigationManagedBean.pagina == 'solicitarExame.xhtml'}" />
-	                        <b:navLink value="Receita" onclick="ajax:navigationManagedBean.setPagina('receitaMedica.xhtml')" update="formPrincipal conteudo" active="#{navigationManagedBean.pagina == 'receitaMedica.xhtml'}" />
+	                        <b:navLink value="Solicitar Exame" onclick="ajax:navigationManagedBean.setPagina('solicitarExame.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'solicitarExame.xhtml'}" />
+	                        <b:navLink value="Avaliar Exame" onclick="ajax:navigationManagedBean.setPagina('avaliarExame.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'avaliarExame.xhtml'}" />
+	                        <b:navLink value="Receita Médica" onclick="ajax:navigationManagedBean.setPagina('receitaMedica.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'receitaMedica.xhtml'}" />
 	                    </b:listLinks>
 	                    <b:listLinks>
 	                        <b:navLink header="Menu Recepcionista" />
 	                        <b:navLink value="Manter Paciente" onclick="ajax:navigationManagedBean.setPagina('manterPaciente.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterPaciente.xhtml'}" />
 	                        <b:navLink value="Manter Medicamento" onclick="ajax:navigationManagedBean.setPagina('medicamento.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'medicamento.xhtml'}" />
-	                        <b:navLink value="Marcar Consulta" onclick="ajax:navigationManagedBean.setPagina('consulta.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'consulta.xhtml'}" />
+	                        <b:navLink value="Marcar Consulta" onclick="ajax:navigationManagedBean.setPagina('manterConsulta.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterConsulta.xhtml'}" />
+	                    </b:listLinks>
+	                    <b:listLinks>
+	                        <b:navLink header="Menu Paciente" />
+	                        <b:navLink value="Consultar Resultados" onclick="ajax:navigationManagedBean.setPagina('manterPaciente.xhtml')" update="formPrincipal" active="#{navigationManagedBean.pagina == 'manterPaciente.xhtml'}" />
 	                    </b:listLinks>
 	                </b:column>
 	                <b:column id="conteudo" col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
@@ -142,6 +146,8 @@
 	  		<ui:include src="manterRecepcionista.xhtml" />
 	  		<ui:include src="manterPaciente.xhtml" />
 	  		<ui:include src="receitaMedica.xhtml" />
+	  		<ui:include src="solicitarExame.xhtml" />
+	  		<ui:include src="manterConsulta.xhtml" />
 	  	</h:panelGroup>
 
     </h:body>

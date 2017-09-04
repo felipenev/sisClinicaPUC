@@ -1,5 +1,11 @@
 package br.com.sisClinicaPUC.util;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
@@ -125,5 +131,49 @@ public class Util {
         return "";
     }
 
-    
+
+	/**
+	 * Clona um objeto serializável
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends Serializable> T cloneSerializable(T obj) {
+		ObjectOutputStream out = null;
+		ObjectInputStream in = null;
+
+		try {
+			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+			out = new ObjectOutputStream(bout);
+
+			out.writeObject(obj);
+			out.close();
+
+			ByteArrayInputStream bin = new ByteArrayInputStream(bout.toByteArray());
+			in = new ObjectInputStream(bin);
+			Object copy = in.readObject();
+
+			in.close();
+
+			return (T) copy;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			try {
+				if (out != null) {
+					out.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+			}
+			catch (IOException ignore) {
+			}
+		}
+
+		return null;
+	}
 }

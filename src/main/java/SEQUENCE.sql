@@ -30,3 +30,14 @@ CREATE SEQUENCE sequence_solicitacao_exame
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+  
+-- Sequence: sequence_consulta
+
+-- DROP SEQUENCE sequence_consulta;
+
+CREATE SEQUENCE sequence_consulta
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;

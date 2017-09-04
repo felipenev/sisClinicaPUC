@@ -2,18 +2,15 @@ package br.com.sisClinicaPUC.vo;
 
 public enum SituacaoConsultaEnum {
 
-	MARCADA("0", "Consulta marcada"),
-	EM_ATENDIMENTO("1", "Em atendimento"),
-	FINALIZADA("2", "Finalizada");
+	MARCADA("0", "Marcada", "success"),
+	CANCELADA("1", "Cancelada", "danger");
 	
-
+	private SituacaoConsultaEnum() {}
 	
-	private SituacaoConsultaEnum() {
-	}
-	
-	private SituacaoConsultaEnum(String codigo, String descricao) {
+	private SituacaoConsultaEnum(String codigo, String descricao, String severity) {
 		this.codigo = codigo;
 		this.descricao = descricao;
+		this.severity = severity;
 	}
 	
 // ****************************************************************
@@ -38,6 +35,7 @@ public enum SituacaoConsultaEnum {
 	
 	private String codigo;
 	private String descricao;
+	private String severity;
 	
 	public String getCodigo() {
 		return codigo;
@@ -50,6 +48,14 @@ public enum SituacaoConsultaEnum {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
 	}
 	
 }
