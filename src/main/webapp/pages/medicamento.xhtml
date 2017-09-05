@@ -25,7 +25,7 @@
 	        </h:panelGroup>
         	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
 
-        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="content" />
         </h:panelGrid>
   	</b:panel>
   	
@@ -35,10 +35,10 @@
         <b:dataTableColumn value="#{med.nomeFabricante}" label="Nome Fabricante"/>
         <b:dataTableColumn label="Ações">
        	<div class="btn-group" role="group"  >
-           	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="formPrincipal" />
+           	<b:commandButton icon="edit" ajax="true" action="#{medicamentoManagedBean.carregarAlteracao(med)}" update="content" />
        	</div>
        	<div class="btn-group" role="group" >
-	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedicamento').modal();return false;">
+	       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedicamento" process="@this" oncomplete="$('#content\\:modalExcluirMedicamento').modal();return false;">
 	        	<f:setPropertyActionListener target="#{medicamentoManagedBean.medicamentoExclusao}" value="#{med}" />
 	        </b:commandButton>
         </div>
@@ -52,7 +52,7 @@
         </h:panelGroup>
         <f:facet name="footer">
         	<b:button value="Não" dismiss="modal" />
-            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedicamento')).modal('hide');return false;" update="formPrincipal" />
+            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#content\\:modalExcluirMedicamento')).modal('hide');return false;" update="content" />
         </f:facet>
     </b:modal>
     

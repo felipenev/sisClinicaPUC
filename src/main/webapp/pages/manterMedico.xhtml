@@ -63,7 +63,7 @@
         	</h:panelGroup>
         	<b:inputText id="telefoneMedico" value="#{manterMedicoManagedBean.medico.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
 
-        	<b:commandButton id="salvarMedico" value="Cadastrar" action="#{manterMedicoManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<b:commandButton id="salvarMedico" value="Cadastrar" action="#{manterMedicoManagedBean.inserirAlterar}" update="content" />
         </h:panelGrid>
   	</b:panel>
   	
@@ -91,10 +91,10 @@
         </b:dataTableColumn>
         <b:dataTableColumn label="Ações" >
 	       	<div class="btn-group" role="group"  >
-	           	<b:commandButton icon="edit" ajax="true" action="#{manterMedicoManagedBean.carregarAlteracao(medico)}" update="formPrincipal" />
+	           	<b:commandButton icon="edit" ajax="true" action="#{manterMedicoManagedBean.carregarAlteracao(medico)}" update="content" />
 	       	</div>
 	       	<div class="btn-group" role="group" >
-		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedico" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirMedico').modal();return false;">
+		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirMedico" process="@this" oncomplete="$('#content\\:modalExcluirMedico').modal();return false;">
 		        	<f:setPropertyActionListener target="#{manterMedicoManagedBean.medicoExclusao}" value="#{medico}" />
 		        </b:commandButton>
 	        </div>
@@ -108,7 +108,7 @@
         </h:panelGroup>
         <f:facet name="footer">
         	<b:button value="Não" dismiss="modal" />
-            <b:commandButton value="Sim" look="danger" action="#{manterMedicoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirMedico')).modal('hide');return false;" update="formPrincipal" />
+            <b:commandButton value="Sim" look="danger" action="#{manterMedicoManagedBean.excluir()}" onclick="$('#content\\:modalExcluirMedico')).modal('hide');return false;" update="content" />
         </f:facet>
     </b:modal>
     

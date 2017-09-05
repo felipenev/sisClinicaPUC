@@ -98,7 +98,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 		boolean valid = true;
 		
 		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeFabricante())) {
-			this.tratarMensagemErro("formPrincipal:nomeFabricante");
+			this.tratarMensagemErro("growlMsgm");
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeGenerico())) {

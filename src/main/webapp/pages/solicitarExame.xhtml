@@ -33,7 +33,7 @@
 	        </p:selectManyMenu>
 	        
 	        <br />
-        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formPrincipal" />
+        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="content" />
         </h:panelGrid>
   	</b:panel>
 
@@ -51,7 +51,7 @@
         </b:dataTableColumn>
         <b:dataTableColumn label="Ações">
        	<div class="btn-group" role="group" >
-           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formPrincipal" />
+           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="content" />
        	</div>
         	
        </b:dataTableColumn>

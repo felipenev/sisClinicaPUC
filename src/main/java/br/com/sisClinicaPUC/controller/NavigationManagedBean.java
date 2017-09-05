@@ -22,4 +22,19 @@ public class NavigationManagedBean implements Serializable{
 		this.pagina = pagina;
 	}
 
+	public void paginaManterMedico() {
+	
+		pagina = "manterMedico.xhtml";
+	}
+	
+	public void paginaManterMedicamento() {
+		
+		pagina = "medicamento.xhtml";
+	}
+	
+	public void paginaSolicitarExame() {
+		
+		pagina = "solicitarExame.xhtml";
+	}
+	
 }
