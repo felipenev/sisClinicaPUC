@@ -30,12 +30,12 @@
 			        	<h:outputText value="Paciente" /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
 		        	
-		        	<h:panelGroup id="panelSelectPaciente">
 			        	<b:selectOneMenu id="selectPaciente" value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
 			        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
 			            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+			            	
+			            	<f:converter converterId="pacienteConverter" />
 			        	</b:selectOneMenu>
-		        	</h:panelGroup>
 		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="Medicamento" /><h:outputText value="*" styleClass="obrigatorio" />

@@ -49,9 +49,13 @@ import br.com.sisClinicaPUC.entidade.Medico;
 
 		public List<Exame> getExamesSolicitadosPorMedico(Medico medico) {
 			try {
+				this.createEntityManager();
+				
 	    		List<Exame> exameList = getEntityManager().createNamedQuery(Exame.EXAME_SOLICITADO_POR_MEDICO, Exame.class).setParameter("idMedico", medico.getId()).getResultList();
 	    		Set<Exame> exameSet = new HashSet<Exame>(exameList);
 	    		List<Exame> retorno = new ArrayList<Exame>(exameSet);
+	    		
+	    		this.closeEntityManager();
 	    		
 	    		return retorno;
 	    		

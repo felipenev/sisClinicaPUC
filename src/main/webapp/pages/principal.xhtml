@@ -18,6 +18,17 @@
         <title>sisClinicaPUC</title>
     </h:head>
     
+    <script type="text/javascript">
+    	
+    </script>
+    
+    <pe:blockUI widgetVar="blockUIWidget">  
+	    <h:panelGrid columns="2">  
+	        <h:graphicImage library="images" name="ajax-loader1.gif" style="margin-right: 12px; vertical-align: middle;" />  
+	        <h:outputText value="Aguarde" style="white-space: nowrap;"/>  
+	    </h:panelGrid>  
+	</pe:blockUI>  
+    
     <h:body id="bodyPrincipal" style="padding-top: 60px">
 <!--         <h:outputScript library="holder" name="holder.js" /> -->
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
@@ -33,19 +44,19 @@
 				        escape="false"/>
 				        
 		            <b:navbarLinks pull="left">
-		                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" />
+		                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 <!-- 		                menu admin -->
-		                <b:navLink value="Manter Médico" href="manterMedico.xhtml" />
-		                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" />
+		                <b:navLink value="Manter Médico" href="manterMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 <!-- 		                menu medico -->
-		                <b:navLink value="Agenda" href="agendaMedico.xhtml" />
-		                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" />
+		                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 		                <b:navLink value="Avaliar Exame" href="#" />
-		                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" />
+		                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 <!-- 		                menu recepcionista -->
-		                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" />
-		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" />
-		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" />
+		                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 
 		            </b:navbarLinks>
 	            </h:form>

@@ -18,9 +18,11 @@
 		        	<h:panelGroup>
 			        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
-					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
+					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2" converter="pacienteConverter">
 		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
 		            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+		            	
+		            	<f:converter converterId="pacienteConverter"/>
 		        	</b:selectOneMenu>
 
 		        	<br />

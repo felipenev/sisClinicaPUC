@@ -28,24 +28,37 @@ private Class<T> persistedClass;
 
    protected GenericDAO(Class<T> persistedClass) {
        this();
-       this.createEntityManager();
+//       this.createEntityManager();
        this.persistedClass = persistedClass;
    }
 
-   private void createEntityManager() {
+   protected void createEntityManager() {
 	   if(this.entityManager == null) {
 		   EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisClinica");
 		   this.setEntityManager(factory.createEntityManager());
 	   }
    }
+   
+   protected void closeEntityManager() {
+	   if(this.entityManager != null) {
+		   this.getEntityManager().close();
+		   this.setEntityManager(null);
+	   }
+   }
 
    public T salvar(@Valid T entity) {
 	   	try {
+	   		
+	   		this.createEntityManager();
+	   		
 	   		EntityTransaction t = getEntityManager().getTransaction();
 	   		t.begin();
 	   		getEntityManager().persist(entity);
 	   		getEntityManager().flush();
 	   		t.commit();
+	   		
+	   		this.closeEntityManager();
+	   		
 	   		return entity;
 	   	} catch (Exception e) {
 	   		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
@@ -55,10 +68,16 @@ private Class<T> persistedClass;
 
    public T atualizar(@Valid T entity) {
 	   try {
+		   
+		   this.createEntityManager();
+		   
 		   EntityTransaction t = getEntityManager().getTransaction();
 	       t.begin();
 	       getEntityManager().merge(entity);
 	       getEntityManager().flush();
+	       
+	       this.closeEntityManager();
+	       
 	       t.commit();
 	       return entity;
    		} catch (Exception e) {
@@ -69,6 +88,9 @@ private Class<T> persistedClass;
 
    public void remover(I id) {
 	   try {
+		   
+		   this.createEntityManager();
+		   
 		   T entity = encontrar(id);
 	       EntityTransaction tx = getEntityManager().getTransaction();
 	       tx.begin();
@@ -76,6 +98,9 @@ private Class<T> persistedClass;
 	       getEntityManager().remove(mergedEntity);
 	       getEntityManager().flush();
 	       tx.commit();
+	       
+	       this.closeEntityManager();
+	       
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	   }
@@ -83,10 +108,17 @@ private Class<T> persistedClass;
 
    public List<T> getList() {
 	   try {
+		   
+		   this.createEntityManager();
+		   
 		   CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		   CriteriaQuery<T> query = builder.createQuery(persistedClass);
 		   query.from(persistedClass);
-		   return getEntityManager().createQuery(query).getResultList();
+		   List<T> retorno = getEntityManager().createQuery(query).getResultList();
+		   
+		   this.closeEntityManager();
+		   
+		   return retorno;
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	   }
@@ -95,7 +127,15 @@ private Class<T> persistedClass;
 
    public T encontrar(I id) {
 	   try {
-		   return getEntityManager().find(persistedClass, id);
+		   
+		   this.createEntityManager();
+		   
+		   T retorno = getEntityManager().find(persistedClass, id);
+		   
+		   this.closeEntityManager();
+		   
+		   return retorno;
+		   
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	   }

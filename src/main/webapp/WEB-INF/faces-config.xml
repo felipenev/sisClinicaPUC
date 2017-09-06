@@ -95,6 +95,11 @@
 	    <converter-id>tipoExameConverter</converter-id>
 	    <converter-class>br.com.sisClinicaPUC.converter.TipoExameConverter</converter-class>
 	</converter>
+	 <converter>
+	    <description>Paciente converter</description>
+	    <converter-id>pacienteConverter</converter-id>
+	    <converter-class>br.com.sisClinicaPUC.converter.PacienteConverter</converter-class>
+	</converter>
 	 
  	<!-- Geral -->
 	<navigation-rule>

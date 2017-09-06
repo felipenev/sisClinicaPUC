@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
-import br.com.sisClinicaPUC.util.Util;
 
 @ManagedBean(name="manterMedicamentoService", eager = true)
 @ApplicationScoped
