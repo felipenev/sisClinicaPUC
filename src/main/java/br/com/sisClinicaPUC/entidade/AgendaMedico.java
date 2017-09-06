@@ -17,12 +17,21 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 @Entity
 @NamedQueries({
 	  @NamedQuery(name = "agendaMedico.AGENDA_MEDICO", query = "select am from AgendaMedico am where am.ativoInaivo = :situacao and am.medico.id = :idMedico")
+//	  ,
+//	  @NamedQuery(name = "agendaMedico.VERIFICAR_DATA", query = "select am from AgendaMedico am "
+//	  															+ "where am.ativoInaivo = :situacao "
+//	  															+ "and am.medico.id = :idMedico "
+//	  															+ "and : am.data = :data "
+//	  															+ "and am. ")
 })
 public class AgendaMedico implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String AGENDA_MEDICO = "agendaMedico.AGENDA_MEDICO";
+	
+//	public static final String VERIFICAR_DATA = "agendaMedico.VERIFICAR_DATA";
+
 
 	public AgendaMedico(){
 	}

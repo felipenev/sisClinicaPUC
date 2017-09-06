@@ -27,6 +27,16 @@ public class NavigationManagedBean implements Serializable{
 		pagina = "manterMedico.xhtml";
 	}
 	
+	public void paginaManterRecepcionista() {
+		
+		pagina = "manterRecepcionista.xhtml";
+	}
+	
+	public void paginaAgendaMedico() {
+
+		pagina = "agendaMedico.xhtml";
+	}
+	
 	public void paginaManterMedicamento() {
 		
 		pagina = "medicamento.xhtml";
@@ -37,4 +47,18 @@ public class NavigationManagedBean implements Serializable{
 		pagina = "solicitarExame.xhtml";
 	}
 	
+	public void paginaManterPaciente() {
+		
+		pagina = "manterPaciente.xhtml";
+	}
+	
+	public void paginaManterConsulta() {
+		
+		pagina = "manterConsulta.xhtml";
+	}
+
+	public void paginaReceitaMedica() {
+
+		pagina = "receitaMedica.xhtml";
+	}
 }

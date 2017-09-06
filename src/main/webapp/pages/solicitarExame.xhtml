@@ -1,60 +1,69 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">
 
-	<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
-      	<h:panelGrid>
+	<ui:define name="content">
+		<h:form id="formSolicitarExame">
+		
+			<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
+		      	<h:panelGrid>
+		
+		        	<h:panelGroup>
+			        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
+		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+		            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+		        	</b:selectOneMenu>
 
-        	<h:panelGroup>
-	        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-			<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
-        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
-            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
-        	</b:selectOneMenu>
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<p:selectManyMenu id="idTipoExamePesquisa" value="#{solicitarExameManagedBean.exame.tipoExameList}" converter="tipoExameConverter" 
+		        						var="te" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
+			            <f:selectItems value="#{solicitarExameManagedBean.tipoExameList}" var="tipoExame" itemLabel="#{tipoExameList.descricaoExame}" itemValue="#{tipoExame}" />
+			            
+			 			<f:attribute name="collectionType" value="java.util.HashSet" />
+			            <p:column>
+			                <h:outputText value="#{te.descricaoExame}" />
+			            </p:column>
+			        </p:selectManyMenu>
+			        
+			        <br />
+		        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formSolicitarExame" />
+		        </h:panelGrid>
+		  	</b:panel>
+		
+		
+		  	<b:dataTable id="tableSolicitarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		        <b:dataTableColumn data-order="#{exa.dataSolicitacao}" order="asc" label="Data Solicitação">
+		        	<h:outputText value="#{exa.dataSolicitacao}">
+		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{exa.paciente.nome}" label="Paciente"/>
+		        <b:dataTableColumn value="#{exa.examesSolicitados}" label="Exames Solicitados"/>
+		        <b:dataTableColumn data-order="#{exa.situacaoExame.descricao}" label="Situação">
+		        	<b:label text="#{exa.situacaoExame.descricao}" severity="warning"/>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn label="Ações">
+		       	<div class="btn-group" role="group" >
+		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formSolicitarExame" />
+		       	</div>
+		        	
+		       </b:dataTableColumn>
+		    </b:dataTable>
       	
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<p:selectManyMenu id="idTipoExamePesquisa" value="#{solicitarExameManagedBean.exame.tipoExameList}" converter="tipoExameConverter" 
-        						var="te" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
-	            <f:selectItems value="#{solicitarExameManagedBean.tipoExameList}" var="tipoExame" itemLabel="#{tipoExameList.descricaoExame}" itemValue="#{tipoExame}" />
-	            
-	 			<f:attribute name="collectionType" value="java.util.HashSet" />
-	            <p:column>
-	                <h:outputText value="#{te.descricaoExame}" />
-	            </p:column>
-	        </p:selectManyMenu>
-	        
-	        <br />
-        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="content" />
-        </h:panelGrid>
-  	</b:panel>
-
-
-  	<b:dataTable id="tableSolicitarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{exa.dataSolicitacao}" order="asc" label="Data Solicitação">
-        	<h:outputText value="#{exa.dataSolicitacao}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{exa.paciente.nome}" label="Paciente"/>
-        <b:dataTableColumn value="#{exa.examesSolicitados}" label="Exames Solicitados"/>
-        <b:dataTableColumn data-order="#{exa.situacaoExame.descricao}" label="Situação">
-        	<b:label text="#{exa.situacaoExame.descricao}" severity="warning"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn label="Ações">
-       	<div class="btn-group" role="group" >
-           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="content" />
-       	</div>
-        	
-       </b:dataTableColumn>
-    </b:dataTable>
-      	
-</ui:fragment>
+		</h:form>
+		
+	</ui:define>
+		    
+</ui:composition>

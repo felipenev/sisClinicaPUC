@@ -1,118 +1,127 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">
 
-	<b:panel id="panelCadastroRecepcionista" title="Cadastramento de Recepcionista" look="primary">
-      	<h:panelGrid>
-      		
-        	<h:panelGroup>
-	        	<h:outputText value="Data Admissão" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<p:calendar id="idDataAdmissaoRecep" value="#{manterRecepcionistaManagedBean.recepcionista.dataAdmissao}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" maxdate="#{manterRecepcionistaManagedBean.dataAtual}"/>
-        	
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-			<p:calendar id="idDataNascRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" navigator="true" locale="pt_BR" maxdate="#{manterRecepcionistaManagedBean.dataAtual}"/>
-        	<br/>
-        	<h:panelGroup>
-	        	<h:outputText value="Nome Completo" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="nomeCompletoRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.nome}" />
+	<ui:define name="content">
+		<h:form id="formRecepcionista">
 
-			<b:panelGrid size="xs" columns="2">
-		        <b:radiobutton value="#{manterRecepcionistaManagedBean.recepcionista.sexo}" itemLabel="Masculino" itemValue="M" />
-		        <b:radiobutton value="#{manterRecepcionistaManagedBean.recepcionista.sexo}" itemLabel="Feminino" itemValue="F" />
-		    </b:panelGrid>
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="RG" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="RGRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.RG}"  mask="integer" maxlength="13" styleClass="alinhamento-esquerda"/>
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="CPF" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="CPFRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.CPF}"  mask="999.999.999-99" converter="cpfConverter" />
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="Endereço" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="enderecoRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.endereco}" />
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="Bairro" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="bairroRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.bairro}" />
-        	
-	       	<h:panelGroup>
-		       	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
-	       	</h:panelGroup>
-        	<b:panelGrid size="xs" columns="2">
-	       		<b:inputText id="cidadeRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.cidade}"/>
-	       		<b:inputText id="UFRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.UF}" mask="AA" span="5"/>
-        	</b:panelGrid>
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="Telefone" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputText id="telefoneRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
-
-        	<b:commandButton id="salvarRecepcionista" value="Cadastrar" action="#{manterRecepcionistaManagedBean.inserirAlterar}" update="formPrincipal" />
-        </h:panelGrid>
-  	</b:panel>
-  	
-  	<b:dataTable id="tableRecepcionistas" value="#{manterRecepcionistaManagedBean.recepcionistaList}" var="recepcionista" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{recepcionista.dataAdmissao}"  label="Data Admissão" >
-        	<h:outputText value="#{recepcionista.dataAdmissao}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn data-order="#{recepcionista.dataNascimento}" label="Data Nascimento" >
-        	<h:outputText value="#{recepcionista.dataNascimento}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{recepcionista.nome}" order="asc" label="Nome"/>
-        <b:dataTableColumn value="#{recepcionista.descricaoSexo.descricao}" label="Sexo"/>
-        <b:dataTableColumn value="#{recepcionista.RG}" label="RG"/>
-        <b:dataTableColumn data-order="#{recepcionista.CPF}" mask="999.999.999-99" label="CPF">
-        	<h:outputText value="#{recepcionista.CPF}" converter="cpfConverter"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{recepcionista.endereco}" label="Endereço"/>
-        <b:dataTableColumn value="#{recepcionista.bairro}" label="Bairro"/>
-        <b:dataTableColumn value="#{recepcionista.cidade}" label="Cidade"/>
-        <b:dataTableColumn value="#{recepcionista.UF}" label="UF"/>
-        <b:dataTableColumn data-order="#{recepcionista.telefone}" label="Telefone" >
-        	<h:outputText value="#{recepcionista.telefone}" converter="telefoneConverter"/>
-        </b:dataTableColumn>
-        <b:dataTableColumn label="Ações" >
-	       	<div class="btn-group" role="group"  >
-	           	<b:commandButton icon="edit" ajax="true" action="#{manterRecepcionistaManagedBean.carregarAlteracao(recepcionista)}" update="formPrincipal" />
-	       	</div>
-	       	<div class="btn-group" role="group" >
-		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirRecepcionista" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirRecepcionista').modal();return false;">
-		        	<f:setPropertyActionListener target="#{manterRecepcionistaManagedBean.recepcionistaExclusao}" value="#{recepcionista}" />
-		        </b:commandButton>
-	        </div>
-        	
-       </b:dataTableColumn>
-    </b:dataTable>
+			<b:panel id="panelCadastroRecepcionista" title="Cadastramento de Recepcionista" look="primary">
+		      	<h:panelGrid>
+		      		
+		        	<h:panelGroup>
+			        	<h:outputText value="Data Admissão" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<p:calendar id="idDataAdmissaoRecep" value="#{manterRecepcionistaManagedBean.recepcionista.dataAdmissao}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" maxdate="#{manterRecepcionistaManagedBean.dataAtual}"/>
+		        	
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Data Nascimento" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+					<p:calendar id="idDataNascRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.dataNascimento}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" navigator="true" locale="pt_BR" maxdate="#{manterRecepcionistaManagedBean.dataAtual}"/>
+		        	<br/>
+		        	<h:panelGroup>
+			        	<h:outputText value="Nome Completo" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="nomeCompletoRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.nome}" />
+		
+					<b:panelGrid size="xs" columns="2">
+				        <b:radiobutton value="#{manterRecepcionistaManagedBean.recepcionista.sexo}" itemLabel="Masculino" itemValue="M" />
+				        <b:radiobutton value="#{manterRecepcionistaManagedBean.recepcionista.sexo}" itemLabel="Feminino" itemValue="F" />
+				    </b:panelGrid>
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="RG" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="RGRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.RG}"  mask="integer" maxlength="13" styleClass="alinhamento-esquerda"/>
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="CPF" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="CPFRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.CPF}"  mask="999.999.999-99" converter="cpfConverter" />
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="Endereço" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="enderecoRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.endereco}" />
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="Bairro" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="bairroRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.bairro}" />
+		        	
+			       	<h:panelGroup>
+				       	<h:outputText value="Cidade/UF" /><h:outputText value="*" styleClass="obrigatorio" />
+			       	</h:panelGroup>
+		        	<b:panelGrid size="xs" columns="2">
+			       		<b:inputText id="cidadeRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.cidade}"/>
+			       		<b:inputText id="UFRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.UF}" mask="AA" span="5"/>
+		        	</b:panelGrid>
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="Telefone" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="telefoneRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
+		
+		        	<b:commandButton id="salvarRecepcionista" value="Cadastrar" action="#{manterRecepcionistaManagedBean.inserirAlterar}" update="formRecepcionista" />
+		        </h:panelGrid>
+		  	</b:panel>
+		  	
+		  	<b:dataTable id="tableRecepcionistas" value="#{manterRecepcionistaManagedBean.recepcionistaList}" var="recepcionista" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		        <b:dataTableColumn data-order="#{recepcionista.dataAdmissao}"  label="Data Admissão" >
+		        	<h:outputText value="#{recepcionista.dataAdmissao}">
+		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn data-order="#{recepcionista.dataNascimento}" label="Data Nascimento" >
+		        	<h:outputText value="#{recepcionista.dataNascimento}">
+		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{recepcionista.nome}" order="asc" label="Nome"/>
+		        <b:dataTableColumn value="#{recepcionista.descricaoSexo.descricao}" label="Sexo"/>
+		        <b:dataTableColumn value="#{recepcionista.RG}" label="RG"/>
+		        <b:dataTableColumn data-order="#{recepcionista.CPF}" mask="999.999.999-99" label="CPF">
+		        	<h:outputText value="#{recepcionista.CPF}" converter="cpfConverter"/>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{recepcionista.endereco}" label="Endereço"/>
+		        <b:dataTableColumn value="#{recepcionista.bairro}" label="Bairro"/>
+		        <b:dataTableColumn value="#{recepcionista.cidade}" label="Cidade"/>
+		        <b:dataTableColumn value="#{recepcionista.UF}" label="UF"/>
+		        <b:dataTableColumn data-order="#{recepcionista.telefone}" label="Telefone" >
+		        	<h:outputText value="#{recepcionista.telefone}" converter="telefoneConverter"/>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn label="Ações" >
+			       	<div class="btn-group" role="group"  >
+			           	<b:commandButton icon="edit" ajax="true" action="#{manterRecepcionistaManagedBean.carregarAlteracao(recepcionista)}" update="formRecepcionista" />
+			       	</div>
+			       	<div class="btn-group" role="group" >
+				       	<b:commandButton icon="trash" look="danger" update="formRecepcionista:panelModalExcluirRecepcionista" process="@this" oncomplete="$('#formRecepcionista\\:modalExcluirRecepcionista').modal();return false;">
+				        	<f:setPropertyActionListener target="#{manterRecepcionistaManagedBean.recepcionistaExclusao}" value="#{recepcionista}" />
+				        </b:commandButton>
+			        </div>
+		        	
+		       </b:dataTableColumn>
+		    </b:dataTable>
+		    
+		    <b:modal id="modalExcluirRecepcionista" title="Exclusão">
+		        <h:panelGroup id="panelModalExcluirRecepcionista" layout="block">
+		            #{msgs.MSG007}
+		        </h:panelGroup>
+		        <f:facet name="footer">
+		        	<b:button value="Não" dismiss="modal" />
+		            <b:commandButton value="Sim" look="danger" action="#{manterRecepcionistaManagedBean.excluir()}" onclick="$('#formRecepcionista\\:modalExcluirRecepcionista')).modal('hide');return false;" update="formRecepcionista" />
+		        </f:facet>
+		    </b:modal>
     
-    <b:modal id="modalExcluirRecepcionista" title="Exclusão">
-        <h:panelGroup id="panelModalExcluirRecepcionista" layout="block">
-            #{msgs.MSG007}
-        </h:panelGroup>
-        <f:facet name="footer">
-        	<b:button value="Não" dismiss="modal" />
-            <b:commandButton value="Sim" look="danger" action="#{manterRecepcionistaManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirRecepcionista')).modal('hide');return false;" update="formPrincipal" />
-        </f:facet>
-    </b:modal>
-    
-</ui:fragment>
+		</h:form>
+		
+	</ui:define>
+		    
+</ui:composition>

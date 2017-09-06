@@ -1,17 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">
 
-  <b:panel title="Bem Vindo" look="primary">
-    <h:form>
-      	<h:panelGrid>
-	        <h:outputText value="Tela Inicial" />
-	
-		</h:panelGrid>
-    </h:form>
-  </b:panel>
-</ui:fragment>
+	<ui:define name="content">
+
+		<b:panel id="panelImagemInicial" title="Bem Vindo" look="primary">
+			<b:image display="block" small-screen="one-third" value="../resources/images/puc.jpg" />
+	  	</b:panel>
+
+	</ui:define>
+		    
+</ui:composition>

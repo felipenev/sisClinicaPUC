@@ -1,78 +1,87 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">
 
-	<b:panel id="panelAgendaMedico" title="Agenda do Médico" look="primary">
-        <h:panelGrid>
-        
-        	<h:panelGroup>
-	        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedicoResponsavel" value="#{agendaMedicoManagedBean.agendaMedico.medico.nome}" />
-        	</h:panelGroup>
+	<ui:define name="content">
+		<h:form id="formAgendaMedico">
+		
+			<b:panel id="panelAgendaMedico" title="Agenda do Médico" look="primary" >
+			
+		        <h:panelGrid>
+		        	<h:panelGroup>
+			        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedicoResponsavel" value="#{agendaMedicoManagedBean.agendaMedico.medico.nome}" />
+		        	</h:panelGroup>
+		
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Data" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+					<p:calendar id="idDataAgenda" value="#{agendaMedicoManagedBean.agendaMedico.data}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" mindate="#{agendaMedicoManagedBean.dataMinima}"/>
+		
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Início Atendimento" /><h:outputText value="*" styleClass="obrigatorio" />
+			        </h:panelGroup>
+		        	<p:calendar id="idHoraInicio" value="#{agendaMedicoManagedBean.agendaMedico.horarioInicioAtendimento}" pattern="HH:mm" timeOnly="true" readonlyInput="true" />
+		        	
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Fim Atendimento" /><h:outputText value="*" styleClass="obrigatorio" />
+			        </h:panelGroup>
+		        	<p:calendar id="idHoraFim" value="#{agendaMedicoManagedBean.agendaMedico.horarioFimAtendimento}" pattern="HH:mm" timeOnly="true" readonlyInput="true" />
+		        	<br />
+		        	<p:commandButton id="salvarAgendaMedico" value="Cadastrar" action="#{agendaMedicoManagedBean.inserirAlterar}" process="@all" update="formAgendaMedico" />
+		        </h:panelGrid>
+	  		</b:panel>
+	    
+		    <b:dataTable id="tableAgendaMedico" value="#{agendaMedicoManagedBean.agendaMedicoList}" var="agendaH" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		        <b:dataTableColumn data-order="#{agendaH.data}" label="Data Atendimento" >
+		        	<h:outputText value="#{agendaH.data}">
+		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn data-order="#{agendaH.horarioInicioAtendimento}" label="Início Atendimento" >
+		        	<h:outputText value="#{agendaH.horarioInicioAtendimento}">
+		       			<f:convertDateTime type="date" pattern="HH:mm" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn data-order="#{agendaH.horarioFimAtendimento}" label="Final Atendimento" >
+		        	<h:outputText value="#{agendaH.horarioFimAtendimento}">
+		       			<f:convertDateTime type="date" pattern="HH:mm" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn label="Ações" >
+			       	<div class="btn-group" role="group"  >
+			           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formAgendaMedico" />
+			       	</div>
+			       	<div class="btn-group" role="group" >
+				       	<b:commandButton id="excluirAgendaMedico" icon="trash" look="danger" update="formAgendaMedico:panelModalExcluirAgendamento" process="@this" oncomplete="$('#formAgendaMedico\\:modalExcluirAgendamento').modal();return false;">
+				        	<f:setPropertyActionListener target="#{agendaMedicoManagedBean.agendaMedicoExclusao}" value="#{agendaH}" />
+				        </b:commandButton>
+			        </div>
+		        	
+		       </b:dataTableColumn>
+		    </b:dataTable>
+		    
+		   	<b:modal id="modalExcluirAgendamento" title="Exclusão">
+		        <h:panelGroup id="panelModalExcluirAgendamento" layout="block">
+		            #{msgs.MSG007}
+		        </h:panelGroup>
+		        <f:facet name="footer">
+		        	<b:button value="Não" dismiss="modal" />
+		            <b:commandButton value="Sim" look="danger" action="#{agendaMedicoManagedBean.excluir()}" onclick="$('#formAgendaMedico\\:modalExcluirAgendamento')).modal('hide');return false;" update="formAgendaMedico" />
+		        </f:facet>
+		    </b:modal>
 
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Data" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-			<p:calendar id="idDataAgenda" value="#{agendaMedicoManagedBean.agendaMedico.data}" showOn="button" readonlyInput="true" pattern="dd/MM/yyyy" locale="pt_BR" mindate="#{agendaMedicoManagedBean.dataMinima}"/>
+		</h:form>
 
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Início Atendimento" /><h:outputText value="*" styleClass="obrigatorio" />
-	        </h:panelGroup>
-        	<p:calendar id="idHoraInicio" value="#{agendaMedicoManagedBean.agendaMedico.horarioInicioAtendimento}" pattern="HH:mm" timeOnly="true" readonlyInput="true" />
-        	
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Fim Atendimento" /><h:outputText value="*" styleClass="obrigatorio" />
-	        </h:panelGroup>
-        	<p:calendar id="idHoraFim" value="#{agendaMedicoManagedBean.agendaMedico.horarioFimAtendimento}" pattern="HH:mm" timeOnly="true" readonlyInput="true" />
-        	<br />
-        	<b:commandButton id="salvarAgendaMedico" value="Cadastrar" action="#{agendaMedicoManagedBean.inserirAlterar}" process="@all" update="formPrincipal" />
-        </h:panelGrid>
-  	</b:panel>
-    
-    <b:dataTable id="tableAgendaMEdico" value="#{agendaMedicoManagedBean.agendaMedicoList}" var="agendaH" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{agendaH.data}" label="Data Atendimento" >
-        	<h:outputText value="#{agendaH.data}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn data-order="#{agendaH.horarioInicioAtendimento}" label="Início Atendimento" >
-        	<h:outputText value="#{agendaH.horarioInicioAtendimento}">
-       			<f:convertDateTime type="date" pattern="HH:mm" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn data-order="#{agendaH.horarioFimAtendimento}" label="Final Atendimento" >
-        	<h:outputText value="#{agendaH.horarioFimAtendimento}">
-       			<f:convertDateTime type="date" pattern="HH:mm" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn label="Ações" >
-	       	<div class="btn-group" role="group"  >
-	           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formPrincipal" />
-	       	</div>
-	       	<div class="btn-group" role="group" >
-		       	<b:commandButton icon="trash" look="danger" update="panelModalExcluirAgendamento" process="@this" oncomplete="$('#formPrincipal\\:modalExcluirAgendamento').modal();return false;">
-		        	<f:setPropertyActionListener target="#{agendaMedicoManagedBean.agendaMedicoExclusao}" value="#{agendaH}" />
-		        </b:commandButton>
-	        </div>
-        	
-       </b:dataTableColumn>
-    </b:dataTable>
-    
-    <b:modal id="modalExcluirAgendamento" title="Exclusão">
-        <h:panelGroup id="panelModalExcluirAgendamento" layout="block">
-            #{msgs.MSG007}
-        </h:panelGroup>
-        <f:facet name="footer">
-        	<b:button value="Não" dismiss="modal" />
-            <b:commandButton value="Sim" look="danger" action="#{agendaMedicoManagedBean.excluir()}" onclick="$('#formPrincipal\\:modalExcluirAgendamento')).modal('hide');return false;" update="formPrincipal" />
-        </f:facet>
-    </b:modal>
-    
-</ui:fragment>
+	</ui:define>
+
+</ui:composition>

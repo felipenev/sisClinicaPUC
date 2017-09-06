@@ -1,76 +1,84 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">
 
-	<b:panel id="panelCadastroReceitaMedica" title="Cadastramento de Receita Médica" look="primary">
-      	<h:panelGrid>
-      		
-        	<h:panelGroup>
-	        	<h:outputText value="Data Emissão: " /><h:outputText id="idDataEmissaoReceita" value="#{manterReceitaMedicaManagedBean.receitaMedica.dataEmissao}" >
-					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>	        		
-	        	</h:outputText>
-        	</h:panelGroup>
-        	<h:panelGroup>
-	        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedResponsavel" value="#{manterReceitaMedicaManagedBean.receitaMedica.medico.nome}" />
-        	</h:panelGroup>
-
-        	<br />
-        	
-        	<h:panelGroup>
-	        	<h:outputText value="Paciente" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	
-        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
-        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
-            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
-        	</b:selectOneMenu>
-        	
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Medicamento" /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<p:selectManyMenu id="idMedicamentoReceitaPesquisa" value="#{manterReceitaMedicaManagedBean.receitaMedica.medicamentoList}" converter="medicamentoReceitaConverter" 
-        						var="m" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
-	            <f:selectItems value="#{manterReceitaMedicaManagedBean.medicamentoList}" var="medicamento" itemLabel="#{medicamento.nomeDeFabrica}" itemValue="#{medicamento}" />
-	            
-	 			<f:attribute name="collectionType" value="java.util.HashSet" />
-	            <p:column>
-	                <h:outputText value="#{m.nomeDeFabrica}" />
-	            </p:column>
-	        </p:selectManyMenu>
-        	
-        	<br />
-        	<h:panelGroup>
-	        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
-        	</h:panelGroup>
-        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" maxlength="500" />
-        	
-        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterReceitaMedicaManagedBean.inserirAlterar}" update="formPrincipal" />
-        </h:panelGrid>
-  	</b:panel>
+	<ui:define name="content">
+		<h:form id="formReceitaMedica">
+		
+			<b:panel id="panelCadastroReceitaMedica" title="Cadastramento de Receita Médica" look="primary">
+		      	<h:panelGrid>
+		      		
+		        	<h:panelGroup>
+			        	<h:outputText value="Data Emissão: " /><h:outputText id="idDataEmissaoReceita" value="#{manterReceitaMedicaManagedBean.receitaMedica.dataEmissao}" >
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>	        		
+			        	</h:outputText>
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+			        	<h:outputText value="Médico Responsável: " /><h:outputText id="idMedResponsavel" value="#{manterReceitaMedicaManagedBean.receitaMedica.medico.nome}" />
+		        	</h:panelGroup>
+		
+		        	<br />
+		        	
+		        	<h:panelGroup>
+			        	<h:outputText value="Paciente" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	
+		        	<h:panelGroup id="panelSelectPaciente">
+			        	<b:selectOneMenu id="selectPaciente" value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
+			        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+			            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+			        	</b:selectOneMenu>
+		        	</h:panelGroup>
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Medicamento" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<p:selectManyMenu id="idMedicamentoReceitaPesquisa" value="#{manterReceitaMedicaManagedBean.receitaMedica.medicamentoList}" converter="medicamentoReceitaConverter" 
+		        						var="m" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
+			            <f:selectItems value="#{manterReceitaMedicaManagedBean.medicamentoList}" var="medicamento" itemLabel="#{medicamento.nomeDeFabrica}" itemValue="#{medicamento}" />
+			            
+			 			<f:attribute name="collectionType" value="java.util.HashSet" />
+			            <p:column>
+			                <h:outputText value="#{m.nomeDeFabrica}" />
+			            </p:column>
+			        </p:selectManyMenu>
+		        	
+		        	<br />
+		        	<h:panelGroup>
+			        	<h:outputText value="Prescrição " /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" maxlength="500" />
+		        	
+		        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterReceitaMedicaManagedBean.inserirAlterar}" update="formReceitaMedica" />
+		        </h:panelGrid>
+		  	</b:panel>
+		  	
+		  	<b:dataTable id="tableReceitaMedica" value="#{manterReceitaMedicaManagedBean.receitaMedicaList}" var="rec" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		        <b:dataTableColumn data-order="#{rec.dataEmissao}" order="asc" label="Data Emissão">
+		        	<h:outputText value="#{rec.dataEmissao}">
+		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+		            </h:outputText>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{rec.paciente.nome}" label="Paciente"/>
+		        <b:dataTableColumn value="#{rec.medicamentosPrescritos}" label="Medicamento"/>
+		        <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
+		        <b:dataTableColumn label="Ações">
+		       	<div class="btn-group" role="group"  >
+		           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formReceitaMedica formReceitaMedica:panelSelectPaciente" />
+		       	</div>
+		        	
+		       </b:dataTableColumn>
+		    </b:dataTable>
   	
-  	
-  	<b:dataTable id="tableReceitaMedica" value="#{manterReceitaMedicaManagedBean.receitaMedicaList}" var="rec" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-        <b:dataTableColumn data-order="#{rec.dataEmissao}" order="asc" label="Data Emissão">
-        	<h:outputText value="#{rec.dataEmissao}">
-       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
-            </h:outputText>
-        </b:dataTableColumn>
-        <b:dataTableColumn value="#{rec.paciente.nome}" label="Paciente"/>
-        <b:dataTableColumn value="#{rec.medicamentosPrescritos}" label="Medicamento"/>
-        <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
-        <b:dataTableColumn label="Ações">
-       	<div class="btn-group" role="group"  >
-           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formPrincipal" />
-       	</div>
-        	
-       </b:dataTableColumn>
-    </b:dataTable>
-  	
-    
-</ui:fragment>
+		</h:form>
+		
+	</ui:define>
+		    
+</ui:composition>

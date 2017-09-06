@@ -6,6 +6,7 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       lang="pt-br">
     <h:head>
     	<meta charset="utf-8"/>
@@ -22,64 +23,39 @@
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
         	
 	        <b:navBar brand="Clínica PUC Minas" brandHref="#" inverse="true" fixed="top" fluid="true">
+	            <h:form id="formMenu">
 	            
-	            <b:navbarLinks pull="right">
-	                <b:navLink value="Dashboard" href="#"></b:navLink>
-	                <b:navLink value="Settings" href="#"></b:navLink>
-	                <b:navLink value="Profile" href="#"></b:navLink>
-	                <b:navLink value="Help" href="#"></b:navLink>
-	            </b:navbarLinks>
+               		<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
+				        global-only="false"
+				        show-summary="true" allow-dismiss="true"
+				        animation-enter="animated bounceInDown"
+				        animation-exit="animated flipOutX"
+				        escape="false"/>
+				        
+		            <b:navbarLinks pull="left">
+		                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" />
+<!-- 		                menu admin -->
+		                <b:navLink value="Manter Médico" href="manterMedico.xhtml" />
+		                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" />
+<!-- 		                menu medico -->
+		                <b:navLink value="Agenda" href="agendaMedico.xhtml" />
+		                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" />
+		                <b:navLink value="Avaliar Exame" href="#" />
+		                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" />
+<!-- 		                menu recepcionista -->
+		                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" />
+		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" />
+		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" />
+
+		            </b:navbarLinks>
+	            </h:form>
 	        </b:navBar>
 	        <b:container fluid="true">
 	            <b:row>
-	                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-	                	<h:form id="formBotoesLaterais">
-	                		<p:panel id="pnl">
-		                    <b:listLinks>
-		                        <b:navLink header="Menu Admin" />
-		                        <b:navLink value="Bem Vindo" onclick="ajax:navigationManagedBean.setPagina('bemVindo.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'bemVindo.xhtml'}" />
-		                        <p:commandButton id="saveBtn" value="Manter Médico" action="#{navigationManagedBean.paginaManterMedico()}" update=":content" active="#{navigationManagedBean.pagina == 'manterMedico.xhtml'}" />
-		                        <b:navLink value="Manter Recepcionista" onclick="ajax:navigationManagedBean.setPagina('manterRecepcionista.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'manterRecepcionista.xhtml'}" />
-		                    </b:listLinks>
-		                    <b:listLinks>
-		                        <b:navLink header="Menu Médico" />
-		                        <b:navLink value="Agenda" onclick="ajax:navigationManagedBean.setPagina('agendaMedico.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'agendaMedico.xhtml'}" />
-		                        <b:navCommandLink id="irSolExame" value="Solicitar Exame" action="#{navigationManagedBean.paginaSolicitarExame()}" update=":content" active="#{navigationManagedBean.pagina == 'solicitarExame.xhtml'}" />
-		                        <b:navLink value="Avaliar Exame" onclick="ajax:navigationManagedBean.setPagina('avaliarExame.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'avaliarExame.xhtml'}" />
-		                        <b:navLink value="Receita Médica" onclick="ajax:navigationManagedBean.setPagina('receitaMedica.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'receitaMedica.xhtml'}" />
-		                    </b:listLinks>
-		                    <b:listLinks>
-		                        <b:navLink header="Menu Recepcionista" />
-		                        <b:navLink value="Manter Paciente" onclick="ajax:navigationManagedBean.setPagina('manterPaciente.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'manterPaciente.xhtml'}" />
-		                        <b:navCommandLink value="Manter Medicamento" action="#{navigationManagedBean.paginaManterMedicamento()}" update=":content" active="#{navigationManagedBean.pagina == 'medicamento.xhtml'}" />
-		                        <b:navLink value="Marcar Consulta" onclick="ajax:navigationManagedBean.setPagina('manterConsulta.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'manterConsulta.xhtml'}" />
-		                    </b:listLinks>
-		                    <b:listLinks>
-		                        <b:navLink header="Menu Paciente" />
-		                        <b:navLink value="Consultar Resultados" onclick="ajax:navigationManagedBean.setPagina('manterPaciente.xhtml')" update="formBotoesLaterais" active="#{navigationManagedBean.pagina == 'manterPaciente.xhtml'}" />
-		                    </b:listLinks>
-		                    </p:panel>
-		                    <p:blockUI block="pnl" trigger="saveBtn" />
-		                    <p:blockUI block=":content:pnlContent" trigger="saveBtn" />
-		                    
-		                    <p:blockUI block="pnl" trigger="irSolExame" />
-		                    <p:blockUI block=":content:pnlContent" trigger="irSolExame" />
-		                    
-	                	</h:form>
-	                </b:column>
-	                <b:column id="conteudo" col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
-	                	<h:form id="content">
-	                		<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
-					        global-only="false"
-					        show-summary="true" allow-dismiss="true"
-					        animation-enter="animated bounceInDown"
-					        animation-exit="animated flipOutX"
-					        escape="false"/>
+	                <b:column id="conteudo"  styleClass="main">
 	                	
-	                		<p:panel id="pnlContent">
-			                	<ui:include src="#{navigationManagedBean.pagina}" />
-	                		</p:panel>
-	                	</h:form>
+			        	<ui:insert name ="content" />
+			        	
 	                </b:column>
 	            </b:row>
 	        </b:container>
@@ -152,10 +128,7 @@
 	    </style>
          
          <!-- The following pages are not rendered, but they are needed to make sure every required JavaScript file is loaded in time. -->
-	  	<h:panelGroup rendered="false">
-	  		<ui:include src="medicamento.xhtml" />
-	  		<ui:include src="manterMedico.xhtml" />
-	  		<ui:include src="solicitarExame.xhtml" />
+	  	<h:panelGroup rendered="false" >
 	  	</h:panelGroup>
 
     </h:body>
