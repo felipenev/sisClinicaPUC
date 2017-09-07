@@ -56,7 +56,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
     		if (inclusao) {
     			this.setAgendaMedico(new AgendaMedico());
     			carregarAgendaMedicoList();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -68,7 +68,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 			if (alteracao) {
 				this.setAgendaMedico(new AgendaMedico());
 				carregarAgendaMedicoList();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -83,7 +83,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 			agendaMedico = new AgendaMedico();
 			agendaMedicoExclusao = new AgendaMedico();
 			carregarAgendaMedicoList();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 		
 	}
@@ -106,15 +106,15 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		boolean valid = true;
 		
 		if(!Util.isDateNotNull(this.getAgendaMedico().getData())) {
-			this.tratarMensagemErro("formPrincipal:idDataAgenda_input");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getAgendaMedico().getHorarioInicioAtendimento())) {
-			this.tratarMensagemErro("formPrincipal:idHoraInicio_input");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getAgendaMedico().getHorarioFimAtendimento())) {
-			this.tratarMensagemErro("formPrincipal:idHoraFim_input");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		
@@ -130,12 +130,12 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		boolean valid = true;
 		
 		if(this.getAgendaMedico().getHorarioFimAtendimento().before(this.getAgendaMedico().getHorarioInicioAtendimento())) {
-			this.tratarMensagemErro("formPrincipal:idHoraFim_input", "MSG005");
+			this.tratarMensagemErro(null, "MSG005");
 			valid = false;
 		}
 		
 		if(this.getAgendaMedico().getHorarioFimAtendimento().compareTo(this.getAgendaMedico().getHorarioInicioAtendimento()) == 0) {
-			this.tratarMensagemErro("formPrincipal:idHoraFim_input", "MSG005");
+			this.tratarMensagemErro(null, "MSG005");
 			valid = false;
 		}
 		

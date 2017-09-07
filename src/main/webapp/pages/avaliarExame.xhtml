@@ -10,7 +10,7 @@
   	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h:form id="formAgendaMedico">
+		<h:form id="formAvaliarMedico">
 		
 			<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
 		      	<h:panelGrid>
@@ -38,7 +38,7 @@
 			        </p:selectManyMenu>
 			        
 			        <br />
-		        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="content" />
+		        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formAvaliarMedico formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		
@@ -56,7 +56,7 @@
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações">
 		       	<div class="btn-group" role="group" >
-		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="content" />
+		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formAvaliarMedico" />
 		       	</div>
 		        	
 		       </b:dataTableColumn>

@@ -51,7 +51,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
     		if (inclusao) {
     			medicamento = new Medicamento();
     			carregarMedicamentoAtivoList();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -63,7 +63,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 			if (alteracao) {
 				this.setMedicamento(new Medicamento());
 				carregarMedicamentoAtivoList();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -78,7 +78,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 			this.setMedicamento(new Medicamento());
 			this.setMedicamentoExclusao(new Medicamento());
 			carregarMedicamentoAtivoList();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 		
 	}
@@ -98,15 +98,15 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 		boolean valid = true;
 		
 		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeFabricante())) {
-			this.tratarMensagemErro("growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeGenerico())) {
-			this.tratarMensagemErro("formPrincipal:nomeGenerico");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedicamento().getNomeDeFabrica())) {
-			this.tratarMensagemErro("formPrincipal:nomeDeFrabrica");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

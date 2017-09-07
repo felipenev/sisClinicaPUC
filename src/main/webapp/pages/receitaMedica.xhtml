@@ -30,12 +30,11 @@
 			        	<h:outputText value="Paciente" /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
 		        	
-			        	<b:selectOneMenu id="selectPaciente" value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
-			        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
-			            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
-			            	
-			            	<f:converter converterId="pacienteConverter" />
-			        	</b:selectOneMenu>
+		        	<b:selectOneMenu value="#{manterReceitaMedicaManagedBean.receitaMedica.paciente}" labelColMd="2">
+		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
+		            	<f:selectItems value="#{manterReceitaMedicaManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+		            	
+		        	</b:selectOneMenu>
 		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="Medicamento" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -56,7 +55,7 @@
 		        	</h:panelGroup>
 		        	<b:inputTextarea value="#{manterReceitaMedicaManagedBean.receitaMedica.descricaoReceita}" maxlength="500" />
 		        	
-		        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterReceitaMedicaManagedBean.inserirAlterar}" update="formReceitaMedica" />
+		        	<b:commandButton id="salvarReceitaMedica" value="Emitir" action="#{manterReceitaMedicaManagedBean.inserirAlterar}" update="formReceitaMedica formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		  	
@@ -71,7 +70,7 @@
 		        <b:dataTableColumn value="#{rec.descricaoReceita}" label="Prescrição"/>
 		        <b:dataTableColumn label="Ações">
 		       	<div class="btn-group" role="group"  >
-		           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formReceitaMedica formReceitaMedica:panelSelectPaciente" />
+		           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formReceitaMedica" />
 		       	</div>
 		        	
 		       </b:dataTableColumn>

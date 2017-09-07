@@ -61,7 +61,7 @@
 		            	<f:selectItems value="#{manterConsultaManagedBean.agendaMedicoList}" var="agenda" itemLabel="#{agenda.apresentacaoCompleta}" itemValue="#{agenda}" />
 		        	</b:selectOneMenu>	        
 			        <br />
-		        	<b:commandButton id="salvarManterConsulta" value="Cadastrar" action="#{manterConsultaManagedBean.inserirAlterar}" update="formManterConsulta" />
+		        	<b:commandButton id="salvarManterConsulta" value="Cadastrar" action="#{manterConsultaManagedBean.inserirAlterar}" update="formManterConsulta formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		
@@ -79,7 +79,7 @@
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ação">
 			       	<div class="btn-group" role="group" >
-				       	<b:commandButton icon="trash" look="danger" rendered="#{!cons.situacaoCancelada}" update="panelModalCancelarConsulta" process="@this" oncomplete="$('#formManterConsulta\\:modalCancelarConsulta').modal();return false;">
+				       	<b:commandButton icon="trash" look="danger" rendered="#{!cons.situacaoCancelada}" update="formManterConsulta:panelModalCancelarConsulta" process="@this" oncomplete="$('#formManterConsulta\\:modalCancelarConsulta').modal();return false;">
 				        	<f:setPropertyActionListener target="#{manterConsultaManagedBean.consultaExclusao}" value="#{cons}" />
 				        </b:commandButton>
 			        </div>

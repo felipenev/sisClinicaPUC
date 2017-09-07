@@ -72,7 +72,7 @@
 		        	</h:panelGroup>
 		        	<b:inputText id="telefonePaciente" value="#{manterPacienteManagedBean.paciente.telefone}" mask="(99)99999-9999" converter="telefoneConverter" />
 		
-		        	<b:commandButton id="salvarPaciente" value="Cadastrar" action="#{manterPacienteManagedBean.inserirAlterar}" update="formManterPaciente" />
+		        	<b:commandButton id="salvarPaciente" value="Cadastrar" action="#{manterPacienteManagedBean.inserirAlterar}" update="formManterPaciente formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		  	

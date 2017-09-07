@@ -48,7 +48,6 @@ private Class<T> persistedClass;
 
    public T salvar(@Valid T entity) {
 	   	try {
-	   		
 	   		this.createEntityManager();
 	   		
 	   		EntityTransaction t = getEntityManager().getTransaction();
@@ -57,13 +56,15 @@ private Class<T> persistedClass;
 	   		getEntityManager().flush();
 	   		t.commit();
 	   		
-	   		this.closeEntityManager();
 	   		
 	   		return entity;
 	   	} catch (Exception e) {
 	   		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
-   		}
-	return entity;
+   		}finally {
+   			this.closeEntityManager();
+		}
+	   	
+	   	return entity;
    }
 
    public T atualizar(@Valid T entity) {
@@ -76,13 +77,14 @@ private Class<T> persistedClass;
 	       getEntityManager().merge(entity);
 	       getEntityManager().flush();
 	       
-	       this.closeEntityManager();
-	       
 	       t.commit();
 	       return entity;
    		} catch (Exception e) {
    			this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+		}finally {
+			this.closeEntityManager();
 		}
+	   
 	   return entity;
    }
 
@@ -99,10 +101,10 @@ private Class<T> persistedClass;
 	       getEntityManager().flush();
 	       tx.commit();
 	       
-	       this.closeEntityManager();
-	       
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }finally {
+		   this.closeEntityManager();
 	   }
    }
 
@@ -116,12 +118,13 @@ private Class<T> persistedClass;
 		   query.from(persistedClass);
 		   List<T> retorno = getEntityManager().createQuery(query).getResultList();
 		   
-		   this.closeEntityManager();
-		   
 		   return retorno;
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }finally {
+		   this.closeEntityManager();
 	   }
+	   
 	   return new ArrayList<T>();
    }
 
@@ -132,13 +135,14 @@ private Class<T> persistedClass;
 		   
 		   T retorno = getEntityManager().find(persistedClass, id);
 		   
-		   this.closeEntityManager();
-		   
 		   return retorno;
 		   
 	   } catch (Exception e) {
 		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   }finally {
+		   this.closeEntityManager();
 	   }
+	   
 	   return null;
    }
 

@@ -54,15 +54,15 @@ import br.com.sisClinicaPUC.entidade.Medico;
 	    		List<Exame> exameList = getEntityManager().createNamedQuery(Exame.EXAME_SOLICITADO_POR_MEDICO, Exame.class).setParameter("idMedico", medico.getId()).getResultList();
 	    		Set<Exame> exameSet = new HashSet<Exame>(exameList);
 	    		List<Exame> retorno = new ArrayList<Exame>(exameSet);
-	    		
-	    		this.closeEntityManager();
-	    		
+
 	    		return retorno;
 	    		
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<Exame>();
-	    	}
+	    	}finally {
+	    		this.closeEntityManager();
+			}
 		}
 	    
 	}

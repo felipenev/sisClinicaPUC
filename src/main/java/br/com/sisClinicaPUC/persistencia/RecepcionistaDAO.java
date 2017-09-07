@@ -52,11 +52,15 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	     */
 	    public List<Recepcionista> getRecepcionistaAtivoList() {
 	    	try {
+	    		this.createEntityManager();
+	    		
 	    		List<Recepcionista> recepcionistaList = getEntityManager().createNamedQuery(Recepcionista.RECEPCIONISTA_POR_SITUACAO, Recepcionista.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
 	    		return recepcionistaList;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<Recepcionista>();
+	    	}finally {
+	    		this.createEntityManager();
 	    	}
 	    }
 

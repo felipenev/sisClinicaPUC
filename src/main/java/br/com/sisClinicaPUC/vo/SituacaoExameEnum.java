@@ -2,16 +2,17 @@ package br.com.sisClinicaPUC.vo;
 
 public enum SituacaoExameEnum {
 
-	AGUARDANDO_RESULTADO("0", "Aguardando resultado do laboratório"),
-	AGUARDANDO_ANALISE_MEDICO("1", "Aguardando análise do médico responsável"),
-	AGUARDANDO_RETORNO_PACIENTE("2", "Aguardando retorno do paciente"),
-	ENTREGAR_RESULTADO_PACIENTE("3", "Entregar resultado para paciente");
+	AGUARDANDO_RESULTADO("0", "Aguardando resultado do laboratório", "warning"),
+	AGUARDANDO_ANALISE_MEDICO("1", "Aguardando análise do médico responsável", "danger"),
+	AGUARDANDO_RETORNO_PACIENTE("2", "Aguardando retorno do paciente", ""),
+	ENTREGAR_RESULTADO_PACIENTE("3", "Entregar resultado para paciente", "success");
 	
 	private SituacaoExameEnum() {}
 	
-	private SituacaoExameEnum(String codigo, String descricao) {
+	private SituacaoExameEnum(String codigo, String descricao, String severity) {
 		this.codigo = codigo;
 		this.descricao = descricao;
+		this.severity = severity;
 	}
 	
 // ****************************************************************
@@ -36,6 +37,7 @@ public enum SituacaoExameEnum {
 	
 	private String codigo;
 	private String descricao;
+	private String severity;
 	
 	public String getCodigo() {
 		return codigo;
@@ -48,6 +50,14 @@ public enum SituacaoExameEnum {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
 	}
 	
 }

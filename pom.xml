@@ -145,6 +145,11 @@
       <version>1.2</version>
       <scope>provided</scope>
     </dependency>
+	<dependency>
+	    <groupId>net.sf.jasperreports</groupId>
+	    <artifactId>jasperreports</artifactId>
+	    <version>6.1.0</version>
+	</dependency>
     <dependency>
       <!-- JBoss/Weld Refrence Implementation for CDI on a Servlet Container -->
       <groupId>org.jboss.weld.servlet</groupId>

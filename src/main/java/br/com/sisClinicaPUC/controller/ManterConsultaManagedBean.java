@@ -39,8 +39,6 @@ private static final long serialVersionUID = 1L;
     private List<AgendaMedico> agendaMedicoList = new ArrayList<AgendaMedico>();
     
     public ManterConsultaManagedBean() {
-    	//TODO:
-		System.out.println("Construtor ManterConsultaManagedBean");
 	}
 
     @PostConstruct
@@ -67,7 +65,7 @@ private static final long serialVersionUID = 1L;
     		boolean inclusao = this.getConsultaDAO().alterar(this.getConsulta());
     		if (inclusao) {
     			init();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -78,7 +76,7 @@ private static final long serialVersionUID = 1L;
 			boolean alteracao = this.getConsultaDAO().alterar(consulta);
 			if (alteracao) {
 				init();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -95,7 +93,6 @@ private static final long serialVersionUID = 1L;
 		carregarConsultaList();
 		Consulta consAlterar = Util.cloneSerializable(consultaAlterar);
 		this.setConsulta(consAlterar);
-//		this.getExameList().remove(exaAlterar);
 	}
 	
 	public void cancelarConsulta() {
@@ -104,7 +101,7 @@ private static final long serialVersionUID = 1L;
 		boolean consultaCancelada = this.getConsultaDAO().alterar(this.getConsultaExclusao());
 		if(consultaCancelada) {
 			init();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 	}
 	
@@ -115,15 +112,15 @@ private static final long serialVersionUID = 1L;
 		boolean valid = true;
 
 		if(!Util.isObjectNotNull(this.getConsulta().getPaciente())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getConsulta().getMedico())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getConsulta().getAgendaMedico())){
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

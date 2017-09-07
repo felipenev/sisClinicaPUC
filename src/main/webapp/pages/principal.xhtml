@@ -9,6 +9,24 @@
       xmlns:pe="http://primefaces.org/ui/extensions"
       lang="pt-br">
     <h:head>
+    	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png"/>
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png"/>
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png"/>
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png"/>
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png"/>
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png"/>
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png"/>
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png"/>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png"/>
+		<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"/>
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+		<link rel="manifest" href="/manifest.json"/>
+		<meta name="msapplication-TileColor" content="#ffffff"/>
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+		<meta name="theme-color" content="#ffffff"/>
+
     	<meta charset="utf-8"/>
     	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     	<meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -17,10 +35,6 @@
         
         <title>sisClinicaPUC</title>
     </h:head>
-    
-    <script type="text/javascript">
-    	
-    </script>
     
     <pe:blockUI widgetVar="blockUIWidget">  
 	    <h:panelGrid columns="2">  
@@ -33,6 +47,7 @@
 <!--         <h:outputScript library="holder" name="holder.js" /> -->
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
         	
+        	
 	        <b:navBar brand="Clínica PUC Minas" brandHref="#" inverse="true" fixed="top" fluid="true">
 	            <h:form id="formMenu">
 	            
@@ -44,19 +59,20 @@
 				        escape="false"/>
 				        
 		            <b:navbarLinks pull="left">
-		                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-<!-- 		                menu admin -->
-		                <b:navLink value="Manter Médico" href="manterMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-		                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-<!-- 		                menu medico -->
-		                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-		                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-		                <b:navLink value="Avaliar Exame" href="#" />
-		                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-<!-- 		                menu recepcionista -->
-		                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		            
+			                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+	<!-- 		                menu admin -->
+			                <b:navLink value="Manter Médico" href="manterMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+			                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+	<!-- 		                menu medico -->
+			                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+			                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+			                <b:navLink value="Avaliar Exame" href="#" />
+			                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+	<!-- 		                menu recepcionista -->
+			                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+			                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+			                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 
 		            </b:navbarLinks>
 	            </h:form>

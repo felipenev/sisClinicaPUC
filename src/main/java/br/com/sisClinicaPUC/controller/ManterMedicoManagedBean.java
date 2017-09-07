@@ -51,7 +51,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
     		boolean inclusao = this.getMedicoDAO().inserir(this.getMedico());
     		if (inclusao) {
     			init();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -62,7 +62,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			boolean alteracao = this.getMedicoDAO().alterar(medico);
 			if (alteracao) {
 				init();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -75,7 +75,7 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		boolean exclusao = this.getMedicoDAO().alterar(this.getMedicoExclusao());
 		if(exclusao) {
 			init();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 		
 	}
@@ -95,59 +95,59 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		boolean valid = true;
 
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getNome())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getCRM())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isCRMValido(this.getMedico().getCRM())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getSexo())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getMedico().getRG())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getMedico().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isCPFValido(this.getMedico().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG006");
+			this.tratarMensagemErro(null, "MSG006");
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getEndereco())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getBairro())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getCidade())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getUF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getMedico().getDataNascimento())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getMedico().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isTelefoneValido(this.getMedico().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

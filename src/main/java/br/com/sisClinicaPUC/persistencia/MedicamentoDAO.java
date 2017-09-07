@@ -57,12 +57,13 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		
 	    		List<Medicamento> medicamentoList = getEntityManager().createNamedQuery(Medicamento.MEDICAMENTO_POR_SITUACAO, Medicamento.class).setParameter("situacao", SituacaoEnum.ATIVO.getCodigo()).getResultList();
 	    		
-	    		this.closeEntityManager();
 	    		return medicamentoList;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage(), "");
 	    		return new ArrayList<Medicamento>();
-	    	}
+	    	}finally {
+	    		this.closeEntityManager();
+			}
 	    }
 
 		public List<Medicamento> getMedicamentoPorIdList(Set<Medicamento> medicamentoList) {
@@ -74,12 +75,12 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 				
 	    		List<Medicamento> medicamentoPorIdList = getEntityManager().createNamedQuery(Medicamento.MEDICAMENTO_POR_ID, Medicamento.class).setParameter("id", idList).getResultList();
 	    		
-	    		this.closeEntityManager();
-	    		
 	    		return medicamentoPorIdList;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage(), "");
 	    		return new ArrayList<Medicamento>();
+	    	}finally {
+	    		this.closeEntityManager();
 	    	}
 		}
 

@@ -57,6 +57,9 @@ import br.com.sisClinicaPUC.vo.SituacaoConsultaEnum;
 	     */
 	    public List<Paciente> getPacientePorMedicoDataConsultaList(Medico medico) {
 	    	try {
+	    		
+	    		this.createEntityManager();
+	    		
 	    		List<Consulta> consultaList = getEntityManager()
 	    				.createNamedQuery(Consulta.PACIENTE_POR_MEDICO_DATA_CONSULTA, Consulta.class)
 	    				.setParameter("situacao", SituacaoConsultaEnum.MARCADA.getCodigo())
@@ -72,6 +75,8 @@ import br.com.sisClinicaPUC.vo.SituacaoConsultaEnum;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<Paciente>();
+	    	}finally {
+	    		this.closeEntityManager();
 	    	}
 	    }
 	    

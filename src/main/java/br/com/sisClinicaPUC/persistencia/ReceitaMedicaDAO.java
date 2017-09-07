@@ -54,6 +54,9 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 	     */
 		public List<ReceitaMedica> getReceitasPorMedicoList(Medico medico) {
 	    	try {
+	    		
+	    		this.createEntityManager();
+	    		
 	    		List<ReceitaMedica> receitaMedicaList = getEntityManager().createNamedQuery(ReceitaMedica.RECEITA_POR_MEDICO, ReceitaMedica.class).setParameter("idMedico", medico.getId()).getResultList();
 	    		Set<ReceitaMedica> receitaSet = new HashSet<ReceitaMedica>(receitaMedicaList);
 	    		List<ReceitaMedica> retorno = new ArrayList<ReceitaMedica>(receitaSet);
@@ -62,6 +65,8 @@ import br.com.sisClinicaPUC.entidade.ReceitaMedica;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
 	    		return new ArrayList<ReceitaMedica>();
+	    	}finally {
+	    		this.closeEntityManager();
 	    	}
 	    }
 

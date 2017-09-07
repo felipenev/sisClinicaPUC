@@ -3,11 +3,14 @@ package br.com.sisClinicaPUC.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 
 import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Paciente;
@@ -17,6 +20,12 @@ import br.com.sisClinicaPUC.persistencia.ExameDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 import br.com.sisClinicaPUC.util.Util;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
    
 @Named
 @ViewScoped
@@ -36,8 +45,6 @@ private static final long serialVersionUID = 1L;
     private Date dataAtual = new Date();
 
     public SolicitarExameManagedBean() {
-    	//TODO:
-		System.out.println("Construtor SolicitarExameManagedBean");
 	}
 
     @PostConstruct
@@ -64,7 +71,7 @@ private static final long serialVersionUID = 1L;
     		boolean inclusao = this.getExameDAO().alterar(this.getExame());
     		if (inclusao) {
     			init();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -75,7 +82,7 @@ private static final long serialVersionUID = 1L;
 			boolean alteracao = this.getExameDAO().alterar(exame);
 			if (alteracao) {
 				init();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -102,15 +109,15 @@ private static final long serialVersionUID = 1L;
 		boolean valid = true;
 
 		if(!Util.isObjectNotNull(this.getExame().getMedico())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG999");
+			this.tratarMensagemErro(null, "MSG999");
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getExame().getPaciente())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isColecaoVazia(this.getExame().getTipoExameList())){
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		
@@ -141,6 +148,37 @@ private static final long serialVersionUID = 1L;
 	private void carregarTipoExameList() {
 		this.setTipoExameList(new ArrayList<TipoExame>());
 		this.getTipoExameList().addAll(this.getTipoExameDAO().getList());
+	}
+	
+	public void gerarSolicitacaoPDFExame(Exame exameRelatorio) {
+		
+		try {
+            System.out.println("entrou no solicitar exame PDF");
+            if(!Util.isObjectNotNull(exameRelatorio)) {
+            	return;
+            }
+            //---------- gera o relatorio ----------
+            HashMap<String,Object> parametros = new HashMap<String,Object>();
+            parametros.put("medico", exameRelatorio.getMedico());
+            parametros.put("paciente", exameRelatorio.getPaciente());
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/SolicitacaoExame.jrxml"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(exameRelatorio.getTipoExameList()));
+            byte[] b = JasperExportManager.exportReportToPdf(jasperPrint); 
+            HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            res.setContentType("application/pdf");
+            //Código abaixo gerar o relatório e disponibiliza diretamente na página 
+            res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
+            //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar 
+            //res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
+            res.getOutputStream().write(b);
+            res.getCharacterEncoding();
+            FacesContext.getCurrentInstance().responseComplete();
+            System.out.println("saiu do visualizar relatorio");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            this.tratarMensagemErro(null, ex.getMessage());
+        }
+		
 	}
 	
 	//GETTERS AND SETTERS

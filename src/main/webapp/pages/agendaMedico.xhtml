@@ -37,7 +37,7 @@
 			        </h:panelGroup>
 		        	<p:calendar id="idHoraFim" value="#{agendaMedicoManagedBean.agendaMedico.horarioFimAtendimento}" pattern="HH:mm" timeOnly="true" readonlyInput="true" />
 		        	<br />
-		        	<p:commandButton id="salvarAgendaMedico" value="Cadastrar" action="#{agendaMedicoManagedBean.inserirAlterar}" process="@all" update="formAgendaMedico" />
+		        	<b:commandButton id="salvarAgendaMedico" value="Cadastrar" action="#{agendaMedicoManagedBean.inserirAlterar}" update="formAgendaMedico formMenu:growlMsgm" />
 		        </h:panelGrid>
 	  		</b:panel>
 	    
@@ -59,7 +59,7 @@
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações" >
 			       	<div class="btn-group" role="group"  >
-			           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formAgendaMedico" />
+			           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formAgendaMedico formMenu:growlMsgm" />
 			       	</div>
 			       	<div class="btn-group" role="group" >
 				       	<b:commandButton id="excluirAgendaMedico" icon="trash" look="danger" update="formAgendaMedico:panelModalExcluirAgendamento" process="@this" oncomplete="$('#formAgendaMedico\\:modalExcluirAgendamento').modal();return false;">

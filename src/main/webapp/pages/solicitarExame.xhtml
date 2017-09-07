@@ -18,11 +18,10 @@
 		        	<h:panelGroup>
 			        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
-					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2" converter="pacienteConverter">
+					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
 		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
 		            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
 		            	
-		            	<f:converter converterId="pacienteConverter"/>
 		        	</b:selectOneMenu>
 
 		        	<br />
@@ -40,7 +39,7 @@
 			        </p:selectManyMenu>
 			        
 			        <br />
-		        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formSolicitarExame" />
+		        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formSolicitarExame formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		

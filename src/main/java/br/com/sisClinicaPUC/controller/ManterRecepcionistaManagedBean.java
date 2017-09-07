@@ -52,7 +52,7 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
     		if (inclusao) {
     			recepcionista = new Recepcionista();
     			carregarRecepcionistaAtivoList();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -64,7 +64,7 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 			if (alteracao) {
 				this.setRecepcionista(new Recepcionista());
 				carregarRecepcionistaAtivoList();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -79,7 +79,7 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 			this.setRecepcionista(new Recepcionista());
 			this.setRecepcionistaExclusao(new Recepcionista());
 			carregarRecepcionistaAtivoList();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 		
 	}
@@ -99,55 +99,55 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 		boolean valid = true;
 
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getNome())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getRecepcionista().getDataAdmissao())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getSexo())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getRecepcionista().getRG())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getRecepcionista().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isCPFValido(this.getRecepcionista().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG006");
+			this.tratarMensagemErro(null, "MSG006");
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getEndereco())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getBairro())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getCidade())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getUF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getRecepcionista().getDataNascimento())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getRecepcionista().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isTelefoneValido(this.getRecepcionista().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

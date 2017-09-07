@@ -30,7 +30,7 @@
 			        </h:panelGroup>
 		        	<b:inputText id="nomeFabricante" value="#{medicamentoManagedBean.medicamento.nomeFabricante}" />
 		
-		        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formMedicamento" />
+		        	<b:commandButton id="salvarMedicamento" value="Cadastrar" action="#{medicamentoManagedBean.inserirAlterar}" update="formMedicamento formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		  	

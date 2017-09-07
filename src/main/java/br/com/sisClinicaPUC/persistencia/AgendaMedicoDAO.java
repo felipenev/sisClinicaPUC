@@ -56,6 +56,9 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	     */
 	    public List<AgendaMedico> getAgendaMedicoList(Medico medico) {
 	    	try {
+	    		
+	    		this.createEntityManager();
+	    		
 	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO, AgendaMedico.class)
 	    												.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
 	    												.setParameter("idMedico", medico.getId())
@@ -68,6 +71,8 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<AgendaMedico>();
+	    	}finally {
+	    		this.closeEntityManager();
 	    	}
 	    }
 	    

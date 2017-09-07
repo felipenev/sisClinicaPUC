@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.Transient;
 import javax.swing.text.MaskFormatter;
 
 public class Util {

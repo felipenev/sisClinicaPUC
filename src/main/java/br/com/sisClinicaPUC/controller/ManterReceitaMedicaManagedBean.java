@@ -59,7 +59,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     		boolean inclusao = this.getReceitaMedicaDAO().alterar(this.getReceitaMedica());
     		if (inclusao) {
     			init();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -70,7 +70,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 			boolean alteracao = this.getReceitaMedicaDAO().alterar(receitaMedica);
 			if (alteracao) {
 				init();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -83,8 +83,6 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 	public void excluir(ReceitaMedica receitaMedica) {}
 
 	public void carregarAlteracao(ReceitaMedica receitaMedicaAlterar) {
-		//TODO: carregar a lista de novo para mudar alteracao.
-		//TODO:FUncionando. Replicar!
 		
 		this.setReceitaMedica(new ReceitaMedica(this.getMedicoSessao()));
 		carregarReceitaMedicaPorMedicoList();
@@ -100,19 +98,19 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		boolean valid = true;
 
 		if(!Util.isObjectNotNull(this.getReceitaMedica().getMedico())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG999");
+			this.tratarMensagemErro(null, "MSG999");
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getReceitaMedica().getPaciente())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getReceitaMedica().getDescricaoReceita())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isColecaoVazia(this.getReceitaMedica().getMedicamentoList())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

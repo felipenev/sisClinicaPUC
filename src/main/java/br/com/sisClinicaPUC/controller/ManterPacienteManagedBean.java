@@ -51,7 +51,7 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
     		boolean inclusao = this.getPacienteDAO().inserir(this.getPaciente());
     		if (inclusao) {
     			init();
-    			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+    			this.tratarMensagemSucesso(null);
     		}
     	}
 	}
@@ -62,7 +62,7 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 			boolean alteracao = this.getPacienteDAO().alterar(paciente);
 			if (alteracao) {
 				init();
-				this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+				this.tratarMensagemSucesso(null);
 			}
 		}
 		
@@ -75,7 +75,7 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 		boolean exclusao = this.getPacienteDAO().alterar(this.getPacienteExclusao());
 		if(exclusao) {
 			init();
-			this.tratarMensagemSucesso("formPrincipal:growlMsgm");
+			this.tratarMensagemSucesso(null);
 		}
 		
 	}
@@ -97,55 +97,55 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 		boolean valid = true;
 
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getNome())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getPaciente().getDataCadastro())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getSexo())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getPaciente().getRG())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getPaciente().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isCPFValido(this.getPaciente().getCPF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm", "MSG006");
+			this.tratarMensagemErro(null, "MSG006");
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getEndereco())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getBairro())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getCidade())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getUF())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isDateNotNull(this.getPaciente().getDataNascimento())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isObjectNotNull(this.getPaciente().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		if(!Util.isTelefoneValido(this.getPaciente().getTelefone())) {
-			this.tratarMensagemErro("formPrincipal:growlMsgm");
+			this.tratarMensagemErro(null);
 			valid = false;
 		}
 		

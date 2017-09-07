@@ -125,7 +125,7 @@ public class Exame implements Serializable{
 		this.resultado = resultado;
 	}
 
-	public String getexamesSolicitados() {
+	public String getExamesSolicitados() {
 		List<String> exaList = new ArrayList<String>();
 		for (TipoExame te : this.getTipoExameList()) {
 			exaList.add(te.getDescricaoExame());
