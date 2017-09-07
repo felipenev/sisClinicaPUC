@@ -109,7 +109,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
-		if(!Util.isColecaoVazia(this.getReceitaMedica().getMedicamentoList())) {
+		if(!Util.isColecaoNaoVazia(this.getReceitaMedica().getMedicamentoList())) {
 			this.tratarMensagemErro(null);
 			valid = false;
 		}

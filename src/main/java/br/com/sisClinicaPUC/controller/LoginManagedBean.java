@@ -20,7 +20,7 @@ public class LoginManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private static final Long LOGIN_TESTE_MEDICO = 1L;
-	private static final Long LOGIN_TESTE_RECEPCIONISTA = 3L;
+	private static final Long LOGIN_TESTE_RECEPCIONISTA = 10L;
 	
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private Usuario usuario = new Usuario();

@@ -12,38 +12,37 @@
 	<ui:define name="content">
 		<h:form id="formAvaliarMedico">
 		
-			<b:panel id="panelSolicitarExame" title="Solicitação de Exames Médicos" look="primary">
+			<b:panel id="panelSolicitarExame" title="Avaliação de Exames Médicos" look="primary">
 		      	<h:panelGrid>
 		
 		        	<h:panelGroup>
-			        	<h:outputText value="Paciente " /><h:outputText value="*" styleClass="obrigatorio" />
+			        	<h:outputText value="Medico responsável: " /><h:outputText value="#{avaliarExameManagedBean.exame.medico.nome}" />
 		        	</h:panelGroup>
-					<b:selectOneMenu value="#{solicitarExameManagedBean.exame.paciente}" labelColMd="2">
-		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
-		            	<f:selectItems value="#{solicitarExameManagedBean.pacienteList}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
-		        	</b:selectOneMenu>
-		      	
+		        	<h:panelGroup>
+			        	<h:outputText value="CRM médico: " /><h:outputText value="#{avaliarExameManagedBean.exame.medico.CRM}" />
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+			        	<h:outputText value="Paciente: " /><h:outputText value="#{avaliarExameManagedBean.exame.paciente.nome}" />
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+			        	<h:outputText value="CPF paciente: " /><h:outputText value="#{avaliarExameManagedBean.exame.paciente.CPF}" />
+		        	</h:panelGroup>
+		        	<h:panelGroup>
+			        	<h:outputText value="Exames solicitados: " /><h:outputText value="#{avaliarExameManagedBean.exame.examesSolicitados}" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	
 		        	<br />
 		        	<h:panelGroup>
-			        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
+			        	<h:outputText value="Resultado laboratório" /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
-		        	<p:selectManyMenu id="idTipoExamePesquisa" value="#{solicitarExameManagedBean.exame.tipoExameList}" converter="tipoExameConverter" 
-		        						var="te" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
-			            <f:selectItems value="#{solicitarExameManagedBean.tipoExameList}" var="tipoExame" itemLabel="#{tipoExameList.descricaoExame}" itemValue="#{tipoExame}" />
-			            
-			 			<f:attribute name="collectionType" value="java.util.HashSet" />
-			            <p:column>
-			                <h:outputText value="#{te.descricaoExame}" />
-			            </p:column>
-			        </p:selectManyMenu>
+			        <b:inputTextarea rows="3" id="txtResultadoLab" value="#{avaliarExameManagedBean.exame.resultado}" />
 			        
 			        <br />
-		        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formAvaliarMedico formMenu:growlMsgm" />
+		        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{avaliarExameManagedBean.inserirAlterar}" update="formAvaliarMedico formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		
-		
-		  	<b:dataTable id="tableAvaliarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		  	<b:dataTable id="tableAvaliarExame" value="#{avaliarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 		        <b:dataTableColumn data-order="#{exa.dataSolicitacao}" order="asc" label="Data Solicitação">
 		        	<h:outputText value="#{exa.dataSolicitacao}">
 		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -52,13 +51,12 @@
 		        <b:dataTableColumn value="#{exa.paciente.nome}" label="Paciente"/>
 		        <b:dataTableColumn value="#{exa.examesSolicitados}" label="Exames Solicitados"/>
 		        <b:dataTableColumn data-order="#{exa.situacaoExame.descricao}" label="Situação">
-		        	<b:label text="#{exa.situacaoExame.descricao}" severity="warning"/>
+		        	<b:label text="#{exa.situacaoExame.descricao}" severity="#{exa.situacaoExame.severity}"/>
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações">
-		       	<div class="btn-group" role="group" >
-		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formAvaliarMedico" />
-		       	</div>
-		        	
+			       	<div class="btn-group" role="group" >
+			           	<b:commandButton icon="edit" ajax="true" action="#{avaliarExameManagedBean.editarAvaliacaoExame(exa)}" update="formAvaliarMedico formMenu:growlMsgm" />
+			       	</div>
 		       </b:dataTableColumn>
 		    </b:dataTable>
       	

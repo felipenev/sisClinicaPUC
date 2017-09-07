@@ -36,6 +36,7 @@
         <title>sisClinicaPUC</title>
     </h:head>
     
+    
     <pe:blockUI widgetVar="blockUIWidget">  
 	    <h:panelGrid columns="2">  
 	        <h:graphicImage library="images" name="ajax-loader1.gif" style="margin-right: 12px; vertical-align: middle;" />  
@@ -67,7 +68,7 @@
 	<!-- 		                menu medico -->
 			                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 			                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Avaliar Exame" href="#" />
+			                <b:navLink value="Avaliar Exame" href="avaliarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 			                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 	<!-- 		                menu recepcionista -->
 			                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>

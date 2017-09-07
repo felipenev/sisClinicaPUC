@@ -116,7 +116,7 @@ private static final long serialVersionUID = 1L;
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
-		if(!Util.isColecaoVazia(this.getExame().getTipoExameList())){
+		if(!Util.isColecaoNaoVazia(this.getExame().getTipoExameList())){
 			this.tratarMensagemErro(null);
 			valid = false;
 		}

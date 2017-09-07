@@ -22,17 +22,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
+import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "exame.EXAME_SOLICITADO_POR_MEDICO", query = "select e from Exame e JOIN FETCH e.tipoExameList where e.medico.id = :idMedico")
+	  @NamedQuery(name = "exame.EXAME_SOLICITADO_POR_MEDICO", query = "select e from Exame e JOIN FETCH e.tipoExameList where e.medico.id = :idMedico"),
+	  @NamedQuery(name = "exame.EXAME_PENDENTE_RESULTADO_LABORATORIO", query = "select e from Exame e JOIN FETCH e.tipoExameList where e.situacaoExame = :situacaoExame")
 })
 public class Exame implements Serializable{
       
 	private static final long serialVersionUID = 1L;
 
 	public static final String EXAME_SOLICITADO_POR_MEDICO = "exame.EXAME_SOLICITADO_POR_MEDICO";
+	
+	public static final String EXAME_PENDENTE_RESULTADO_LABORATORIO = "exame.EXAME_PENDENTE_RESULTADO_LABORATORIO";
 
 	public Exame() {}
 	
@@ -126,11 +130,15 @@ public class Exame implements Serializable{
 	}
 
 	public String getExamesSolicitados() {
-		List<String> exaList = new ArrayList<String>();
-		for (TipoExame te : this.getTipoExameList()) {
-			exaList.add(te.getDescricaoExame());
+
+		String retorno = "";
+		if(Util.isColecaoNaoVazia(this.getTipoExameList())) {
+			List<String> exaList = new ArrayList<String>();
+			for (TipoExame te : this.getTipoExameList()) {
+				exaList.add(te.getDescricaoExame());
+			}
+			retorno = String.join(", ", exaList);
 		}
-		String retorno = String.join(", ", exaList);
 		
 		return retorno;
 	}

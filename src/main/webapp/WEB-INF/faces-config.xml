@@ -63,6 +63,11 @@
 		<managed-bean-class>br.com.sisClinicaPUC.controller.ManterConsultaManagedBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>avaliarExameManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.AvaliarExameManagedBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
  
 	<!--  	Converters 		-->
 	 <converter>
@@ -106,7 +111,7 @@
 	  <from-view-id>/*</from-view-id>
 	  <navigation-case>
 	   <from-outcome>home</from-outcome>
-	   <to-view-id>/pages/principal.xhtml</to-view-id>
+	   <to-view-id>/pages/bemVindo.xhtml</to-view-id>
 	   <redirect/>
 	  </navigation-case>
 	 </navigation-rule>

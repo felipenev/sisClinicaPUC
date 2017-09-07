@@ -53,11 +53,14 @@
 		        <b:dataTableColumn value="#{exa.paciente.nome}" label="Paciente"/>
 		        <b:dataTableColumn value="#{exa.examesSolicitados}" label="Exames Solicitados"/>
 		        <b:dataTableColumn data-order="#{exa.situacaoExame.descricao}" label="Situação">
-		        	<b:label text="#{exa.situacaoExame.descricao}" severity="warning"/>
+		        	<b:label text="#{exa.situacaoExame.descricao}" severity="#{exa.situacaoExame.severity}" />
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações">
 		       	<div class="btn-group" role="group" >
 		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formSolicitarExame" />
+		       	</div>
+		       	<div class="btn-group" role="group" >
+		           	<b:commandButton icon="open-file" ajax="false" action="#{solicitarExameManagedBean.gerarSolicitacaoPDFExame(exa)}" />
 		       	</div>
 		        	
 		       </b:dataTableColumn>

@@ -66,7 +66,7 @@ public class Util {
 		return false;
 	}
 	
-	public static boolean isColecaoVazia(Collection<?> lista) {
+	public static boolean isColecaoNaoVazia(Collection<?> lista) {
 		return lista != null && !lista.isEmpty();
 	}
 	

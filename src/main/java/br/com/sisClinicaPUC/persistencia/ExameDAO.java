@@ -7,6 +7,7 @@ import java.util.Set;
 
 import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Medico;
+import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
    
    
 	public class ExameDAO extends GenericDAO<Exame, Long>{
@@ -62,6 +63,23 @@ import br.com.sisClinicaPUC.entidade.Medico;
 	    		return new ArrayList<Exame>();
 	    	}finally {
 	    		this.closeEntityManager();
+			}
+		}
+
+		public List<Exame> getExamesPendentesResultado() {
+			try {
+				this.createEntityManager();
+				List<Exame> exameList = this.getEntityManager().createNamedQuery(Exame.EXAME_PENDENTE_RESULTADO_LABORATORIO, Exame.class).setParameter("situacaoExame", SituacaoExameEnum.AGUARDANDO_RESULTADO.getCodigo()).getResultList();
+				Set<Exame> exameSet = new HashSet<Exame>(exameList);
+				List<Exame> retorno = new ArrayList<Exame>(exameSet);
+				
+				return retorno;
+				
+			} catch (Exception e) {
+				this.tratarMensagemErro(null, e.getMessage());
+				return new ArrayList<Exame>();
+			}finally {
+				this.closeEntityManager();
 			}
 		}
 	    
