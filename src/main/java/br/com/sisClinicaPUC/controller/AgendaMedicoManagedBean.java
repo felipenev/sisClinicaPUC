@@ -54,8 +54,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
     	if(validarCampos() && validarData()) {
     		boolean inclusao = this.getAgendaMedicoDAO().inserir(this.getAgendaMedico());
     		if (inclusao) {
-    			this.setAgendaMedico(new AgendaMedico());
-    			carregarAgendaMedicoList();
+    			init();
     			this.tratarMensagemSucesso(null);
     		}
     	}
@@ -66,8 +65,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		if(validarCampos() && validarData()) {
 			boolean alteracao = this.getAgendaMedicoDAO().alterar(objeto);
 			if (alteracao) {
-				this.setAgendaMedico(new AgendaMedico());
-				carregarAgendaMedicoList();
+				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
@@ -80,9 +78,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		this.getAgendaMedicoExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
 		boolean exclusao = this.getAgendaMedicoDAO().alterar(this.getAgendaMedicoExclusao());
 		if(exclusao) {
-			agendaMedico = new AgendaMedico();
-			agendaMedicoExclusao = new AgendaMedico();
-			carregarAgendaMedicoList();
+			init();
 			this.tratarMensagemSucesso(null);
 		}
 		
@@ -116,6 +112,13 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		if(!Util.isDateNotNull(this.getAgendaMedico().getHorarioFimAtendimento())) {
 			this.tratarMensagemErro(null);
 			valid = false;
+		}
+		
+		if(valid) {
+			if(this.getAgendaMedicoDAO().verificaAgendamentoHorario(this.getMedicoSessao(), this.getAgendaMedico())) {
+				this.tratarMensagemErro(null, "MSG014");
+				valid = false;
+			}
 		}
 		
 		return valid;

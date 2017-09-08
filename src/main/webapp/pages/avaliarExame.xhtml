@@ -18,15 +18,19 @@
 		        	<h:panelGroup>
 			        	<h:outputText value="Medico responsável: " /><h:outputText value="#{avaliarExameManagedBean.exame.medico.nome}" />
 		        	</h:panelGroup>
+		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="CRM médico: " /><h:outputText value="#{avaliarExameManagedBean.exame.medico.CRM}" />
 		        	</h:panelGroup>
+		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="Paciente: " /><h:outputText value="#{avaliarExameManagedBean.exame.paciente.nome}" />
 		        	</h:panelGroup>
+		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="CPF paciente: " /><h:outputText value="#{avaliarExameManagedBean.exame.paciente.CPF}" />
 		        	</h:panelGroup>
+		        	<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="Exames solicitados: " /><h:outputText value="#{avaliarExameManagedBean.exame.examesSolicitados}" styleClass="obrigatorio" />
 		        	</h:panelGroup>
@@ -54,11 +58,26 @@
 		        	<b:label text="#{exa.situacaoExame.descricao}" severity="#{exa.situacaoExame.severity}"/>
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações">
-			       	<div class="btn-group" role="group" >
-			           	<b:commandButton icon="edit" ajax="true" action="#{avaliarExameManagedBean.editarAvaliacaoExame(exa)}" update="formAvaliarMedico formMenu:growlMsgm" />
+			       	<div class="btn-group" role="group">
+			           	<b:commandButton icon="edit" ajax="true" action="#{avaliarExameManagedBean.editarAvaliacaoExame(exa)}" update="formAvaliarMedico formMenu:growlMsgm" rendered="#{exa.aguardandoResultado}"/>
 			       	</div>
+			       	<div class="btn-group" role="group">
+				       	<b:commandButton icon="glyphicon-copy" update="formAvaliarMedico:panelModalAvaliarReceita" rendered="#{exa.aguardandoAnaliseMedico}" process="@this" oncomplete="$('#formAvaliarMedico\\:modalModalAvaliarReceita').modal();return false;">
+				        	<f:setPropertyActionListener target="#{avaliarExameManagedBean.exameAvaliadoPorMedico}" value="#{exa}" />
+				        </b:commandButton>
+			        </div>
 		       </b:dataTableColumn>
 		    </b:dataTable>
+      	
+      		 <b:modal id="modalModalAvaliarReceita" title="Emitir Resultado">
+		        <h:panelGroup id="panelModalAvaliarReceita" layout="block">
+		            #{msgs.MSG012}
+		        </h:panelGroup>
+		        <f:facet name="footer">
+		            <b:commandButton value="Não" look="danger" action="#{avaliarExameManagedBean.aguardarRetornoPaciente()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAvaliarMedico\\:modalModalAvaliarReceita')).modal('hide');return false;" update="formAvaliarMedico formMenu:growlMsgm" />
+		            <b:commandButton value="Sim" look="success" action="#{avaliarExameManagedBean.entregarResultadoPaciente()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAvaliarMedico\\:modalModalAvaliarReceita')).modal('hide');return false;" update="formAvaliarMedico formMenu:growlMsgm" />
+		        </f:facet>
+		    </b:modal>
       	
 		</h:form>
 		

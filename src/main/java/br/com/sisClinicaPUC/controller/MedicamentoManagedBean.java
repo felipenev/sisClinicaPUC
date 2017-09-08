@@ -49,8 +49,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
     	if(validarCampos()) {
     		boolean inclusao = this.getMedicamentoDAO().inserir(this.getMedicamento());
     		if (inclusao) {
-    			medicamento = new Medicamento();
-    			carregarMedicamentoAtivoList();
+    			init();
     			this.tratarMensagemSucesso(null);
     		}
     	}
@@ -61,8 +60,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 		if(validarCampos()) {
 			boolean alteracao = this.getMedicamentoDAO().alterar(objeto);
 			if (alteracao) {
-				this.setMedicamento(new Medicamento());
-				carregarMedicamentoAtivoList();
+				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
@@ -75,9 +73,7 @@ public class MedicamentoManagedBean extends AbstractMangedBean<Medicamento> impl
 		this.getMedicamentoExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
 		boolean exclusao = this.getMedicamentoDAO().alterar(this.getMedicamentoExclusao());
 		if(exclusao) {
-			this.setMedicamento(new Medicamento());
-			this.setMedicamentoExclusao(new Medicamento());
-			carregarMedicamentoAtivoList();
+			init();
 			this.tratarMensagemSucesso(null);
 		}
 		

@@ -4,7 +4,7 @@ public enum SituacaoExameEnum {
 
 	AGUARDANDO_RESULTADO("0", "Aguardando resultado do laboratório", "warning"),
 	AGUARDANDO_ANALISE_MEDICO("1", "Aguardando análise do médico responsável", "danger"),
-	AGUARDANDO_RETORNO_PACIENTE("2", "Aguardando retorno do paciente", ""),
+	AGUARDANDO_RETORNO_PACIENTE("2", "Aguardando retorno do paciente", "info"),
 	ENTREGAR_RESULTADO_PACIENTE("3", "Entregar resultado para paciente", "success");
 	
 	private SituacaoExameEnum() {}

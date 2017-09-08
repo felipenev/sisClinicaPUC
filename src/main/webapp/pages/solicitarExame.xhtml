@@ -39,10 +39,20 @@
 			        </p:selectManyMenu>
 			        
 			        <br />
-		        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" action="#{solicitarExameManagedBean.inserirAlterar}" update="formSolicitarExame formMenu:growlMsgm" />
+		        	<b:commandButton id="salvarSolicitacaoExame" value="Cadastrar" update="formSolicitarExame:panelModalSolicitarExame" process="@this" oncomplete="$('#formSolicitarExame\\:modalSolicitarExame').modal();return false;"/>
+		        	
 		        </h:panelGrid>
 		  	</b:panel>
 		
+			<b:modal id="modalSolicitarExame" title="Solicitar Exame">
+		        <h:panelGroup id="panelModalSolicitarExame" layout="block">
+		            #{msgs.MSG013}
+		        </h:panelGroup>
+		        <f:facet name="footer">
+		            <b:commandButton value="Não" dismiss="modal" />
+		            <b:commandButton value="Sim" action="#{solicitarExameManagedBean.inserirAlterar}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formSolicitarExame\\:modalSolicitarExame')).modal('hide');" update="formSolicitarExame formMenu:growlMsgm" />
+		        </f:facet>
+		    </b:modal>
 		
 		  	<b:dataTable id="tableSolicitarExame" value="#{solicitarExameManagedBean.exameList}" var="exa" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 		        <b:dataTableColumn data-order="#{exa.dataSolicitacao}" order="asc" label="Data Solicitação">
@@ -56,13 +66,9 @@
 		        	<b:label text="#{exa.situacaoExame.descricao}" severity="#{exa.situacaoExame.severity}" />
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações">
-		       	<div class="btn-group" role="group" >
-		           	<b:commandButton icon="edit" ajax="true" action="#{solicitarExameManagedBean.carregarAlteracao(exa)}" update="formSolicitarExame" />
-		       	</div>
-		       	<div class="btn-group" role="group" >
-		           	<b:commandButton icon="open-file" ajax="false" action="#{solicitarExameManagedBean.gerarSolicitacaoPDFExame(exa)}" />
-		       	</div>
-		        	
+			       	<div class="btn-group" role="group" >
+			           	<b:commandButton icon="open-file" ajax="false" action="#{solicitarExameManagedBean.gerarSolicitacaoPDFExame(exa)}" rendered="#{exa.aguardandoResultado}" />
+			       	</div>
 		       </b:dataTableColumn>
 		    </b:dataTable>
       	

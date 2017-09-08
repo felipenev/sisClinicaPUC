@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.TemporalType;
+
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
@@ -71,6 +73,36 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
 	    		return new ArrayList<AgendaMedico>();
+	    	}finally {
+	    		this.closeEntityManager();
+	    	}
+	    }
+	    
+	    /**
+	     * Verifica se o horario ja foi registrado para o dia.
+	     * @param medico 
+	     * 
+	     * @return
+	     */
+	    public boolean verificaAgendamentoHorario(Medico medico, AgendaMedico agendaMedico) {
+	    	try {
+	    		
+	    		this.createEntityManager();
+	    		
+	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.VERIFICAR_DATA, AgendaMedico.class)
+	    				.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
+	    				.setParameter("idMedico", medico.getId())
+	    				.setParameter("data", agendaMedico.getData(), TemporalType.DATE)
+	    				.setParameter("horaInicio", agendaMedico.getHorarioInicioAtendimento(), TemporalType.TIMESTAMP)
+	    				.setParameter("horaFim", agendaMedico.getHorarioFimAtendimento(), TemporalType.TIMESTAMP)
+	    				.getResultList();
+	    		Set<AgendaMedico> agendaSet = new HashSet<AgendaMedico>(agendaMedicoList);
+
+	    		return agendaSet.size() > 0;
+	    		
+	    	} catch (Exception e) {
+	    		this.tratarMensagemErro(null, e.getMessage());
+	    		return true;
 	    	}finally {
 	    		this.closeEntityManager();
 	    	}

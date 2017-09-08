@@ -24,6 +24,7 @@ private static final long serialVersionUID = 1L;
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
     private Exame exame = new Exame();
+    private Exame exameAvaliadoPorMedico = new Exame();
     private List<Exame> exameList = new ArrayList<Exame>();
     
     private Date dataAtual = new Date();
@@ -31,14 +32,18 @@ private static final long serialVersionUID = 1L;
     public AvaliarExameManagedBean() {
 	}
 
+    //TODO: AJUSTAR O BOTAO DE EDICAO DO MEDICO.. COLOCAR VALIDACAO DE PERFIL PARA APRESENTAR O BOTAO
+    
     @PostConstruct
 	public void init() {
     	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de Avaliacao de Exame !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     	this.setExame(new Exame());
+    	this.setExameAvaliadoPorMedico(new Exame());
 		carregarExameAvaliacaoList();
 	}
     
 	public void inserirAlterar() {
+		this.getExame().setSituacaoExame(SituacaoExameEnum.AGUARDANDO_ANALISE_MEDICO);
    		alterar(this.getExame());
     }
     
@@ -47,16 +52,13 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	public void alterar(Exame exame) {
-		if(validarCampos()) {
-			
-			exame.setSituacaoExame(SituacaoExameEnum.AGUARDANDO_ANALISE_MEDICO);
+		if(validarCampos(exame)) {
 			boolean alteracao = this.getExameDAO().alterar(exame);
 			if (alteracao) {
 				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
-		
 	}
 
 	@Override
@@ -67,16 +69,17 @@ private static final long serialVersionUID = 1L;
 
 	/**
 	 * Valida os campos obrigatorios
+	 * @param exameValidacao 
 	 */
-	public boolean validarCampos() {
+	public boolean validarCampos(Exame exameValidacao) {
 		boolean valid = true;
 
-		if(!Util.isValueNotBlankOrNotEmpty(this.getExame().getId())) {
+		if(!Util.isValueNotBlankOrNotEmpty(exameValidacao.getId())) {
 			this.tratarMensagemErro(null, "MSG011");
 			valid = false;
 			return valid;
 		}
-		if(!Util.isObjectNotNull(this.getExame().getResultado())) {
+		if(!Util.isObjectNotNull(exameValidacao.getResultado())) {
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
@@ -93,11 +96,28 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	/**
+	 * Altera a situacao do exame para AGUARDANDO_RETORNO_PACIENTE
+	 */
+	public void aguardarRetornoPaciente() {
+		this.getExameAvaliadoPorMedico().setSituacaoExame(SituacaoExameEnum.AGUARDANDO_RETORNO_PACIENTE);
+   		alterar(this.getExameAvaliadoPorMedico());
+	}
+	
+	/**
+	 * Altera a situacao do exame para ENTREGAR_RESULTADO_PACIENTE
+	 */
+	public void entregarResultadoPaciente() {
+		this.getExameAvaliadoPorMedico().setSituacaoExame(SituacaoExameEnum.ENTREGAR_RESULTADO_PACIENTE);
+		alterar(this.getExameAvaliadoPorMedico());
+	}
+
+	/**
 	 * Carrega os exames que para inclusao dos resultados clinicos.
 	 */
 	private void carregarExameAvaliacaoList() {
 		this.setExameList(new ArrayList<Exame>());
-		this.getExameList().addAll(this.getExameDAO().getExamesPendentesResultado());
+		this.getExameList().addAll(this.getExameDAO().getList());
+//		this.getExameList().addAll(this.getExameDAO().getExamesPendentesResultado());
 	}
 
 	//GETTERS AND SETTERS
@@ -139,6 +159,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
+	}
+
+	public Exame getExameAvaliadoPorMedico() {
+		return exameAvaliadoPorMedico;
+	}
+
+	public void setExameAvaliadoPorMedico(Exame exameAvaliadoPorMedico) {
+		this.exameAvaliadoPorMedico = exameAvaliadoPorMedico;
 	}
 
 }

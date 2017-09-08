@@ -142,4 +142,17 @@ public class Exame implements Serializable{
 		
 		return retorno;
 	}
+	
+	public boolean isAguardandoResultado() {
+		if(Util.isObjectNotNull(this.getSituacaoExame())) {
+			return SituacaoExameEnum.AGUARDANDO_RESULTADO.equals(this.getSituacaoExame());
+		}
+		return false;
+	}
+	public boolean isAguardandoAnaliseMedico() {
+		if(Util.isObjectNotNull(this.getSituacaoExame())) {
+			return SituacaoExameEnum.AGUARDANDO_ANALISE_MEDICO.equals(this.getSituacaoExame());
+		}
+		return false;
+	}
 }

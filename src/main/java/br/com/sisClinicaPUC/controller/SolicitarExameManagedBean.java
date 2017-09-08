@@ -94,13 +94,12 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void excluir(Exame exame) {}
 
-	public void carregarAlteracao(Exame exameAlterar) {
-		this.setExame(new Exame(this.getMedicoSessao()));
-		carregarSolicitacoesExamePorMedicoList();
-		Exame exaAlterar = Util.cloneSerializable(exameAlterar);
-		this.setExame(exaAlterar);
-//		this.getExameList().remove(exaAlterar);
-	}
+//	public void carregarAlteracao(Exame exameAlterar) {
+//		this.setExame(new Exame(this.getMedicoSessao()));
+//		carregarSolicitacoesExamePorMedicoList();
+//		Exame exaAlterar = Util.cloneSerializable(exameAlterar);
+//		this.setExame(exaAlterar);
+//	}
 	
 	/**
 	 * Valida os campos obrigatorios
