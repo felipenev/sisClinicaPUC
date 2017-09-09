@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition
+	template="./principal.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+  	xmlns:h="http://java.sun.com/jsf/html"
+  	xmlns:b="http://bootsfaces.net/ui"
+  	xmlns:ui="http://java.sun.com/jsf/facelets"
+  	xmlns:f="http://java.sun.com/jsf/core"
+ 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ 	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="formHistorico">	
+		
+			<b:panel id="pnlHistorico" title="Histórico" look="primary">
+				
+				<br/>
+		        <p:selectOneRadio value="#{historicoManagedBean.tipoPesquisaHistoricoSelecionado}" layout="responsive" columns="4">
+		        	<f:selectItems value="#{historicoManagedBean.tipoPesquisaHistoricoValues}" var="tipoPesquisa" itemLabel="#{tipoPesquisa.descricao}" itemValue="#{tipoPesquisa}" />
+			        <f:ajax listener="#{historicoManagedBean.inicializarHistorico}" render="pnlPesquisaHistorico pnlTabelas" />
+		        </p:selectOneRadio>
+				        
+				<h:panelGroup id="pnlPesquisaHistorico">
+					<h:panelGroup id="pnlMedicamentoPrescrito" rendered="#{historicoManagedBean.medicamentoPrescrito}">
+					</h:panelGroup>        
+					<h:panelGroup id="pnlExameSolicitado" rendered="#{historicoManagedBean.exameSolicitado}">
+					</h:panelGroup>        
+					<h:panelGroup id="pnlResultadoObtido" rendered="#{historicoManagedBean.resultadoObtido}">
+					</h:panelGroup>
+					
+					<h:panelGroup id="pnlConsultar" rendered="#{historicoManagedBean.consultar}">
+						<h:panelGrid>
+							Operacao
+							Data Operacao
+							Data Consulta
+							Paciente
+							Medico
+							Situacao consulta
+				        </h:panelGrid>
+					</h:panelGroup>
+					
+				</h:panelGroup>
+		  	</b:panel>
+		
+			<h:panelGroup id="pnlTabelas">
+			
+			<!-- Medicamento Prescrito -->
+				<h:panelGroup id="pnlMedicamentoPrescritoHistorico" rendered="#{historicoManagedBean.medicamentoPrescrito}">
+					<b:dataTable id="tableMedicamentoPrescritoHistorico" value="#{historicoManagedBean.historicoList}" var="histMedicamentoPrescrito" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+				        
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.operacao}" label="Operção"/>
+				        <b:dataTableColumn data-order="#{histMedicamentoPrescrito.dataHoraOperacao}" order="asc" label="Data Operação">
+				        	<h:outputText value="#{histMedicamentoPrescrito.dataHoraOperacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn data-order="#{histMedicamentoPrescrito.receitaMedica.dataEmissao}" label="Data Emissão">
+				        	<h:outputText value="#{histMedicamentoPrescrito.receitaMedica.dataEmissao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.receitaMedica.medico.nome}" label="Médico"/>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.receitaMedica.paciente.nome}" label="Paciente"/>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.receitaMedica.medicamentosPrescritos}" label="Medicamentos Prescritos"/>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.receitaMedica.descricaoReceita}" label="Prescrição"/>
+				    </b:dataTable>
+				</h:panelGroup>
+			<!-- Exames solicitados -->
+				<h:panelGroup id="pnlExameSolicitadoHistorico" rendered="#{historicoManagedBean.exameSolicitado}">
+					<b:dataTable id="tableExameSolicitadoHistorico" value="#{historicoManagedBean.historicoList}" var="histExameSolicitado" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+				        
+				        <b:dataTableColumn value="#{histExameSolicitado.operacao}" label="Operção"/>
+				        <b:dataTableColumn data-order="#{histExameSolicitado.dataHoraOperacao}" order="asc" label="Data Operação">
+				        	<h:outputText value="#{histExameSolicitado.dataHoraOperacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn data-order="#{histExameSolicitado.exame.dataSolicitacao}" label="Data Solicitação">
+				        	<h:outputText value="#{histExameSolicitado.exame.dataSolicitacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="#{histExameSolicitado.exame.medico.nome}" label="Médico"/>
+				        <b:dataTableColumn value="#{histExameSolicitado.exame.paciente.nome}" label="Paciente"/>
+				        <b:dataTableColumn value="#{histExameSolicitado.exame.examesSolicitados}" label="Exames Solicitados"/>
+				        <b:dataTableColumn data-order="#{histExameSolicitado.exame.situacaoExame.descricao}" label="Situação">
+				        	<b:label text="#{histExameSolicitado.exame.situacaoExame.descricao}" severity="#{histExameSolicitado.exame.situacaoExame.severity}" />
+				        </b:dataTableColumn>
+				    </b:dataTable>
+				</h:panelGroup>				
+			<!-- resultado obtido -->
+				<h:panelGroup id="pnlResultadoObtidoHistorico" rendered="#{historicoManagedBean.resultadoObtido}">
+					<b:dataTable id="tableResultadoObtidoHistorico" value="#{historicoManagedBean.historicoList}" var="histResultadoObtido" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+				        
+				        <b:dataTableColumn value="#{histResultadoObtido.operacao}" label="Operção"/>
+				        <b:dataTableColumn data-order="#{histResultadoObtido.dataHoraOperacao}" order="asc" label="Data Operação">
+				        	<h:outputText value="#{histResultadoObtido.dataHoraOperacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn data-order="#{histResultadoObtido.exame.dataSolicitacao}" label="Data Solicitação">
+				        	<h:outputText value="#{histResultadoObtido.exame.dataSolicitacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="#{histResultadoObtido.exame.medico.nome}" label="Médico"/>
+				        <b:dataTableColumn value="#{histResultadoObtido.exame.paciente.nome}" label="Paciente"/>
+				        <b:dataTableColumn value="#{histResultadoObtido.exame.examesSolicitados}" label="Exames Solicitados"/>
+				        <b:dataTableColumn value="#{histResultadoObtido.exame.resultado}" label="Resultado"/>
+				        <b:dataTableColumn data-order="#{histResultadoObtido.exame.situacaoExame.descricao}" label="Situação Exame">
+				        	<b:label text="#{histResultadoObtido.exame.situacaoExame.descricao}" severity="#{histResultadoObtido.exame.situacaoExame.severity}"/>
+				        </b:dataTableColumn>
+				    </b:dataTable>
+				</h:panelGroup>				
+			<!-- consultar -->
+				<h:panelGroup id="pnlConsultarHistorico" rendered="#{historicoManagedBean.consultar}">
+					<b:dataTable id="tableConsultaHistorico" value="#{historicoManagedBean.historicoList}" var="histConsulta" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+				        <b:dataTableColumn value="#{histConsulta.operacao}" label="Operção"/>
+				        <b:dataTableColumn data-order="#{histConsulta.dataHoraOperacao}" order="asc" label="Data Operação">
+				        	<h:outputText value="#{histConsulta.dataHoraOperacao}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn data-order="#{histConsulta.consulta.agendaMedico.apresentacaoCompleta}" label="Data Consulta">
+				        	<h:outputText value="#{histConsulta.consulta.agendaMedico.apresentacaoCompleta}">
+				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
+				            </h:outputText>
+				        </b:dataTableColumn>
+				        <b:dataTableColumn value="#{histConsulta.consulta.paciente.nome}" label="Paciente"/>
+				        <b:dataTableColumn value="#{histConsulta.consulta.medico.nome}" label="Médico"/>
+				        <b:dataTableColumn data-order="#{histConsulta.consulta.situacaoConsulta.descricao}" label="Situação">
+				        	<b:label text="#{histConsulta.consulta.situacaoConsulta.descricao}" severity="#{histConsulta.consulta.situacaoConsulta.severity}"/>
+				        </b:dataTableColumn>
+				    </b:dataTable>
+				</h:panelGroup>				
+			</h:panelGroup>
+		
+      	</h:form>
+      	
+	</ui:define>
+		    
+</ui:composition>

@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.ReceitaMedica;
@@ -16,6 +17,8 @@ import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.ReceitaMedicaDAO;
 import br.com.sisClinicaPUC.util.Util;
+import br.com.sisClinicaPUC.vo.OperacaoEnum;
+import br.com.sisClinicaPUC.vo.TipoPesquisaHistoricoEnum;
    
 @Named
 @ViewScoped
@@ -58,6 +61,9 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 //    		boolean inclusao = this.getReceitaMedicaDAO().inserir(this.getReceitaMedica());
     		boolean inclusao = this.getReceitaMedicaDAO().alterar(this.getReceitaMedica());
     		if (inclusao) {
+    			
+    			montarHistorico(OperacaoEnum.INCLUIR, this.getReceitaMedica());
+    			
     			init();
     			this.tratarMensagemSucesso(null);
     		}
@@ -69,6 +75,9 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		if(validarCampos()) {
 			boolean alteracao = this.getReceitaMedicaDAO().alterar(receitaMedica);
 			if (alteracao) {
+				
+				montarHistorico(OperacaoEnum.ALTERAR, receitaMedica);
+				
 				init();
 				this.tratarMensagemSucesso(null);
 			}
@@ -89,6 +98,22 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		ReceitaMedica recAlterar = Util.cloneSerializable(receitaMedicaAlterar);
 		this.setReceitaMedica(recAlterar);
 //		this.getReceitaMedicaList().remove(receitaMedicaAlterar);
+	}
+	
+	 /**
+     * Monta o historico para inclusao
+     * 
+     * @param operacao
+     * @param consulta
+     */
+	private void montarHistorico(OperacaoEnum operacao, ReceitaMedica receitaMedica) {
+		Historico historico = new Historico();
+		historico.setOperacao(operacao);
+		historico.setReceitaMedica(receitaMedica);
+		historico.setTipoPesquisaHistoricoEnum(TipoPesquisaHistoricoEnum.MEDICAMENTOS_PRESCRITOS);
+		
+		//Gravando historico
+		this.gravarHistorico(historico);
 	}
 	
 	/**

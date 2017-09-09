@@ -59,7 +59,7 @@ private Class<T> persistedClass;
 	   		
 	   		return entity;
 	   	} catch (Exception e) {
-	   		this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+	   		this.tratarMensagemErro("formMenu:growlMsgm", e.getMessage(), "");
    		}finally {
    			this.closeEntityManager();
 		}
@@ -80,7 +80,7 @@ private Class<T> persistedClass;
 	       t.commit();
 	       return entity;
    		} catch (Exception e) {
-   			this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+   			this.tratarMensagemErro("formMenu:growlMsgm", e.getMessage(), "");
 		}finally {
 			this.closeEntityManager();
 		}
@@ -102,7 +102,7 @@ private Class<T> persistedClass;
 	       tx.commit();
 	       
 	   } catch (Exception e) {
-		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+		   this.tratarMensagemErro("formMenu:growlMsgm", e.getMessage(), "");
 	   }finally {
 		   this.closeEntityManager();
 	   }
@@ -120,7 +120,7 @@ private Class<T> persistedClass;
 		   
 		   return retorno;
 	   } catch (Exception e) {
-		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+		   this.tratarMensagemErro("formMenu:growlMsgm", e.getMessage(), "");
 	   }finally {
 		   this.closeEntityManager();
 	   }
@@ -138,7 +138,7 @@ private Class<T> persistedClass;
 		   return retorno;
 		   
 	   } catch (Exception e) {
-		   this.tratarMensagemErro("formPrincipal:growlMsgm", e.getMessage(), "");
+		   this.tratarMensagemErro("formMenu:growlMsgm", e.getMessage(), "");
 	   }finally {
 		   this.closeEntityManager();
 	   }

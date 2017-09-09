@@ -2,17 +2,18 @@ package br.com.sisClinicaPUC.controller;
 
 import javax.faces.context.FacesContext;
 
+import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Recepcionista;
+import br.com.sisClinicaPUC.persistencia.HistoricoDAO;
 import br.com.sisClinicaPUC.util.ValidacaoException;
-import br.com.sisClinicaPUC.vo.OperacaoEnum;
 
 public abstract class AbstractMangedBean<T> extends ValidacaoException implements Servico<T> {
 
-	public OperacaoEnum operacao = OperacaoEnum.CONSULTAR;
+	//Historico
+	private HistoricoDAO historicoDAO = new HistoricoDAO();
 	
 	public void init() {
-		this.operacao = OperacaoEnum.CONSULTAR;
 	}
 	
 	public void inserir () {}
@@ -35,4 +36,22 @@ public abstract class AbstractMangedBean<T> extends ValidacaoException implement
 			throw e;
 		}
 	}
+	
+	public void gravarHistorico(Historico historico) {
+		try {
+			this.getHistoricoDAO().inserir(historico);
+		} catch (Exception e) {
+			this.tratarMensagemErro(null, e.getMessage());
+		}
+		
+	}
+
+	public HistoricoDAO getHistoricoDAO() {
+		return historicoDAO;
+	}
+
+	public void setHistoricoDAO(HistoricoDAO historicoDAO) {
+		this.historicoDAO = historicoDAO;
+	}
+	
 }

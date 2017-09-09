@@ -10,16 +10,19 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.Exame;
+import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.persistencia.ExameDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.util.Util;
+import br.com.sisClinicaPUC.vo.OperacaoEnum;
 import br.com.sisClinicaPUC.vo.SituacaoExameEnum;
+import br.com.sisClinicaPUC.vo.TipoPesquisaHistoricoEnum;
    
 @Named
 @ViewScoped
 public class AvaliarExameManagedBean extends AbstractMangedBean<Exame> implements Serializable{
    
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
@@ -55,6 +58,9 @@ private static final long serialVersionUID = 1L;
 		if(validarCampos(exame)) {
 			boolean alteracao = this.getExameDAO().alterar(exame);
 			if (alteracao) {
+				
+				montarHistorico(OperacaoEnum.ALTERAR, exame);
+				
 				init();
 				this.tratarMensagemSucesso(null);
 			}
@@ -67,6 +73,22 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void excluir(Exame exame) {}
 
+	 /**
+     * Monta o historico para inclusao
+     * 
+     * @param operacao
+     * @param consulta
+     */
+	private void montarHistorico(OperacaoEnum operacao, Exame exame) {
+		Historico historico = new Historico();
+		historico.setOperacao(operacao);
+		historico.setExame(exame);
+		historico.setTipoPesquisaHistoricoEnum(TipoPesquisaHistoricoEnum.RESULTADOS_OBTIDOS);
+		
+		//Gravando historico
+		this.gravarHistorico(historico);
+	}
+	
 	/**
 	 * Valida os campos obrigatorios
 	 * @param exameValidacao 

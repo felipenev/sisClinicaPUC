@@ -36,7 +36,6 @@
         <title>sisClinicaPUC</title>
     </h:head>
     
-    
     <pe:blockUI widgetVar="blockUIWidget" >  
 	    <h:panelGrid columns="2">  
 	        <h:graphicImage library="images" name="ajax-loader1.gif" style="margin-right: 12px; vertical-align: middle;" />  
@@ -47,7 +46,6 @@
     <h:body id="bodyPrincipal" style="padding-top: 60px">
 <!--         <h:outputScript library="holder" name="holder.js" /> -->
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
-        	
         	
 	        <b:navBar brand="Clínica PUC Minas" brandHref="#" inverse="true" fixed="top" fluid="true">
 	            <h:form id="formMenu">
@@ -74,6 +72,8 @@
 			                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 			                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 			                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+	<!-- 			                historico -->
+			                <b:navLink value="Histórico" href="historico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
 
 		            </b:navbarLinks>
 	            </h:form>

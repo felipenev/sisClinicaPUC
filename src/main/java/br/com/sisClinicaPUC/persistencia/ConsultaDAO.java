@@ -69,7 +69,10 @@ import br.com.sisClinicaPUC.vo.SituacaoConsultaEnum;
 	    		
 	    		List<Paciente> retorno = new ArrayList<Paciente>();
 	    		for (Consulta consulta : consultaList) {
-					retorno.add(consulta.getPaciente());
+	    			Paciente p = new Paciente();
+	    			p = consulta.getPaciente();
+	    			p.setHorarioConsulta(consulta.getAgendaMedico().getApresentacaoCompleta());
+					retorno.add(p);
 				}
 	    		return retorno;
 	    	} catch (Exception e) {

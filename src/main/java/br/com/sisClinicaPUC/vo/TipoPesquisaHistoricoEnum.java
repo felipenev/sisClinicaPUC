@@ -1,17 +1,15 @@
 package br.com.sisClinicaPUC.vo;
 
-public enum OperacaoEnum {
+public enum TipoPesquisaHistoricoEnum {
 
-	INCLUIR("1", "incluir"),
-	ALTERAR("2", "alterar"),
-	EXCLUIR("3", "excluir"),
-	CONSULTAR("4", "consultar");
+	MEDICAMENTOS_PRESCRITOS("1", "Medicamentos prescritos"),
+	EXAMES_SOLICITADOS("2", "Exames solicitados"),
+	RESULTADOS_OBTIDOS("3", "Resultados obtidos"),
+	CONSULTAS("4", "Consultas");
 
+	private TipoPesquisaHistoricoEnum() {}
 	
-	private OperacaoEnum() {
-	}
-	
-	private OperacaoEnum(String codigo, String descricao) {
+	private TipoPesquisaHistoricoEnum(String codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -21,12 +19,12 @@ public enum OperacaoEnum {
 	/**
 	 * Retorna o objeto através do código.
 	 */
-	public static OperacaoEnum getValor(String valor){
+	public static TipoPesquisaHistoricoEnum getValor(String valor){
 		if(valor == null){
 			return null;
 		}
 		
-		for (OperacaoEnum obj : values()) {
+		for (TipoPesquisaHistoricoEnum obj : values()) {
 			if(obj.getCodigo().equals(valor)){
 				return obj;
 			}

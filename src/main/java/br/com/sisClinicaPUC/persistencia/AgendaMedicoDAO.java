@@ -1,6 +1,7 @@
 package br.com.sisClinicaPUC.persistencia;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +65,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.AGENDA_MEDICO, AgendaMedico.class)
 	    												.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
 	    												.setParameter("idMedico", medico.getId())
+	    												.setParameter("dataAtual", new Date(), TemporalType.DATE)
 	    												.getResultList();
 	    		Set<AgendaMedico> agendaSet = new HashSet<AgendaMedico>(agendaMedicoList);
 	    		List<AgendaMedico> retorno = new ArrayList<AgendaMedico>(agendaSet);

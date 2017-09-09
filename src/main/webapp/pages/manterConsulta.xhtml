@@ -51,7 +51,7 @@
 		        	 	<f:selectItem itemLabel="Selecione" itemValue="" />
 		            	<f:selectItems value="#{manterConsultaManagedBean.medicoList}" var="medico" itemLabel="#{medico.nome}" itemValue="#{medico}" />
 		            	<f:ajax listener="#{manterConsultaManagedBean.alterarCalendarioMedico}" render="idDataConsulta" />
-		        	</b:selectOneMenu>	        
+		        	</b:selectOneMenu>
 			        <br/>
 		      		<h:panelGroup>
 			        	<h:outputText value="Data Atendimento Médico" /><h:outputText value="*" styleClass="obrigatorio" />
@@ -92,7 +92,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{manterConsultaManagedBean.cancelarConsulta()}" onclick="$('#formManterConsulta\\:modalCancelarConsulta')).modal('hide');return false;" update="formManterConsulta" />
+		            <b:commandButton value="Sim" look="danger" action="#{manterConsultaManagedBean.cancelarConsulta()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formManterConsulta\\:modalCancelarConsulta')).modal('hide');return false;" update="formManterConsulta formMenu:growlMsgm" />
 		        </f:facet>
 		    </b:modal>
       	

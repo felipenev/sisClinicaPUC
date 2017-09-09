@@ -42,7 +42,7 @@
 	  		</b:panel>
 	    
 		    <b:dataTable id="tableAgendaMedico" value="#{agendaMedicoManagedBean.agendaMedicoList}" var="agendaH" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-		        <b:dataTableColumn data-order="#{agendaH.data}" label="Data Atendimento" >
+		        <b:dataTableColumn data-order="#{agendaH.data}" order="asc" label="Data Atendimento" >
 		        	<h:outputText value="#{agendaH.data}">
 		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
 		            </h:outputText>
@@ -76,7 +76,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{agendaMedicoManagedBean.excluir()}" onclick="$('#formAgendaMedico\\:modalExcluirAgendamento')).modal('hide');return false;" update="formAgendaMedico" />
+		            <b:commandButton value="Sim" look="danger" action="#{agendaMedicoManagedBean.excluir()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAgendaMedico\\:modalExcluirAgendamento')).modal('hide');return false;" update="formAgendaMedico" />
 		        </f:facet>
 		    </b:modal>
 

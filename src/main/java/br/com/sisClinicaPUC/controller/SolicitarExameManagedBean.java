@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.sisClinicaPUC.entidade.Exame;
+import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.TipoExame;
 import br.com.sisClinicaPUC.persistencia.ConsultaDAO;
@@ -20,6 +21,8 @@ import br.com.sisClinicaPUC.persistencia.ExameDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 import br.com.sisClinicaPUC.util.Util;
+import br.com.sisClinicaPUC.vo.OperacaoEnum;
+import br.com.sisClinicaPUC.vo.TipoPesquisaHistoricoEnum;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -31,7 +34,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @ViewScoped
 public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> implements Serializable{
    
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	private ExameDAO exameDAO = new ExameDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
@@ -70,6 +73,9 @@ private static final long serialVersionUID = 1L;
 //    		boolean inclusao = this.getExameDAO().inserir(this.getExame());
     		boolean inclusao = this.getExameDAO().alterar(this.getExame());
     		if (inclusao) {
+    			
+    			montarHistorico(OperacaoEnum.INCLUIR, this.getExame());
+    			
     			init();
     			this.tratarMensagemSucesso(null);
     		}
@@ -81,11 +87,13 @@ private static final long serialVersionUID = 1L;
 		if(validarCampos()) {
 			boolean alteracao = this.getExameDAO().alterar(exame);
 			if (alteracao) {
+				
+				montarHistorico(OperacaoEnum.ALTERAR, exame);
+    			
 				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
-		
 	}
 
 	@Override
@@ -93,6 +101,22 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	public void excluir(Exame exame) {}
+
+	 /**
+     * Monta o historico para inclusao
+     * 
+     * @param operacao
+     * @param exame
+     */
+	private void montarHistorico(OperacaoEnum operacao, Exame exame) {
+		Historico historico = new Historico();
+		historico.setOperacao(operacao);
+		historico.setExame(exame);
+		historico.setTipoPesquisaHistoricoEnum(TipoPesquisaHistoricoEnum.EXAMES_SOLICITADOS);
+		
+		//Gravando historico
+		this.gravarHistorico(historico);
+	}
 
 //	public void carregarAlteracao(Exame exameAlterar) {
 //		this.setExame(new Exame(this.getMedicoSessao()));
@@ -123,7 +147,6 @@ private static final long serialVersionUID = 1L;
 		return valid;
 	}
 
-	
 	/**
 	 * Carrega as solicitacoes de exames que foram feitas pelo medico
 	 */
@@ -177,7 +200,6 @@ private static final long serialVersionUID = 1L;
             ex.printStackTrace();
             this.tratarMensagemErro(null, ex.getMessage());
         }
-		
 	}
 	
 	//GETTERS AND SETTERS

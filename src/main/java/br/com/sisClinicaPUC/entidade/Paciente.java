@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
@@ -28,6 +29,9 @@ public class Paciente extends Pessoa {
 	@Column(name="data_cadastro", nullable=false, unique=false)
 	private Date dataCadastro;
 
+	@Transient
+	private String horarioConsulta;
+	
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -59,6 +63,14 @@ public class Paciente extends Pessoa {
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
+	}
+
+	public String getHorarioConsulta() {
+		return horarioConsulta;
+	}
+
+	public void setHorarioConsulta(String horarioConsulta) {
+		this.horarioConsulta = horarioConsulta;
 	}
 	
  }

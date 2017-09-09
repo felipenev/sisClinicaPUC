@@ -68,7 +68,12 @@
 		<managed-bean-class>br.com.sisClinicaPUC.controller.AvaliarExameManagedBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
- 
+	<managed-bean>
+		<managed-bean-name>historicoManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.sisClinicaPUC.controller.HistoricoManagedBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+
 	<!--  	Converters 		-->
 	 <converter>
 	  	<converter-for-class>java.lang.Enum</converter-for-class>

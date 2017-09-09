@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS exame_tipoexame CASCADE;
 DROP TABLE IF EXISTS examesolicitado CASCADE;
 DROP TABLE IF EXISTS agendamedico_dataatendimento CASCADE;
 DROP TABLE IF EXISTS consulta CASCADE;
+DROP TABLE IF EXISTS historico CASCADE;
 
 
 DROP TABLE IF EXISTS exame_examesolicitado CASCADE;
@@ -26,3 +27,5 @@ DROP SEQUENCE IF EXISTS sequence_solicitacao_exame;
 DROP SEQUENCE IF EXISTS sequence_receitamedica;
 DROP SEQUENCE IF EXISTS sequence_exame;
 DROP SEQUENCE IF EXISTS sequence_consulta;
+DROP SEQUENCE IF EXISTS sequence_historico;
+DROP SEQUENCE IF EXISTS sequence_historico;

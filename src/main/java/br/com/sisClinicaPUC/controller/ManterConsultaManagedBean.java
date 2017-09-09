@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.entidade.Consulta;
+import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.persistencia.AgendaMedicoDAO;
@@ -19,13 +20,15 @@ import br.com.sisClinicaPUC.persistencia.ConsultaDAO;
 import br.com.sisClinicaPUC.persistencia.MedicoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.util.Util;
+import br.com.sisClinicaPUC.vo.OperacaoEnum;
 import br.com.sisClinicaPUC.vo.SituacaoConsultaEnum;
+import br.com.sisClinicaPUC.vo.TipoPesquisaHistoricoEnum;
    
 @Named
 @ViewScoped
 public class ManterConsultaManagedBean extends AbstractMangedBean<Consulta> implements Serializable{
    
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	private ConsultaDAO consultaDAO = new ConsultaDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
@@ -38,8 +41,7 @@ private static final long serialVersionUID = 1L;
     private List<Medico> medicoList = new ArrayList<Medico>();
     private List<AgendaMedico> agendaMedicoList = new ArrayList<AgendaMedico>();
     
-    public ManterConsultaManagedBean() {
-	}
+    public ManterConsultaManagedBean() {}
 
     @PostConstruct
 	public void init() {
@@ -64,6 +66,9 @@ private static final long serialVersionUID = 1L;
 //    		boolean inclusao = this.getExameDAO().inserir(this.getExame());
     		boolean inclusao = this.getConsultaDAO().alterar(this.getConsulta());
     		if (inclusao) {
+    			
+    			montarHistorico(OperacaoEnum.INCLUIR, this.getConsulta());
+    			
     			init();
     			this.tratarMensagemSucesso(null);
     		}
@@ -75,11 +80,13 @@ private static final long serialVersionUID = 1L;
 		if(validarCampos()) {
 			boolean alteracao = this.getConsultaDAO().alterar(consulta);
 			if (alteracao) {
+				
+				montarHistorico(OperacaoEnum.ALTERAR, consulta);
+				
 				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
-		
 	}
 
 	@Override
@@ -100,9 +107,28 @@ private static final long serialVersionUID = 1L;
 		this.getConsultaExclusao().setSituacaoConsulta(SituacaoConsultaEnum.CANCELADA);
 		boolean consultaCancelada = this.getConsultaDAO().alterar(this.getConsultaExclusao());
 		if(consultaCancelada) {
+			
+			montarHistorico(OperacaoEnum.ALTERAR, this.getConsultaExclusao());
+			
 			init();
 			this.tratarMensagemSucesso(null);
 		}
+	}
+	
+	 /**
+     * Monta o historico para inclusao
+     * 
+     * @param operacao
+     * @param consulta
+     */
+	private void montarHistorico(OperacaoEnum operacao, Consulta consulta) {
+		Historico historico = new Historico();
+		historico.setOperacao(operacao);
+		historico.setConsulta(consulta);
+		historico.setTipoPesquisaHistoricoEnum(TipoPesquisaHistoricoEnum.CONSULTAS);
+		
+		//Gravando historico
+		this.gravarHistorico(historico);
 	}
 	
 	/**
@@ -264,5 +290,5 @@ private static final long serialVersionUID = 1L;
 	public void setAgendaMedicoList(List<AgendaMedico> agendaMedicoList) {
 		this.agendaMedicoList = agendaMedicoList;
 	}
-	
+
 }

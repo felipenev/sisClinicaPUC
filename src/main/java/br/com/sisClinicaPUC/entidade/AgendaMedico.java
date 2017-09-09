@@ -16,7 +16,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 @Entity
 @NamedQueries({
-	  @NamedQuery(name = "agendaMedico.AGENDA_MEDICO", query = "select am from AgendaMedico am where am.ativoInaivo = :situacao and am.medico.id = :idMedico"),
+	  @NamedQuery(name = "agendaMedico.AGENDA_MEDICO", query = "select am from AgendaMedico am where am.ativoInaivo = :situacao and am.medico.id = :idMedico and am.data >= :dataAtual"),
 	  @NamedQuery(name = "agendaMedico.VERIFICAR_DATA", query = "select am from AgendaMedico am "
 	  															+ "where am.ativoInaivo = :situacao "
 	  															+ "and am.medico.id = :idMedico "
