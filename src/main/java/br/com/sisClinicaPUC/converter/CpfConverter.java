@@ -28,7 +28,7 @@ public class CpfConverter implements Converter {
 	          String cpf= (String) value;
 	          if (cpf != null && cpf.length() == Util.TAMANHO_CPF)
 	               cpf = Util.formatarString(Util.MASCARA_CPF, cpf);
-//               cpf = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11);
+	          
 	          return cpf;
 		  } catch (Exception e) {
 			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
@@ -47,7 +47,6 @@ public class CpfConverter implements Converter {
         	 String cpf = value;
         	 if (value!= null && !"".equals(value))
         		 cpf = Util.removeNoNumbers(value);
-//        		 cpf = value.replaceAll("\\.", "").replaceAll("\\-", "");
         	 
         	 return cpf;
         	 

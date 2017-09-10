@@ -112,6 +112,10 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
+		if(Util.isObjectNotNull(this.getPaciente().getRG()) && this.getPaciente().getRG() < 0) {
+			this.tratarMensagemErro(null, "MSG015");
+			valid = false;
+		}
 		if(!Util.isObjectNotNull(this.getPaciente().getCPF())) {
 			this.tratarMensagemErro(null);
 			valid = false;

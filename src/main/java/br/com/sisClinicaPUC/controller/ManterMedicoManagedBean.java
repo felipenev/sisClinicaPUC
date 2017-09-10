@@ -114,6 +114,10 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
+		if(Util.isObjectNotNull(this.getMedico().getRG()) && this.getMedico().getRG() < 0) {
+			this.tratarMensagemErro(null, "MSG015");
+			valid = false;
+		}
 		if(!Util.isObjectNotNull(this.getMedico().getCPF())) {
 			this.tratarMensagemErro(null);
 			valid = false;

@@ -114,6 +114,10 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
+		if(Util.isObjectNotNull(this.getRecepcionista().getRG()) && this.getRecepcionista().getRG() < 0) {
+			this.tratarMensagemErro(null, "MSG015");
+			valid = false;
+		}
 		if(!Util.isObjectNotNull(this.getRecepcionista().getCPF())) {
 			this.tratarMensagemErro(null);
 			valid = false;
