@@ -57,7 +57,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="$('#formMedicamento\\:modalExcluirMedicamento')).modal('hide');return false;" update="formMedicamento" />
+		            <b:commandButton value="Sim" look="danger" action="#{medicamentoManagedBean.excluir()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formMedicamento\\:modalExcluirMedicamento')).modal('hide');return false;" update="formMedicamento" />
 		        </f:facet>
 		    </b:modal>
     

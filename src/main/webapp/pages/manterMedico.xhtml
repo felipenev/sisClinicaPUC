@@ -16,6 +16,18 @@
 		      	<h:panelGrid>
 		      		
 		        	<h:panelGroup>
+			        	<h:outputText value="Login" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="idLoginMedico" value="#{manterMedicoManagedBean.medico.usuario.login}" />
+		        	<h:panelGroup>
+			        	<h:outputText value="Senha" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+			        <p:password id="idSenhaMedico" value="#{manterMedicoManagedBean.medico.usuario.senha}" redisplay="true" feedback="true"
+			                    promptLabel="Digite uma senha" weakLabel="Fraco"
+			                    goodLabel="Bom" strongLabel="Muito Bom!" />
+		      		
+		      		<br />
+		        	<h:panelGroup>
 			        	<h:outputText value="CRM" /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
 		        	<b:inputText id="idCRMMedico" value="#{manterMedicoManagedBean.medico.CRM}" mask="9999/AA" converter="crmConverter"/>
@@ -81,6 +93,7 @@
 		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
 		            </h:outputText>
 		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{medico.usuario.login}" label="Login"/>
 		        <b:dataTableColumn value="#{medico.nome}" order="asc" label="Nome"/>
 		        <b:dataTableColumn value="#{medico.descricaoSexo.descricao}" label="Sexo"/>
 		        <b:dataTableColumn value="#{medico.RG}" label="RG"/>
@@ -113,7 +126,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{manterMedicoManagedBean.excluir()}" onclick="$('#formManterMedico\\:modalExcluirMedico')).modal('hide');return false;" update="formManterMedico" />
+		            <b:commandButton value="Sim" look="danger" action="#{manterMedicoManagedBean.excluir()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formManterMedico\\:modalExcluirMedico')).modal('hide');return false;" update="formManterMedico" />
 		        </f:facet>
 		    </b:modal>
 		    

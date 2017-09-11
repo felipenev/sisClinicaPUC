@@ -4,7 +4,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      lang="pt-br">
+      
     <h:head>
         <title>Login</title>
         <style type="text/css">
@@ -16,9 +20,24 @@
         </style>
     </h:head>
     <h:body style="padding-top: 60px; background-color: #635d5d;">
+    
+    	 <pe:blockUI widgetVar="blockUIWidget" >  
+		    <h:panelGrid columns="2">  
+		        <h:graphicImage library="images" name="ajax-loader1.gif" style="margin-right: 12px; vertical-align: middle;" />  
+		        <h:outputText value="Aguarde" style="white-space: nowrap;"/>  
+		    </h:panelGrid>  
+		</pe:blockUI>  
+    	
         <b:container>
+        	<b:growl id="growlMsgm" placementFrom="top" show-detail="true"
+				        global-only="false"
+				        show-summary="true" allow-dismiss="true"
+				        animation-enter="animated bounceInDown"
+				        animation-exit="animated flipOutX"
+				        escape="false"/>
+				        
             <h:form styleClass="form-signin" prependId="false">
-                <b:inputText id="email" placeholder="Email" value="#{loginMB.usuario.nomeUsuario}">
+                <b:inputText id="email" placeholder="Email" value="#{loginMB.usuario.login}">
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
@@ -28,7 +47,7 @@
             			<b:iconAwesome name="key" />
         			</f:facet>
                 </b:inputText>
-                <b:commandButton look="primary btn-block" value="Entrar" icon="log-in" size="lg" action="#{loginMB.irTelaPrincipal}"/>
+                <b:commandButton look="primary btn-block" value="Entrar" icon="log-in" size="lg" action="#{loginMB.irTelaPrincipal}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock();" />
             </h:form>
         </b:container>
     </h:body>

@@ -1,11 +1,9 @@
 package br.com.sisClinicaPUC.persistencia;
 
-import javax.persistence.EntityManager;
-  import javax.persistence.EntityManagerFactory;
-  import javax.persistence.NoResultException;
-  import javax.persistence.Persistence;
+import javax.persistence.NoResultException;
 
 import br.com.sisClinicaPUC.entidade.Usuario;
+import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
   public class UsuarioDAO extends GenericDAO<Usuario, Long>{
@@ -16,42 +14,35 @@ import br.com.sisClinicaPUC.entidade.Usuario;
 		super(Usuario.class);
 	}
 	  
-	
-    private EntityManagerFactory factory = Persistence.createEntityManagerFactory("sisClinica");
-    private EntityManager em = factory.createEntityManager();
-   
-    public Usuario getUsuario(String nomeUsuario, String senha) {
+    public Usuario getUsuario(Usuario usuario) {
    
     	try {
-            	  
-    		Usuario usuario = (Usuario) em.createQuery("SELECT u from Usuario u where u.nomeUsuario = :name and u.senha = :senha")
-						                   .setParameter("name", nomeUsuario)
-						                   .setParameter("senha", senha).getSingleResult();
+    		this.createEntityManager();
+    		Usuario usuarioRetorno = (Usuario) this.getEntityManager().createQuery("SELECT u from Usuario u where u.login = :login and u.senha = :senha and u.ativoInativo = :ativoInativo")
+						                   .setParameter("login", usuario.getLogin())
+						                   .setParameter("senha", usuario.getSenha())
+    										.setParameter("ativoInativo", SituacaoEnum.ATIVO.getCodigo()).getSingleResult();
    
-    		return usuario;
+    		return usuarioRetorno;
     	} catch (NoResultException e) {
     		return null;
-    	}
+    	}finally {
+			this.closeEntityManager();
+		}
 	}
    
-	public boolean inserirUsuario(Usuario usuario) {
+	public Usuario inserirUsuario(Usuario usuario) {
     	try {
-        	em.persist(usuario);
-            return true;
+        	Usuario usr = null;
+        	usr = super.salvar(usuario);
+        			
+            return usr;
+            
     	} catch (Exception e) {
-        	e.printStackTrace();
-            return false;
+    		this.tratarMensagemErro(null, e.getMessage());
+    		return null;
     	}
     }
-    
-    public boolean deletarUsuario(Usuario usuario) {
-    	try {
-        	em.remove(usuario);
-            return true;
-    	} catch (Exception e) {
-        	e.printStackTrace();
-            return false;
-    	}
-	}
-    
+    //TODO:Criar o metodo de delecao de usuario. passando status
+	
 }

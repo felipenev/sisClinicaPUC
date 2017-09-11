@@ -59,22 +59,26 @@
 				        
 		            <b:navbarLinks pull="left">
 		            
-			                <b:navLink value="Bem Vindo" href="bemVindo.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-	<!-- 		                menu admin -->
-			                <b:navLink value="Manter Médico" href="manterMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-	<!-- 		                menu medico -->
-			                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Avaliar Exame" href="avaliarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-	<!-- 		                menu recepcionista -->
-			                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-			                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
-	<!-- 			                historico -->
-			                <b:navLink value="Histórico" href="historico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+	<!-- 		        menu admin -->
+		                <b:navLink value="Manter Médico" href="manterMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioAdmin}"/>
+		                <b:navLink value="Manter Recepcionista" href="manterRecepcionista.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioAdmin}"/>
+<!-- 		            menu medico -->
+		                <b:navLink value="Agenda" href="agendaMedico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioMedico}"/>
+		                <b:navLink value="Solicitar Exame" href="solicitarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioMedico}"/>
+		                <b:navLink value="Avaliar Exame" href="avaliarExame.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioMedico}"/>
+		                <b:navLink value="Receita Médica" href="receitaMedica.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioMedico}"/>
+<!-- 		            menu recepcionista -->
+		                <b:navLink value="Manter Paciente" href="manterPaciente.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioRecepcionista}"/>
+		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioRecepcionista}"/>
+		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioRecepcionista}"/>
+<!-- 			        historico -->
+		                <b:navLink value="Histórico" href="historico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" />
 
+		            </b:navbarLinks>
+		            <b:navbarLinks pull="right">
+		                <b:navLink value="Bem vindo #{loginMB.usuario.login}" href="#" >
+			                <b:commandButton look="link" value="Sair" iconAwesome="sign-out" action="#{loginMB.sair}" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()"/>
+		                </b:navLink>
 		            </b:navbarLinks>
 	            </h:form>
 	        </b:navBar>

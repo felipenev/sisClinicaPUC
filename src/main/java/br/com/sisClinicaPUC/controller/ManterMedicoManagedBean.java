@@ -10,7 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.Medico;
+import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.MedicoDAO;
+import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
 import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
@@ -19,6 +21,8 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implements Serializable{
    
 	private static final long serialVersionUID = 1L;
+	
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
 	private MedicoDAO medicoDAO = new MedicoDAO();
     private Medico medico = new Medico();
@@ -48,8 +52,16 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getMedicoDAO().inserir(this.getMedico());
-    		if (inclusao) {
+    		//Primeiro criando o usuario
+    		this.getMedico().getUsuario().setLogin(this.getMedico().getUsuario().getLogin().trim());
+    		Usuario usuario = this.getUsuarioDAO().inserirUsuario(this.getMedico().getUsuario());
+    		this.getMedico().setUsuario(usuario);
+    		//Cria o Medico com usuario
+    		Medico medInclusao = this.getMedicoDAO().inserir(this.getMedico());
+    		//Atualiza usuario com medico
+    		usuario.setMedico(medInclusao);
+    		this.getUsuarioDAO().atualizar(usuario);
+    		if (medInclusao != null) {
     			init();
     			this.tratarMensagemSucesso(null);
     		}
@@ -59,18 +71,27 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 	@Override
 	public void alterar(Medico medico) {
 		if(validarCampos()) {
+			//Alterando o usuario
+			medico.getUsuario().setLogin(medico.getUsuario().getLogin().trim());
+			Usuario usuario = this.getUsuarioDAO().atualizar(medico.getUsuario());
+			this.getMedico().setUsuario(usuario);
+			//Alterando o medico Medico
 			boolean alteracao = this.getMedicoDAO().alterar(medico);
 			if (alteracao) {
 				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
-		
 	}
 
 	@Override
 	public void excluir() {
 		//Exclusao logica
+		//Exclusao Usuario
+		Usuario usr = this.getMedicoExclusao().getUsuario();
+		usr.setAtivoInativo(SituacaoEnum.INATIVO);
+		this.getUsuarioDAO().atualizar(usr);
+		//Exclusao Medico
 		this.getMedicoExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
 		boolean exclusao = this.getMedicoDAO().alterar(this.getMedicoExclusao());
 		if(exclusao) {
@@ -94,6 +115,14 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 	public boolean validarCampos() {
 		boolean valid = true;
 
+		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getUsuario().getLogin())) {
+			this.tratarMensagemErro(null);
+			valid = false;
+		}
+		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getUsuario().getSenha())) {
+			this.tratarMensagemErro(null);
+			valid = false;
+		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getNome())) {
 			this.tratarMensagemErro(null);
 			valid = false;
@@ -206,23 +235,13 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
 	}
-	
-//	public String getCPFFormatado() {
-//		try {
-//			return Util.formatarString(Util.MASCARA_CPF, String.valueOf(this.getMedico().getCPF()));
-//		} catch (ParseException e) {
-//			this.tratarMensagemErro(null, e.getMessage());
-//		}
-//		return "";
-//	}
-//	
-//	public void setCPFFormatado(String cpfFormatado) {
-//		try {
-//			String retorno = Util.desformatarString(Util.MASCARA_CPF, cpfFormatado);
-//			this.getMedico().setCPF(Integer.valueOf(retorno));
-//		} catch (ParseException e) {
-//			this.tratarMensagemErro(null, e.getMessage());
-//		}
-//	}
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
 
 }

@@ -45,7 +45,7 @@
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
 				            </h:outputText>
 				        </b:dataTableColumn>
-				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.receitaMedica.medico.usuario.login}" label="Login Usuário"/>
 				        <b:dataTableColumn data-order="#{histMedicamentoPrescrito.receitaMedica.dataEmissao}" label="Data Emissão">
 				        	<h:outputText value="#{histMedicamentoPrescrito.receitaMedica.dataEmissao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -67,7 +67,7 @@
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
 				            </h:outputText>
 				        </b:dataTableColumn>
-				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn value="#{histExameSolicitado.exame.medico.usuario.login}" label="Login Usuário"/>
 				        <b:dataTableColumn data-order="#{histExameSolicitado.exame.dataSolicitacao}" label="Data Solicitação">
 				        	<h:outputText value="#{histExameSolicitado.exame.dataSolicitacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -91,7 +91,7 @@
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
 				            </h:outputText>
 				        </b:dataTableColumn>
-				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn value="#{histResultadoObtido.exame.medico.usuario.login}" label="Login Usuário"/>
 				        <b:dataTableColumn data-order="#{histResultadoObtido.exame.dataSolicitacao}" label="Data Solicitação">
 				        	<h:outputText value="#{histResultadoObtido.exame.dataSolicitacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
@@ -115,12 +115,13 @@
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
 				            </h:outputText>
 				        </b:dataTableColumn>
-				        <b:dataTableColumn value="Quando terminar login" label="Usuário"/>
+				        <b:dataTableColumn value="#{histConsulta.consulta.recepcionistaResponsavel.usuario.login}" label="Login Usuário"/>
 				        <b:dataTableColumn data-order="#{histConsulta.consulta.agendaMedico.apresentacaoCompleta}" label="Data Consulta">
 				        	<h:outputText value="#{histConsulta.consulta.agendaMedico.apresentacaoCompleta}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
 				            </h:outputText>
 				        </b:dataTableColumn>
+				        <b:dataTableColumn value="#{histConsulta.consulta.recepcionistaResponsavel.nome}" label="Recepcionista"/>
 				        <b:dataTableColumn value="#{histConsulta.consulta.paciente.nome}" label="Paciente"/>
 				        <b:dataTableColumn value="#{histConsulta.consulta.medico.nome}" label="Médico"/>
 				        <b:dataTableColumn data-order="#{histConsulta.consulta.situacaoConsulta.descricao}" label="Situação">

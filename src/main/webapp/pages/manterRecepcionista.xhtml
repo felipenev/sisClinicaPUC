@@ -15,6 +15,18 @@
 			<b:panel id="panelCadastroRecepcionista" title="Cadastramento de Recepcionista" look="primary">
 		      	<h:panelGrid>
 		      		
+		      		<h:panelGroup>
+			        	<h:outputText value="Login" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+		        	<b:inputText id="idLoginRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.usuario.login}" />
+		        	<h:panelGroup>
+			        	<h:outputText value="Senha" /><h:outputText value="*" styleClass="obrigatorio" />
+		        	</h:panelGroup>
+			        <p:password id="idSenhaRecepcionista" value="#{manterRecepcionistaManagedBean.recepcionista.usuario.senha}" redisplay="true" feedback="true"
+			                    promptLabel="Digite uma senha" weakLabel="Fraco"
+			                    goodLabel="Bom" strongLabel="Muito Bom!" />
+		      		
+		      		<br />
 		        	<h:panelGroup>
 			        	<h:outputText value="Data Admissão" /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
@@ -84,6 +96,7 @@
 		       			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt_BR"/>
 		            </h:outputText>
 		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{recepcionista.usuario.login}" label="Login"/>
 		        <b:dataTableColumn value="#{recepcionista.nome}" order="asc" label="Nome"/>
 		        <b:dataTableColumn value="#{recepcionista.descricaoSexo.descricao}" label="Sexo"/>
 		        <b:dataTableColumn value="#{recepcionista.RG}" label="RG"/>
@@ -116,7 +129,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{manterRecepcionistaManagedBean.excluir()}" onclick="$('#formRecepcionista\\:modalExcluirRecepcionista')).modal('hide');return false;" update="formRecepcionista" />
+		            <b:commandButton value="Sim" look="danger" action="#{manterRecepcionistaManagedBean.excluir()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formRecepcionista\\:modalExcluirRecepcionista')).modal('hide');return false;" update="formRecepcionista" />
 		        </f:facet>
 		    </b:modal>
     

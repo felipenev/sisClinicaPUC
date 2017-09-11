@@ -15,13 +15,12 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 			super(Medico.class);
 		}
 	  
-	    public boolean inserir(Medico medico) {
+	    public Medico inserir(Medico medico) {
 	    	try {
-	    		this.salvar(medico);
-	            return true;
+	    		return this.salvar(medico);
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
-	            return false;
+	            return null;
 	    	}
 		}
 	    

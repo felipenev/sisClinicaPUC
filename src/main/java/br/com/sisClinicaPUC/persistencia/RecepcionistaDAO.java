@@ -15,13 +15,12 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 			super(Recepcionista.class);
 		}
 	  
-	    public boolean inserir(Recepcionista recepcionista) {
+	    public Recepcionista inserir(Recepcionista recepcionista) {
 	    	try {
-	    		this.salvar(recepcionista);
-	            return true;
+	    		return this.salvar(recepcionista);
 	    	} catch (Exception e) {
 	    		this.tratarMensagemErro(null, e.getMessage());
-	            return false;
+	            return null;
 	    	}
 		}
 	    

@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import br.com.sisClinicaPUC.vo.PerfilEnum;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
 
 
@@ -24,11 +26,15 @@ public class Medico extends Pessoa {
 
 	public Medico() {
 		this.setAtivoInaivo(SituacaoEnum.ATIVO);
+		this.setUsuario(new Usuario(PerfilEnum.MEDICO));
 	}
 	
 	@Column(name="crm", nullable=false, unique=false)
 	private String CRM;
 
+	@OneToOne
+	private Usuario usuario;
+	
 //	@OneToMany
 //	private Set<AgendaMedico> agendaMedicoList;
 	@Transient
@@ -48,6 +54,14 @@ public class Medico extends Pessoa {
 
 	public void setAgendaMedicoList(Set<AgendaMedico> agendaMedicoList) {
 		this.agendaMedicoList = agendaMedicoList;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
  }

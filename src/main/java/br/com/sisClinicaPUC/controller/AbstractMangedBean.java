@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medico;
 import br.com.sisClinicaPUC.entidade.Recepcionista;
+import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.HistoricoDAO;
 import br.com.sisClinicaPUC.util.ValidacaoException;
 
@@ -23,16 +24,20 @@ public abstract class AbstractMangedBean<T> extends ValidacaoException implement
 
 	public Medico getMedicoSessao() {
     	try {
-    		return (Medico) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("medico");
+    		Usuario usr = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+    		return usr.getMedico();
 		} catch (Exception e) {
+			this.tratarMensagemErro(null, e.getMessage());
 			throw e;
 		}
 	}
 	
 	public Recepcionista getRecepcionistaSessao() {
 		try {
-			return (Recepcionista) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("recepcionista");
+			Usuario usr = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+			return usr.getRecepcionista();
 		} catch (Exception e) {
+			this.tratarMensagemErro(null, e.getMessage());
 			throw e;
 		}
 	}

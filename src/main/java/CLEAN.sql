@@ -28,4 +28,4 @@ DROP SEQUENCE IF EXISTS sequence_receitamedica;
 DROP SEQUENCE IF EXISTS sequence_exame;
 DROP SEQUENCE IF EXISTS sequence_consulta;
 DROP SEQUENCE IF EXISTS sequence_historico;
-DROP SEQUENCE IF EXISTS sequence_historico;
+DROP SEQUENCE IF EXISTS sequence_usuario;

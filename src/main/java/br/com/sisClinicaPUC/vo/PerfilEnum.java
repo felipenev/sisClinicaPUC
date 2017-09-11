@@ -2,6 +2,7 @@ package br.com.sisClinicaPUC.vo;
 
 public enum PerfilEnum {
 
+	ADMINISTRADOR("A", "Administrador"),
 	MEDICO("M", "Médico"),
 	RECEPCIONISTA("R", "Recepcionista");
 	

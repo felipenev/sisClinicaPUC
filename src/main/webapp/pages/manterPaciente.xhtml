@@ -119,7 +119,7 @@
 		        </h:panelGroup>
 		        <f:facet name="footer">
 		        	<b:button value="Não" dismiss="modal" />
-		            <b:commandButton value="Sim" look="danger" action="#{manterPacienteManagedBean.excluir()}" onclick="$('#formManterPaciente\\:modalExcluirPaciente')).modal('hide');return false;" update="formManterPaciente" />
+		            <b:commandButton value="Sim" look="danger" action="#{manterPacienteManagedBean.excluir()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formManterPaciente\\:modalExcluirPaciente')).modal('hide');return false;" update="formManterPaciente" />
 		        </f:facet>
 		    </b:modal>
     

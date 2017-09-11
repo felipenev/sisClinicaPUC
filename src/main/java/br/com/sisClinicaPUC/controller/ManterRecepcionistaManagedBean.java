@@ -10,7 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.com.sisClinicaPUC.entidade.Recepcionista;
+import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.RecepcionistaDAO;
+import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
 import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
@@ -19,6 +21,8 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcionista> implements Serializable{
    
 	private static final long serialVersionUID = 1L;
+
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
 	private RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
     private Recepcionista recepcionista = new Recepcionista();
@@ -48,8 +52,17 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
     @Override
     public void inserir() {
     	if(validarCampos()) {
-    		boolean inclusao = this.getRecepcionistaDAO().inserir(this.getRecepcionista());
-    		if (inclusao) {
+    		//Primeiro criando o usuario
+    		this.getRecepcionista().getUsuario().setLogin(this.getRecepcionista().getUsuario().getLogin().trim());
+    		Usuario usuario = this.getUsuarioDAO().inserirUsuario(this.getRecepcionista().getUsuario());
+    		this.getRecepcionista().setUsuario(usuario);
+    		//Recepcionista
+    		Recepcionista recepInclusao = this.getRecepcionistaDAO().inserir(this.getRecepcionista());
+    		//Atualiza usuario com recepcionista
+    		usuario.setRecepcionista(recepInclusao);
+    		this.getUsuarioDAO().atualizar(usuario);
+    		
+    		if (recepInclusao != null) {
     			recepcionista = new Recepcionista();
     			carregarRecepcionistaAtivoList();
     			this.tratarMensagemSucesso(null);
@@ -60,10 +73,14 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 	@Override
 	public void alterar(Recepcionista recepcionista) {
 		if(validarCampos()) {
+			//Alterando o usuario
+			recepcionista.getUsuario().setLogin(recepcionista.getUsuario().getLogin().trim());
+			Usuario usuario = this.getUsuarioDAO().atualizar(recepcionista.getUsuario());
+			this.getRecepcionista().setUsuario(usuario);
+			//Recepcionista
 			boolean alteracao = this.getRecepcionistaDAO().alterar(recepcionista);
 			if (alteracao) {
-				this.setRecepcionista(new Recepcionista());
-				carregarRecepcionistaAtivoList();
+				init();
 				this.tratarMensagemSucesso(null);
 			}
 		}
@@ -73,12 +90,15 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 	@Override
 	public void excluir() {
 		//Exclusao logica
+		//Exclusao usuario
+		Usuario usr = this.getRecepcionistaExclusao().getUsuario();
+		usr.setAtivoInativo(SituacaoEnum.INATIVO);
+		this.getUsuarioDAO().atualizar(usr);
+		//Exclusao Recepcionista
 		this.getRecepcionistaExclusao().setAtivoInaivo(SituacaoEnum.INATIVO);
 		boolean exclusao = this.getRecepcionistaDAO().alterar(this.getRecepcionistaExclusao());
 		if(exclusao) {
-			this.setRecepcionista(new Recepcionista());
-			this.setRecepcionistaExclusao(new Recepcionista());
-			carregarRecepcionistaAtivoList();
+			init();
 			this.tratarMensagemSucesso(null);
 		}
 		
@@ -205,6 +225,14 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
+	}
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
 	}
 
 }

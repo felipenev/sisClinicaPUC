@@ -24,7 +24,6 @@ public abstract class Pessoa implements Serializable{
 	private String nome;
 	@Column(length = 500)
 	private String sexo;
-	private String tipoSanguineo;
 	private Long RG;
 	private String CPF;
 	@Column(length = 500)
@@ -121,14 +120,6 @@ public abstract class Pessoa implements Serializable{
 	
 	public SexoEnum getDescricaoSexo(){
 		return SexoEnum.getValor(this.sexo);
-	}
-
-	public String getTipoSanguineo() {
-		return tipoSanguineo;
-	}
-
-	public void setTipoSanguineo(String tipoSanguineo) {
-		this.tipoSanguineo = tipoSanguineo;
 	}
 
 	@Override
