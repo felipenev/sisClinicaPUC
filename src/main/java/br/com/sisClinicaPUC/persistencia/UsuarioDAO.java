@@ -43,6 +43,26 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
     		return null;
     	}
     }
-    //TODO:Criar o metodo de delecao de usuario. passando status
 	
+	public boolean findByLoginAtivo(Usuario usuario) {
+		try {
+			
+			this.createEntityManager();
+			
+			Usuario usuarioRetorno = (Usuario) this.getEntityManager().createQuery("SELECT u from Usuario u where u.login = :login and u.ativoInativo = :ativoInativo")
+	                   .setParameter("login", usuario.getLogin().trim())
+	                   .setParameter("ativoInativo", SituacaoEnum.ATIVO.getCodigo()).getSingleResult();
+
+			return usuarioRetorno != null;
+			
+		} catch (NoResultException e) {
+			return false;
+		} catch (Exception e) {
+			this.tratarMensagemErro(null, e.getMessage());
+			return false;
+		}finally {
+			this.closeEntityManager();
+		}
+	}
+
 }

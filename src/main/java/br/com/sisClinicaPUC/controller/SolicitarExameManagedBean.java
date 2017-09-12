@@ -3,7 +3,6 @@ package br.com.sisClinicaPUC.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,12 +31,6 @@ import br.com.sisClinicaPUC.persistencia.TipoExameDAO;
 import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.OperacaoEnum;
 import br.com.sisClinicaPUC.vo.TipoPesquisaHistoricoEnum;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
    
 @Named
 @ViewScoped
@@ -183,20 +176,6 @@ public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> impleme
 	
 	public void gerarSolicitacaoPDFExame(Exame exameRelatorio) {
 		
-//		Document document = new Document();
-//		try {
-//			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-//			response.setContentType("application/pdf");
-//			PdfWriter.getInstance(document, response.getOutputStream());
-//			document.open();
-//			document.add(new Paragraph("howtodoinjava.com"));
-//			document.add(new Paragraph(new Date().toString()));
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}finally {
-//			document.close();
-//		}
 		Document document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 		response.setContentType("application/pdf");
@@ -229,8 +208,6 @@ public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> impleme
 		    Paragraph assinaturaMedico = new Paragraph(new Phrase(lineSpacingAssinatura,exameRelatorio.getMedico().getNome(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, fntSizeAssinatura)));
 		    assinaturaMedico.setAlignment(Element.ALIGN_CENTER);
 		    
-//		    document.add(new Paragraph(new Phrase()));
-//		    document.add(new Paragraph(new Date().toString()));
 		    //Documento
 		    document.add(tituloDocumento);
 		    document.add(Chunk.NEWLINE);
@@ -270,32 +247,6 @@ public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> impleme
 			document.close();
 		}
 		
-//		try {
-//            System.out.println("entrou no solicitar exame PDF");
-//            if(!Util.isObjectNotNull(exameRelatorio)) {
-//            	return;
-//            }
-//            //---------- gera o relatorio ----------
-//            HashMap<String,Object> parametros = new HashMap<String,Object>();
-//            parametros.put("medico", exameRelatorio.getMedico());
-//            parametros.put("paciente", exameRelatorio.getPaciente());
-//            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/SolicitacaoExame.jrxml"));
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(exameRelatorio.getTipoExameList()));
-//            byte[] b = JasperExportManager.exportReportToPdf(jasperPrint); 
-//            HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-//            res.setContentType("application/pdf");
-//            //Código abaixo gerar o relatório e disponibiliza diretamente na página 
-//            res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
-//            //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar 
-//            //res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
-//            res.getOutputStream().write(b);
-//            res.getCharacterEncoding();
-//            FacesContext.getCurrentInstance().responseComplete();
-//            System.out.println("saiu do visualizar relatorio");
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            this.tratarMensagemErro(null, ex.getMessage());
-//        }
 	}
 	
 	//GETTERS AND SETTERS

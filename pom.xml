@@ -171,6 +171,19 @@
 	    <version>5.0.6</version>
 	</dependency>
     
+	<dependency>
+	    <groupId>commons-lang</groupId>
+	    <artifactId>commons-lang</artifactId>
+	    <version>2.6</version>
+	</dependency>
+    
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.1</version>
+	</dependency>
+    
+    
   </dependencies>
   <!-- <repositories> <repository> <id>central</id> <url>https://oss.sonatype.org/content/repositories/snapshots</url> <releases> 
     <enabled>false</enabled> </releases> <snapshots> <enabled>true</enabled> </snapshots> </repository> </repositories> -->

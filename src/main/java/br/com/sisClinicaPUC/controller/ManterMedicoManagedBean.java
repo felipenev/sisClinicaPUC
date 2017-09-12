@@ -119,6 +119,10 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 			this.tratarMensagemErro(null);
 			valid = false;
 		}
+		if(Util.isStringNotBlankOrNotNull(this.getMedico().getUsuario().getLogin()) && isLoginCadastrado(this.getMedico().getUsuario())) {
+			this.tratarMensagemErro(null, "MSG016");
+			valid = false;
+		}
 		if(!Util.isStringNotBlankOrNotNull(this.getMedico().getUsuario().getSenha())) {
 			this.tratarMensagemErro(null);
 			valid = false;
@@ -185,6 +189,10 @@ public class ManterMedicoManagedBean extends AbstractMangedBean<Medico> implemen
 		}
 		
 		return valid;
+	}
+
+	private boolean isLoginCadastrado(Usuario usr) {
+		return this.getUsuarioDAO().findByLoginAtivo(usr);
 	}
 
 	/**

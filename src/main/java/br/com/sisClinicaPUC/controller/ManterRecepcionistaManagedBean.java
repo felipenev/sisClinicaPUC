@@ -118,6 +118,18 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 	public boolean validarCampos() {
 		boolean valid = true;
 
+		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getUsuario().getLogin())) {
+			this.tratarMensagemErro(null);
+			valid = false;
+		}
+		if(Util.isStringNotBlankOrNotNull(this.getRecepcionista().getUsuario().getLogin()) && isLoginCadastrado(this.getRecepcionista().getUsuario())) {
+			this.tratarMensagemErro(null, "MSG016");
+			valid = false;
+		}
+		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getUsuario().getSenha())) {
+			this.tratarMensagemErro(null);
+			valid = false;
+		}
 		if(!Util.isStringNotBlankOrNotNull(this.getRecepcionista().getNome())) {
 			this.tratarMensagemErro(null);
 			valid = false;
@@ -178,6 +190,10 @@ public class ManterRecepcionistaManagedBean extends AbstractMangedBean<Recepcion
 		return valid;
 	}
 
+	private boolean isLoginCadastrado(Usuario usr) {
+		return this.getUsuarioDAO().findByLoginAtivo(usr);
+	}
+	
 	/**
 	 * Carrega as recepcionistas ativos que podem ser apresentados
 	 * 

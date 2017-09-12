@@ -6,10 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
-import br.com.sisClinicaPUC.entidade.Medico;
-import br.com.sisClinicaPUC.entidade.Recepcionista;
 import br.com.sisClinicaPUC.entidade.Usuario;
 import br.com.sisClinicaPUC.persistencia.UsuarioDAO;
 import br.com.sisClinicaPUC.util.Util;
