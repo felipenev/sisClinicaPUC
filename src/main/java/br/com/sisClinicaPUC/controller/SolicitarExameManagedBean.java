@@ -12,6 +12,15 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Paciente;
@@ -174,32 +183,119 @@ public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> impleme
 	
 	public void gerarSolicitacaoPDFExame(Exame exameRelatorio) {
 		
+//		Document document = new Document();
+//		try {
+//			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//			response.setContentType("application/pdf");
+//			PdfWriter.getInstance(document, response.getOutputStream());
+//			document.open();
+//			document.add(new Paragraph("howtodoinjava.com"));
+//			document.add(new Paragraph(new Date().toString()));
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}finally {
+//			document.close();
+//		}
+		Document document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "inline;filename=solicitacaoExame.pdf");
 		try {
-            System.out.println("entrou no solicitar exame PDF");
-            if(!Util.isObjectNotNull(exameRelatorio)) {
-            	return;
-            }
-            //---------- gera o relatorio ----------
-            HashMap<String,Object> parametros = new HashMap<String,Object>();
-            parametros.put("medico", exameRelatorio.getMedico());
-            parametros.put("paciente", exameRelatorio.getPaciente());
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/SolicitacaoExame.jrxml"));
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(exameRelatorio.getTipoExameList()));
-            byte[] b = JasperExportManager.exportReportToPdf(jasperPrint); 
-            HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            res.setContentType("application/pdf");
-            //Código abaixo gerar o relatório e disponibiliza diretamente na página 
-            res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
-            //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar 
-            //res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
-            res.getOutputStream().write(b);
-            res.getCharacterEncoding();
-            FacesContext.getCurrentInstance().responseComplete();
-            System.out.println("saiu do visualizar relatorio");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            this.tratarMensagemErro(null, ex.getMessage());
-        }
+			float fntSizeTitulo, lineSpacingTitulo;
+		    fntSizeTitulo = 18f;
+		    lineSpacingTitulo = 20f;
+		    
+		    float fntSizeAssinatura, lineSpacingAssinatura;
+		    fntSizeAssinatura = 15f;
+		    lineSpacingAssinatura = 15f;
+		    
+			PdfWriter.getInstance(document, response.getOutputStream());
+		    document.open();
+		    
+		    Paragraph tituloDocumento = new Paragraph(new Phrase(lineSpacingTitulo,"Solicitação de Exames", FontFactory.getFont(FontFactory.HELVETICA_BOLD, fntSizeTitulo)));
+		    tituloDocumento.setAlignment(Element.ALIGN_CENTER);
+		    
+		    Paragraph pacienteDocumento = new Paragraph("Paciente: " + exameRelatorio.getPaciente().getNome());
+		    pacienteDocumento.setIndentationLeft(20);
+		    pacienteDocumento.setIndentationRight(20);
+		    
+		    Paragraph examesSolicitadosDocumento = new Paragraph("Exames solicitados: " + exameRelatorio.getExamesSolicitados());
+		    examesSolicitadosDocumento.setIndentationLeft(20);
+		    examesSolicitadosDocumento.setIndentationRight(20);
+		    
+		    Paragraph linhaAssinaturaMedico = new Paragraph(new Phrase("___________________________________________________________"));
+		    linhaAssinaturaMedico.setAlignment(Element.ALIGN_CENTER);
+		    Paragraph assinaturaMedico = new Paragraph(new Phrase(lineSpacingAssinatura,exameRelatorio.getMedico().getNome(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, fntSizeAssinatura)));
+		    assinaturaMedico.setAlignment(Element.ALIGN_CENTER);
+		    
+//		    document.add(new Paragraph(new Phrase()));
+//		    document.add(new Paragraph(new Date().toString()));
+		    //Documento
+		    document.add(tituloDocumento);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+			document.add(pacienteDocumento);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(examesSolicitadosDocumento);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(linhaAssinaturaMedico);
+			document.add(assinaturaMedico);
+			
+			
+		    FacesContext.getCurrentInstance().responseComplete();
+		    
+		} catch (Exception e) {
+			// TODO: handle exception
+			this.tratarMensagemErro(null, e.getMessage());
+		}finally {
+			document.close();
+		}
+		
+//		try {
+//            System.out.println("entrou no solicitar exame PDF");
+//            if(!Util.isObjectNotNull(exameRelatorio)) {
+//            	return;
+//            }
+//            //---------- gera o relatorio ----------
+//            HashMap<String,Object> parametros = new HashMap<String,Object>();
+//            parametros.put("medico", exameRelatorio.getMedico());
+//            parametros.put("paciente", exameRelatorio.getPaciente());
+//            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/SolicitacaoExame.jrxml"));
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(exameRelatorio.getTipoExameList()));
+//            byte[] b = JasperExportManager.exportReportToPdf(jasperPrint); 
+//            HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//            res.setContentType("application/pdf");
+//            //Código abaixo gerar o relatório e disponibiliza diretamente na página 
+//            res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
+//            //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar 
+//            //res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
+//            res.getOutputStream().write(b);
+//            res.getCharacterEncoding();
+//            FacesContext.getCurrentInstance().responseComplete();
+//            System.out.println("saiu do visualizar relatorio");
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            this.tratarMensagemErro(null, ex.getMessage());
+//        }
 	}
 	
 	//GETTERS AND SETTERS

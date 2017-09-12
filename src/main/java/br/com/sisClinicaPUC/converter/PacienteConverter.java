@@ -15,7 +15,7 @@ public class PacienteConverter implements Converter {
 		if(value != null && value.trim().length() > 0) {
             try {
             	ManterPacienteService service = (ManterPacienteService) fc.getExternalContext().getApplicationMap().get("manterPacienteService");
-                return service.getMedicamentosDisponivelPorId(Long.parseLong(value));
+                return service.getPacientePorId(Long.parseLong(value));
             } catch(NumberFormatException e) {
                 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "");
                 throw new ConverterException(facesMessage);

@@ -12,7 +12,7 @@ public class ManterPacienteService {
      
 	private PacienteDAO pacienteDAO = new PacienteDAO();
      
-	public Paciente getMedicamentosDisponivelPorId(long id) {
+	public Paciente getPacientePorId(long id) {
 		Paciente paciente = this.getPacienteDAO().encontrar(id);
 		return paciente;
 	}

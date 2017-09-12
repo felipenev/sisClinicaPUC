@@ -57,6 +57,7 @@
 		        <b:dataTableColumn data-order="#{exa.situacaoExame.descricao}" label="Situação">
 		        	<b:label text="#{exa.situacaoExame.descricao}" severity="#{exa.situacaoExame.severity}"/>
 		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{exa.resultado}" label="Resultado"/>
 		        <b:dataTableColumn label="Ações">
 			       	<div class="btn-group" role="group">
 			           	<b:commandButton icon="edit" ajax="true" action="#{avaliarExameManagedBean.editarAvaliacaoExame(exa)}" update="formAvaliarMedico formMenu:growlMsgm" rendered="#{exa.aguardandoResultado}"/>

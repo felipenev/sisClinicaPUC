@@ -1,9 +1,5 @@
 package br.com.sisClinicaPUC.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -15,26 +11,12 @@ import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
 public class ManterMedicamentoService {
      
 	private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
-    private List<Medicamento> medicamentoDisponivelList;
-     
-    @PostConstruct
-    public void init() {
-    	carregarMedicamentoAtivoList();
-    }
-     
-    public void carregarMedicamentoAtivoList() {
-		this.setMedicamentoDisponivelList(new ArrayList<Medicamento>());
-		this.getMedicamentoDisponivelList().addAll(this.getMedicamentoDAO().getMedicamentoAtivoList());
-	}
 
-	public List<Medicamento> getMedicamentoDisponivelList() {
-		return medicamentoDisponivelList;
+	public Medicamento getMedicamentosDisponivelPorId(long id) {
+		Medicamento medicamento = this.getMedicamentoDAO().encontrar(id);
+		return medicamento;
 	}
-
-	public void setMedicamentoDisponivelList(List<Medicamento> medicamentoDisponivelList) {
-		this.medicamentoDisponivelList = medicamentoDisponivelList;
-	}
-
+	
 	public MedicamentoDAO getMedicamentoDAO() {
 		return medicamentoDAO;
 	}
@@ -43,12 +25,4 @@ public class ManterMedicamentoService {
 		this.medicamentoDAO = medicamentoDAO;
 	}
 
-	public Medicamento getMedicamentosDisponivelPorId(long id) {
-		for (Medicamento medicamento : this.getMedicamentoDisponivelList()) {
-			if(medicamento.getId().equals(id))
-				return medicamento;
-		}
-		return null;
-	}
-    
 }
