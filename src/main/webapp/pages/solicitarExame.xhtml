@@ -29,7 +29,7 @@
 			        	<h:outputText value="Exames " /><h:outputText value="*" styleClass="obrigatorio" />
 		        	</h:panelGroup>
 		        	<p:selectManyMenu id="idTipoExamePesquisa" value="#{solicitarExameManagedBean.exame.tipoExameList}" converter="tipoExameConverter" 
-		        						var="te" filter="true" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
+		        						var="te" filter="false" filterMatchMode="contains" showCheckbox="true" collectionType="java.util.HashSet" >
 			            <f:selectItems value="#{solicitarExameManagedBean.tipoExameList}" var="tipoExame" itemLabel="#{tipoExameList.descricaoExame}" itemValue="#{tipoExame}" />
 			            
 			 			<f:attribute name="collectionType" value="java.util.HashSet" />
