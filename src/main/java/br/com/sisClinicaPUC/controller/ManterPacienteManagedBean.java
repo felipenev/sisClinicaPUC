@@ -88,6 +88,7 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 		carregarPacienteAtivoList();
 		Paciente pacAlterar = Util.cloneSerializable(pacienteAlterar);
 		this.setPaciente(pacAlterar);
+		//TODO:Verificar quando criar validacao por CPF
 	}
 	
 	/**

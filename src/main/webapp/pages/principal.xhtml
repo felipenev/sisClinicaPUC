@@ -72,7 +72,7 @@
 		                <b:navLink value="Manter Medicamento" href="medicamento.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioRecepcionista}"/>
 		                <b:navLink value="Marcar Consulta" href="manterConsulta.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{loginMB.usuarioRecepcionista}"/>
 <!-- 			        historico -->
-		                <b:navLink value="Histórico" href="historico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" />
+		                <b:navLink value="Histórico" href="historico.xhtml" onclick="PF('blockUIWidget').block()" oncomplete="PF('blockUIWidget').unblock()" rendered="#{!loginMB.usuarioAdmin}"/>
 
 		            </b:navbarLinks>
 		            <b:navbarLinks pull="right">
