@@ -36,7 +36,7 @@ public class AvaliarExameManagedBean extends AbstractMangedBean<Exame> implement
 	}
 
     //TODO: AJUSTAR O BOTAO DE EDICAO DO MEDICO.. COLOCAR VALIDACAO DE PERFIL PARA APRESENTAR O BOTAO
-    
+    //TODO: Colocar botao de exportacao de documento.
     @PostConstruct
 	public void init() {
     	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de Avaliacao de Exame !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -118,10 +118,10 @@ public class AvaliarExameManagedBean extends AbstractMangedBean<Exame> implement
 	}
 	
 	/**
-	 * Altera a situacao do exame para AGUARDANDO_RETORNO_PACIENTE
+	 * Altera a situacao do exame para ARQUIVAR_EXAME
 	 */
-	public void aguardarRetornoPaciente() {
-		this.getExameAvaliadoPorMedico().setSituacaoExame(SituacaoExameEnum.AGUARDANDO_RETORNO_PACIENTE);
+	public void arquivarExame() {
+		this.getExameAvaliadoPorMedico().setSituacaoExame(SituacaoExameEnum.ARQUIVAR_EXAME);
    		alterar(this.getExameAvaliadoPorMedico());
 	}
 	

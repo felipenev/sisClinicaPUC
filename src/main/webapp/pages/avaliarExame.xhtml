@@ -42,7 +42,7 @@
 			        <b:inputTextarea rows="3" id="txtResultadoLab" value="#{avaliarExameManagedBean.exame.resultado}" />
 			        
 			        <br />
-		        	<b:commandButton id="salvarAvaliarExame" value="Cadastrar" action="#{avaliarExameManagedBean.inserirAlterar}" update="formAvaliarMedico formMenu:growlMsgm" />
+		        	<b:commandButton id="salvarAvaliarExame" value="Salvar" action="#{avaliarExameManagedBean.inserirAlterar}" update="formAvaliarMedico formMenu:growlMsgm" />
 		        </h:panelGrid>
 		  	</b:panel>
 		
@@ -70,12 +70,12 @@
 		       </b:dataTableColumn>
 		    </b:dataTable>
       	
-      		 <b:modal id="modalModalAvaliarReceita" title="Emitir Resultado">
+      		 <b:modal id="modalModalAvaliarReceita" title="Avaliar">
 		        <h:panelGroup id="panelModalAvaliarReceita" layout="block">
 		            #{msgs.MSG012}
 		        </h:panelGroup>
 		        <f:facet name="footer">
-		            <b:commandButton value="Não" look="danger" action="#{avaliarExameManagedBean.aguardarRetornoPaciente()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAvaliarMedico\\:modalModalAvaliarReceita')).modal('hide');return false;" update="formAvaliarMedico formMenu:growlMsgm" />
+		            <b:commandButton value="Não" look="danger" action="#{avaliarExameManagedBean.arquivarExame()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAvaliarMedico\\:modalModalAvaliarReceita')).modal('hide');return false;" update="formAvaliarMedico formMenu:growlMsgm" />
 		            <b:commandButton value="Sim" look="success" action="#{avaliarExameManagedBean.entregarResultadoPaciente()}" onclick="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock(); $('#formAvaliarMedico\\:modalModalAvaliarReceita')).modal('hide');return false;" update="formAvaliarMedico formMenu:growlMsgm" />
 		        </f:facet>
 		    </b:modal>

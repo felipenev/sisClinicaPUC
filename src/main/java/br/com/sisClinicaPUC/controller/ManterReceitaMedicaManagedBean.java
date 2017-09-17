@@ -40,6 +40,8 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     
     public ManterReceitaMedicaManagedBean() {}
 
+    //TODO: Colocar botao de exportacao de documento.
+    
     @PostConstruct
 	public void init() {
     	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de ReceitaMedica !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
