@@ -39,7 +39,7 @@
 				<h:panelGroup id="pnlMedicamentoPrescritoHistorico" rendered="#{historicoManagedBean.medicamentoPrescrito}">
 					<b:dataTable id="tableMedicamentoPrescritoHistorico" value="#{historicoManagedBean.historicoList}" var="histMedicamentoPrescrito" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 				        
-				        <b:dataTableColumn value="#{histMedicamentoPrescrito.operacao}" label="Operção"/>
+				        <b:dataTableColumn value="#{histMedicamentoPrescrito.operacao}" label="Operação"/>
 				        <b:dataTableColumn data-order="#{histMedicamentoPrescrito.dataHoraOperacao}" order="asc" label="Data Operação">
 				        	<h:outputText value="#{histMedicamentoPrescrito.dataHoraOperacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
@@ -61,7 +61,7 @@
 				<h:panelGroup id="pnlExameSolicitadoHistorico" rendered="#{historicoManagedBean.exameSolicitado}">
 					<b:dataTable id="tableExameSolicitadoHistorico" value="#{historicoManagedBean.historicoList}" var="histExameSolicitado" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 				        
-				        <b:dataTableColumn value="#{histExameSolicitado.operacao}" label="Operção"/>
+				        <b:dataTableColumn value="#{histExameSolicitado.operacao}" label="Operação"/>
 				        <b:dataTableColumn data-order="#{histExameSolicitado.dataHoraOperacao}" order="asc" label="Data Operação">
 				        	<h:outputText value="#{histExameSolicitado.dataHoraOperacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
@@ -85,7 +85,7 @@
 				<h:panelGroup id="pnlResultadoObtidoHistorico" rendered="#{historicoManagedBean.resultadoObtido}">
 					<b:dataTable id="tableResultadoObtidoHistorico" value="#{historicoManagedBean.historicoList}" var="histResultadoObtido" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 				        
-				        <b:dataTableColumn value="#{histResultadoObtido.operacao}" label="Operção"/>
+				        <b:dataTableColumn value="#{histResultadoObtido.operacao}" label="Operação"/>
 				        <b:dataTableColumn data-order="#{histResultadoObtido.dataHoraOperacao}" order="asc" label="Data Operação">
 				        	<h:outputText value="#{histResultadoObtido.dataHoraOperacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
@@ -109,7 +109,7 @@
 			<!-- consultar -->
 				<h:panelGroup id="pnlConsultarHistorico" rendered="#{historicoManagedBean.consultar}">
 					<b:dataTable id="tableConsultaHistorico" value="#{historicoManagedBean.historicoList}" var="histConsulta" customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-				        <b:dataTableColumn value="#{histConsulta.operacao}" label="Operção"/>
+				        <b:dataTableColumn value="#{histConsulta.operacao}" label="Operação"/>
 				        <b:dataTableColumn data-order="#{histConsulta.dataHoraOperacao}" order="asc" label="Data Operação">
 				        	<h:outputText value="#{histConsulta.dataHoraOperacao}">
 				       			<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR"/>
