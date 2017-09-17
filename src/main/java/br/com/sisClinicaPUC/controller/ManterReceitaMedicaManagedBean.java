@@ -13,6 +13,7 @@ import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.entidade.Paciente;
 import br.com.sisClinicaPUC.entidade.ReceitaMedica;
+import br.com.sisClinicaPUC.persistencia.ConsultaDAO;
 import br.com.sisClinicaPUC.persistencia.MedicamentoDAO;
 import br.com.sisClinicaPUC.persistencia.PacienteDAO;
 import br.com.sisClinicaPUC.persistencia.ReceitaMedicaDAO;
@@ -26,6 +27,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
    
 	private static final long serialVersionUID = 1L;
 	
+	private ConsultaDAO consultaDAO = new ConsultaDAO();
 	private ReceitaMedicaDAO receitaMedicaDAO = new ReceitaMedicaDAO();
 	private PacienteDAO pacienteDAO = new PacienteDAO();
 	private MedicamentoDAO medicamentoDAO = new MedicamentoDAO();
@@ -43,7 +45,7 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
     	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!! inicializei o ManagedBean de ReceitaMedica !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     	this.setReceitaMedica(new ReceitaMedica(this.getMedicoSessao()));
 		carregarReceitaMedicaPorMedicoList();
-		carregarPacienteList();
+		carregarPacientePorMedicoList();
 		carregarMedicamentoAtivoList();
 	}
     
@@ -151,9 +153,9 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		this.getReceitaMedicaList().addAll(this.getReceitaMedicaDAO().getReceitasPorMedicoList(this.getMedicoSessao()));
 	}
 	
-	private void carregarPacienteList() {
+	private void carregarPacientePorMedicoList() {
 		this.setPacienteList(new ArrayList<>());
-		this.getPacienteList().addAll(this.getPacienteDAO().getPacienteAtivoList());
+		this.getPacienteList().addAll(this.getConsultaDAO().getPacientePorMedicoDataConsultaList(this.getMedicoSessao()));
 	}
 	
 	public void carregarMedicamentoAtivoList() {
@@ -223,6 +225,14 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 
 	public void setMedicamentoDAO(MedicamentoDAO medicamentoDAO) {
 		this.medicamentoDAO = medicamentoDAO;
+	}
+
+	public ConsultaDAO getConsultaDAO() {
+		return consultaDAO;
+	}
+
+	public void setConsultaDAO(ConsultaDAO consultaDAO) {
+		this.consultaDAO = consultaDAO;
 	}
 
 }

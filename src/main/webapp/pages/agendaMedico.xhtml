@@ -59,7 +59,7 @@
 		        </b:dataTableColumn>
 		        <b:dataTableColumn label="Ações" >
 			       	<div class="btn-group" role="group"  >
-			           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formAgendaMedico formMenu:growlMsgm" />
+			           	<b:commandButton icon="edit" ajax="true" action="#{agendaMedicoManagedBean.carregarAlteracao(agendaH)}" update="formAgendaMedico formMenu:growlMsgm"/>
 			       	</div>
 			       	<div class="btn-group" role="group" >
 				       	<b:commandButton id="excluirAgendaMedico" icon="trash" look="danger" update="formAgendaMedico:panelModalExcluirAgendamento" process="@this" oncomplete="$('#formAgendaMedico\\:modalExcluirAgendamento').modal();return false;">

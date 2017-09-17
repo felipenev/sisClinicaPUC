@@ -10,6 +10,7 @@ import javax.persistence.TemporalType;
 
 import br.com.sisClinicaPUC.entidade.AgendaMedico;
 import br.com.sisClinicaPUC.entidade.Medico;
+import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
@@ -93,7 +94,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		
 	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.VERIFICAR_DATA, AgendaMedico.class)
 	    				.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
-	    				.setParameter("idAgenda", agendaMedico.getId())
+	    				.setParameter("idAgenda", Util.isValueNotBlankOrNotEmpty(agendaMedico.getId()) ? agendaMedico.getId() : -1)
 	    				.setParameter("idMedico", medico.getId())
 	    				.setParameter("data", agendaMedico.getData(), TemporalType.DATE)
 	    				.setParameter("horaInicio", agendaMedico.getHorarioInicioAtendimento(), TemporalType.TIMESTAMP)
