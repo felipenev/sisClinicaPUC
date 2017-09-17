@@ -21,6 +21,7 @@ public class Paciente extends Pessoa {
 
 	public static final String PACIENTE_POR_SITUACAO = "paciente.PACIENTE_POR_SITUACAO";
 
+
 	public Paciente() {
 		this.setAtivoInaivo(SituacaoEnum.ATIVO);
 		this.setDataCadastro(new Date());

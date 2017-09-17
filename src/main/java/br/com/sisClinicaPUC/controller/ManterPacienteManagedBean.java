@@ -125,6 +125,10 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 			this.tratarMensagemErro(null, "MSG006");
 			valid = false;
 		}
+		if(Util.isCPFValido(this.getPaciente().getCPF()) && isPacienteCadastrado(this.getPaciente())) {
+			this.tratarMensagemErro(null, "MSG017");
+			valid = false;
+		}
 		if(!Util.isStringNotBlankOrNotNull(this.getPaciente().getEndereco())) {
 			this.tratarMensagemErro(null);
 			valid = false;
@@ -155,6 +159,16 @@ public class ManterPacienteManagedBean extends AbstractMangedBean<Paciente> impl
 		}
 		
 		return valid;
+	}
+
+	/**
+	 * Verifca se existe paciente com o cpf
+	 * 
+	 * @param pac
+	 * @return
+	 */
+	private boolean isPacienteCadastrado(Paciente pac) {
+		return this.getPacienteDAO().findByCPFAtivo(pac);
 	}
 
 	/**

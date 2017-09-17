@@ -50,7 +50,6 @@ public class HistoricoManagedBean extends AbstractMangedBean<Historico> implemen
 		pesquisarHistorico();
 	}
 
-	//TODO: MARCAR USUARIO QUE REALIZOU AS ALTERACOES. INCLUIR NOS METODOS GRAVARHISTORICO
 	public List<Historico> pesquisarHistorico() {
 		this.getHistoricoList().addAll(this.getHistoricoDAO().getHistoricoPorTipo(tipoPesquisaHistoricoSelecionado));
 		return this.getHistoricoList();

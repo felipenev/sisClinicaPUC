@@ -92,6 +92,7 @@ public class AgendaMedicoManagedBean extends AbstractMangedBean<AgendaMedico> im
 		carregarAgendaMedicoList();
 		AgendaMedico agAlterar = Util.cloneSerializable(agendaMedicoAlterar);
 		this.setAgendaMedico(agAlterar);
+//		this.getAgendaMedicoList().remove(medicoAlterar);
 		
 	}
 	

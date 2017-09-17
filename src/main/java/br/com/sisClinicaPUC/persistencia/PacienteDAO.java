@@ -3,7 +3,10 @@ package br.com.sisClinicaPUC.persistencia;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import br.com.sisClinicaPUC.entidade.Paciente;
+import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
@@ -65,5 +68,27 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		this.closeEntityManager();
 	    	}
 	    }
+
+		public boolean findByCPFAtivo(Paciente pac) {
+			
+			try {
+				this.createEntityManager();
+				
+				Paciente paciente = (Paciente) this.getEntityManager().createQuery("select p from Paciente p where p.CPF = :cpf and (p.id != :idPac and p.id is not null)")
+						.setParameter("cpf", pac.getCPF())
+						.setParameter("idPac", Util.isValueNotBlankOrNotEmpty(pac.getId()) ? pac.getId() : -1)
+						.getSingleResult();
+
+				return paciente != null;
+				
+			} catch (NoResultException e) {
+				return false;
+			} catch (Exception e) {
+				this.tratarMensagemErro(null, e.getMessage());
+				return false;
+			}finally {
+				this.closeEntityManager();
+			}
+		}
 	    
 	}

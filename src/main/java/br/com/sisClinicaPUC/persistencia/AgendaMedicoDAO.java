@@ -93,6 +93,7 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 	    		
 	    		List<AgendaMedico> agendaMedicoList = getEntityManager().createNamedQuery(AgendaMedico.VERIFICAR_DATA, AgendaMedico.class)
 	    				.setParameter("situacao", SituacaoEnum.ATIVO.getCodigo())
+	    				.setParameter("idAgenda", agendaMedico.getId())
 	    				.setParameter("idMedico", medico.getId())
 	    				.setParameter("data", agendaMedico.getData(), TemporalType.DATE)
 	    				.setParameter("horaInicio", agendaMedico.getHorarioInicioAtendimento(), TemporalType.TIMESTAMP)

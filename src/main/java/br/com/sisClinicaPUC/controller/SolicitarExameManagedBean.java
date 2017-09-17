@@ -241,7 +241,6 @@ public class SolicitarExameManagedBean extends AbstractMangedBean<Exame> impleme
 		    FacesContext.getCurrentInstance().responseComplete();
 		    
 		} catch (Exception e) {
-			// TODO: handle exception
 			this.tratarMensagemErro(null, e.getMessage());
 		}finally {
 			document.close();

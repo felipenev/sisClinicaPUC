@@ -32,7 +32,7 @@ public class Usuario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_usuario")
     @SequenceGenerator(name="sequence_usuario", sequenceName="sequence_usuario", allocationSize=1, initialValue=1)
 	@Column(name="id_usuario", nullable=false, unique=true)
-	private int id;
+	private Long id;
 	
 	@Column(name="login", nullable=false, unique=false)
 	private String login;
@@ -80,11 +80,11 @@ public class Usuario implements Serializable{
 		this.ultimoAcesso = ultimoAcesso;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

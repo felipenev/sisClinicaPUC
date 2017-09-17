@@ -3,6 +3,7 @@ package br.com.sisClinicaPUC.persistencia;
 import javax.persistence.NoResultException;
 
 import br.com.sisClinicaPUC.entidade.Usuario;
+import br.com.sisClinicaPUC.util.Util;
 import br.com.sisClinicaPUC.vo.SituacaoEnum;
    
    
@@ -49,9 +50,10 @@ import br.com.sisClinicaPUC.vo.SituacaoEnum;
 			
 			this.createEntityManager();
 			
-			Usuario usuarioRetorno = (Usuario) this.getEntityManager().createQuery("SELECT u from Usuario u where u.login = :login and u.ativoInativo = :ativoInativo")
+			Usuario usuarioRetorno = (Usuario) this.getEntityManager().createQuery("SELECT u from Usuario u where u.login = :login and u.ativoInativo = :ativoInativo and (u.id != :idUsr and u.id is not null)")
 	                   .setParameter("login", usuario.getLogin().trim())
-	                   .setParameter("ativoInativo", SituacaoEnum.ATIVO.getCodigo()).getSingleResult();
+	                   .setParameter("ativoInativo", SituacaoEnum.ATIVO.getCodigo())
+	                   .setParameter("idUsr", Util.isValueNotBlankOrNotEmpty(usuario.getId()) ? usuario.getId() : -1 ).getSingleResult();
 
 			return usuarioRetorno != null;
 			
