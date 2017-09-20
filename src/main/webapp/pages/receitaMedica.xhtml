@@ -72,7 +72,9 @@
 		       	<div class="btn-group" role="group"  >
 		           	<b:commandButton icon="edit" ajax="true" action="#{manterReceitaMedicaManagedBean.carregarAlteracao(rec)}" update="formReceitaMedica" />
 		       	</div>
-		        	
+		       	<div class="btn-group" role="group" >
+		           	<b:commandButton icon="open-file" ajax="false" action="#{manterReceitaMedicaManagedBean.gerarSolicitacaoPDFExame(rec)}" />
+		       	</div>
 		       </b:dataTableColumn>
 		    </b:dataTable>
   	

@@ -6,9 +6,21 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import br.com.sisClinicaPUC.entidade.Exame;
 import br.com.sisClinicaPUC.entidade.Historico;
 import br.com.sisClinicaPUC.entidade.Medicamento;
 import br.com.sisClinicaPUC.entidade.Paciente;
@@ -165,6 +177,93 @@ public class ManterReceitaMedicaManagedBean extends AbstractMangedBean<ReceitaMe
 		this.getMedicamentoList().addAll(this.getMedicamentoDAO().getMedicamentoAtivoList());
 	}
 
+	
+
+	public void gerarSolicitacaoPDFExame(ReceitaMedica receitaMedica) {
+		
+		Document document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "inline;filename=solicitacaoExame.pdf");
+		try {
+			float fntSizeTitulo, lineSpacingTitulo;
+		    fntSizeTitulo = 18f;
+		    lineSpacingTitulo = 20f;
+		    
+		    float fntSizeAssinatura, lineSpacingAssinatura;
+		    fntSizeAssinatura = 15f;
+		    lineSpacingAssinatura = 15f;
+		    
+			PdfWriter.getInstance(document, response.getOutputStream());
+		    document.open();
+		    
+		    Paragraph tituloDocumento = new Paragraph(new Phrase(lineSpacingTitulo,"Receita Médica", FontFactory.getFont(FontFactory.HELVETICA_BOLD, fntSizeTitulo)));
+		    tituloDocumento.setAlignment(Element.ALIGN_CENTER);
+		    
+		    Paragraph dataEmissaoReceitaDocumento = new Paragraph("Data Emissão: " + Util.formatoData.format(receitaMedica.getDataEmissao()));
+		    dataEmissaoReceitaDocumento.setIndentationLeft(20);
+		    dataEmissaoReceitaDocumento.setIndentationRight(20);
+		    
+		    Paragraph pacienteDocumento = new Paragraph("Paciente: " + receitaMedica.getPaciente().getNome());
+		    pacienteDocumento.setIndentationLeft(20);
+		    pacienteDocumento.setIndentationRight(20);
+		    
+		    Paragraph examesSolicitadosDocumento = new Paragraph("Medicamento: " + receitaMedica.getMedicamentosPrescritos());
+		    examesSolicitadosDocumento.setIndentationLeft(20);
+		    examesSolicitadosDocumento.setIndentationRight(20);
+		    
+		    Paragraph prescricaoDocumento = new Paragraph("Prescrição: " + receitaMedica.getDescricaoReceita());
+		    prescricaoDocumento.setIndentationLeft(20);
+		    prescricaoDocumento.setIndentationRight(20);
+		    
+		    Paragraph linhaAssinaturaMedico = new Paragraph(new Phrase("___________________________________________________________"));
+		    linhaAssinaturaMedico.setAlignment(Element.ALIGN_CENTER);
+		    Paragraph assinaturaMedico = new Paragraph(new Phrase(lineSpacingAssinatura,receitaMedica.getMedico().getNome(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, fntSizeAssinatura)));
+		    assinaturaMedico.setAlignment(Element.ALIGN_CENTER);
+		    
+		    //Documento
+		    document.add(tituloDocumento);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+		    document.add(dataEmissaoReceitaDocumento);
+		    document.add(Chunk.NEWLINE);
+		    document.add(Chunk.NEWLINE);
+			document.add(pacienteDocumento);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(examesSolicitadosDocumento);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(prescricaoDocumento);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
+			document.add(linhaAssinaturaMedico);
+			document.add(assinaturaMedico);
+			
+			
+		    FacesContext.getCurrentInstance().responseComplete();
+		    
+		} catch (Exception e) {
+			this.tratarMensagemErro(null, e.getMessage());
+		}finally {
+			document.close();
+		}
+		
+	}
+	
+	
 	public ReceitaMedicaDAO getReceitaMedicaDAO() {
 		return receitaMedicaDAO;
 	}
